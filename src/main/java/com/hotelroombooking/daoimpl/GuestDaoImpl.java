@@ -109,7 +109,7 @@ public class GuestDaoImpl  implements GuestDao{
 	public List<Guest> showAllUser()
 	{
 		List<Guest> guestList = new ArrayList<Guest>();
-		String allUserQuery = "select * from guest_details";
+		String allUserQuery = "select firstname,lastname,email,password,mobile from guest_details";
 		
 		Connection conn = ConnectionUtil.getDbConnection();
 		try {

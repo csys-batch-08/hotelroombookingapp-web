@@ -295,7 +295,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		List<MeetingHallTransaction> meetingHallBooking = new ArrayList<MeetingHallTransaction>();
 		
 		try {
-		String showMeetingHallBookingQuery = "select * from meeting_hall_transaction where guest_id=?";
+		String showMeetingHallBookingQuery = "select check_in,check_out,category,location from meeting_hall_transaction where guest_id=?";
 		
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = conn.prepareStatement(showMeetingHallBookingQuery);

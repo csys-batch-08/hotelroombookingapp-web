@@ -23,6 +23,18 @@
 			<scope>provided</scope>
 		</dependency>
 
+		
+	
+		<dependency>
+    <groupId>org.codemonkey.simplejavamail</groupId>
+    <artifactId>simple-java-mail</artifactId>
+    <version>3.0.2</version>
+</dependency>
+		
+		
+
+
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

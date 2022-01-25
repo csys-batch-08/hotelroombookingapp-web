@@ -167,7 +167,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		if(flag)
 		{
 //			System.out.println("Booking Cancelled");
-			Mailer.send("hemnaathrsurya@gmail.com", "hemnaath@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.cancelRoomMail(roomTransObj));
+			Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.cancelRoomMail(roomTransObj));
 
 		}
 		
@@ -306,7 +306,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		List<RoomTransaction> roomBooking = new ArrayList<RoomTransaction>();
 		
 		try {
-		String showRoomBookingQuery = "select * from room_transaction where guest_id=?";
+		String showRoomBookingQuery = "select room_number,check_in,check_out,category,location from room_transaction where guest_id=?";
 		
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = conn.prepareStatement(showRoomBookingQuery);

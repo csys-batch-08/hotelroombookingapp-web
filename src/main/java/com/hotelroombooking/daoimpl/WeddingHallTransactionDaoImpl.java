@@ -296,7 +296,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao
 		List<WeddingHallTransaction> weddingHallBooking = new ArrayList<WeddingHallTransaction>();
 		
 		try {
-		String showWeddingHallBookingQuery = "select * from wedding_hall_transaction where guest_id=?";
+		String showWeddingHallBookingQuery = "select check_in,check_out,category,location from wedding_hall_transaction where guest_id=?";
 		
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = conn.prepareStatement(showWeddingHallBookingQuery);
