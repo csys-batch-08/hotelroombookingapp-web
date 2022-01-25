@@ -66,7 +66,7 @@ alert("Invalid Login");
 						<img src="assets/login_img.jpg" class="img-fluid">
 					</div>
 					<div class="col-sm-6">
-						<form action="Index" method="post">
+						<form action="Login" method="post">
 							<h3 class="text-center">Login</h3>
 							<div class="col-sm-12 p-0">
 								<label for="email">Email</label>
