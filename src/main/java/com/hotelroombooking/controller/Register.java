@@ -54,7 +54,7 @@ public class Register extends HttpServlet {
 		if(flag)
 		{
 		  
-			response.sendRedirect("Index.jsp");
+			response.sendRedirect("login.jsp");
 		}
 		
 		

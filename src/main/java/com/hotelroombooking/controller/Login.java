@@ -63,8 +63,6 @@ public class Login extends HttpServlet {
 		}
 		else if(adminObj!=null)
 		{
-//			HttpSession session=request.getSession();
-//			session.setAttribute("currentUser",adminObj);
 			
 			response.sendRedirect("AdminDashboard.jsp");
 		}

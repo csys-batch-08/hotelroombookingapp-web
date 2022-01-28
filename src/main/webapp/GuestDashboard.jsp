@@ -7,6 +7,8 @@
 <%@page import="com.hotelroombooking.model.RoomTransaction"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import = "java.util.*"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -156,8 +158,10 @@ alert("No Wedding Hall Availble");
 
 <div class="header container-fluid">
 
-<%Guest guestObj = (Guest)session.getAttribute("currentUser");%>
-	<h3>Welcome <%= guestObj.getFirstName() %></h3>
+ <%Guest guestObj = (Guest)session.getAttribute("currentUser");%>
+	<h3>Welcome <c:out value="${currentUser.firstName }"></c:out></h3>
+	
+	
 </div>
 
 

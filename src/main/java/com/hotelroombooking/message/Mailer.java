@@ -36,7 +36,7 @@ public class Mailer {
           message.setText(msg);    
           //send message  
           Transport.send(message);    
-//          System.out.println("message sent successfully");    
+          System.out.println("message sent successfully");    
          } catch (MessagingException e) {throw new RuntimeException(e);}    
             
    }  

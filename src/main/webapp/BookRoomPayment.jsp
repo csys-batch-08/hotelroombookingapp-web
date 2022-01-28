@@ -6,6 +6,8 @@
 <%@page import="com.hotelroombooking.model.RoomDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,7 +86,7 @@ int price = roomTransDaoObj.findBookRoomPrice(session);
 
 <div class="col-sm-6 row verticalRule">
 
-<div class="col-sm-12"><label>Room Number :</label><%=roomTransObj.getroomNumber() %></div>
+<div class="col-sm-12"><label>Room Number :</label><c:out value="${bookRoomDetails.roomNumber}"></c:out></div>
 <div class="col-sm-6">
 <label>Check-In Date :</label><%=roomTransObj.getCheckIn() %></div>
 <div class="col-sm-6">

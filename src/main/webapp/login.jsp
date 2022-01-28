@@ -51,12 +51,14 @@
   </style>
 </head>
 <body>
+
 <%
 if(session.getAttribute("invalidLogin")!=null){
 %><script type="text/javascript">
 alert("Invalid Login");
 </script>
 <%} %>
+
 <div class="loginPage">
 	<div class="container">
 		<div class="row justify-content-center">			
@@ -78,7 +80,7 @@ alert("Invalid Login");
 							</div>
 						 	<div class="formBtn d-flex justify-space-between">
 						 		<input type="submit" value="LOGIN" class="btn btn-success">
-								<a href="Register.jsp"><input type="button" class="btn btn-success" value="REGISTER"></a>
+								<a href="register.jsp"><input type="button" class="btn btn-success" value="REGISTER"></a>
 						 	</div>
 						 	<div class="text-center forget">
 						 		<a href="ForgetPassword.jsp"><label>Forget Password</label></a>
