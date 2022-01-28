@@ -10,6 +10,8 @@
 <%@page import="com.hotelroombooking.model.RoomDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,15 +84,15 @@ int price = meetingHallTransObj.findBookMeetingPrice(session);
 
 <div class="col-sm-6 row verticalRule">
 
-<div class="col-sm-12"><label>Meeting Hall Number :</label><%=meetingHallTransObj1.getroomNumber() %></div>
+<div class="col-sm-12"><label>Meeting Hall Number :</label><c:out value="${bookMeetingHallDetails.roomNumber}"></c:out></div>
 <div class="col-sm-6">
-<label>Check-In Date :</label><%=meetingHallTransObj1.getCheckIn() %></div>
+<label>Check-In Date :</label><c:out value="${bookMeetingHallDetails.checkIn}"></c:out></div>
 <div class="col-sm-6">
-<label>Check-Out Date :</label><%=meetingHallTransObj1.getCheckOut() %></div>
+<label>Check-Out Date :</label><c:out value="${bookMeetingHallDetails.checkOut}"></c:out></div>
 <div class="col-sm-6">
-<label>Category :</label><%=meetingHallTransObj1.getCategory()%></div>
+<label>Category :</label><c:out value="${bookMeetingHallDetails.category}"></c:out></div>
 <div class="col-sm-6">
-<label>Location :</label><%=meetingHallTransObj1.getLocation() %></div>
+<label>Location :</label><c:out value="${bookMeetingHallDetails.location}"></c:out></div>
 <div class="col-sm-12">
 <label>Price :</label><%=price %></div>
 </div>

@@ -74,7 +74,6 @@ input[type=checkbox] {
 
 
 <%
-RoomTransaction roomTransObj=(RoomTransaction)session.getAttribute("bookRoomDetails");
 RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
 int price = roomTransDaoObj.findBookRoomPrice(session);
 %>
@@ -88,13 +87,13 @@ int price = roomTransDaoObj.findBookRoomPrice(session);
 
 <div class="col-sm-12"><label>Room Number :</label><c:out value="${bookRoomDetails.roomNumber}"></c:out></div>
 <div class="col-sm-6">
-<label>Check-In Date :</label><%=roomTransObj.getCheckIn() %></div>
+<label>Check-In Date :</label><c:out value="${bookRoomDetails.checkIn}"></c:out></div>
 <div class="col-sm-6">
-<label>Check-Out Date :</label><%=roomTransObj.getCheckOut() %></div>
+<label>Check-Out Date :</label><c:out value="${bookRoomDetails.checkOut}"></c:out></div>
 <div class="col-sm-6">
-<label>Category :</label><%=roomTransObj.getCategory()%></div>
+<label>Category :</label><c:out value="${bookRoomDetails.category}"></c:out></div>
 <div class="col-sm-6">
-<label>Location :</label><%=roomTransObj.getLocation() %></div>
+<label>Location :</label><c:out value="${bookRoomDetails.location}"></c:out></div>
 <div class="col-sm-12">
 <label>Price :</label><%=price %></div>
 </div>

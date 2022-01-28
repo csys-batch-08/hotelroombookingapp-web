@@ -114,7 +114,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		{
 			System.out.println("Meeting Hall booked");
 			pstmt3.executeUpdate();
-			Mailer.send("hemnaathrsurya@gmail.com", "hemnaath@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.bookMeetingHallMail(meetingHallTransObj));
+			Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.bookMeetingHallMail(meetingHallTransObj));
 
 		}
 		else
@@ -127,7 +127,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		}
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		return flag;
 
@@ -162,7 +162,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		if(flag)
 		{
 			System.out.println("Booking Cancelled");
-			Mailer.send("hemnaathrsurya@gmail.com", "hemnaath@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.cancelMeetingHallMail(meetingHallTransObj));
+			Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.cancelMeetingHallMail(meetingHallTransObj));
 
 		}
 		else
@@ -257,7 +257,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		pstmt3.executeUpdate();
 		
 //		MeetingHallTransaction meetingHallTransObj = new MeetingHallTransaction(vacantMeetingHallNumber,String.valueOf(checkIn),String.valueOf(checkOut),category,location);
-		Mailer.send("hemnaathrsurya@gmail.com", "hemnaath@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.updateMeetingHallMail(meetingHallTransObj));
+		Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.updateMeetingHallMail(meetingHallTransObj));
 
 
 		
@@ -295,7 +295,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		List<MeetingHallTransaction> meetingHallBooking = new ArrayList<MeetingHallTransaction>();
 		
 		try {
-		String showMeetingHallBookingQuery = "select check_in,check_out,category,location from meeting_hall_transaction where guest_id=?";
+		String showMeetingHallBookingQuery = "select meeting_hall_number,check_in,check_out,category,location from meeting_hall_transaction where guest_id=?";
 		
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = conn.prepareStatement(showMeetingHallBookingQuery);

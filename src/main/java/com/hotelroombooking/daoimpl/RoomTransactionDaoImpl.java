@@ -281,7 +281,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		if(flag)
 		{
 			System.out.println("Updated Room details");
-			Mailer.send("hemnaathrsurya@gmail.com", "hemnaath@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.updateRoomMail(roomTransObj));
+			Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.updateRoomMail(roomTransObj));
 
 		}
 		}

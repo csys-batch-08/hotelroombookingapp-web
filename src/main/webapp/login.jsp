@@ -84,10 +84,10 @@ alert("Invalid Login");
 						 	</div>
 						 	<div class="text-center forget">
 						 		<a href="ForgetPassword.jsp"><label>Forget Password</label></a>
-						 	</div>
+						 	</div>  	
 						</form>
 					</div>
-				</div>
+				</div>	
 			</div>
 		</div>
 	</div>
