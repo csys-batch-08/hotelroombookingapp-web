@@ -6,6 +6,8 @@
 <%@page import="com.hotelroombooking.model.RoomDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,27 +70,23 @@ input[type=checkbox] {
 
 </head>
 <body>
-<%
-RoomTransaction roomTransObj=(RoomTransaction)session.getAttribute("updateRoomDetails");
-RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
-int price = roomTransDaoObj.findUpdateRoomPrice(session);
-%>
+
 
 <div class="registerForm row">	
 
 <div class="col-sm-6 row verticalRule">
 
-<div class="col-sm-12"><label>Room Number :</label><%=roomTransObj.getroomNumber() %></div>
+<div class="col-sm-12"><label>Room Number :</label><c:out value="${updateRoomDetails.roomNumber}"></c:out></div>
 <div class="col-sm-6">
-<label>Check-In Date :</label><%=roomTransObj.getCheckIn() %></div>
+<label>Check-In Date :</label><c:out value="${updateRoomDetails.roomNumber}"></c:out></div>
 <div class="col-sm-6">
-<label>Check-Out Date :</label><%=roomTransObj.getCheckOut() %></div>
+<label>Check-Out Date :</label><c:out value="${updateRoomDetails.roomNumber}"></c:out></div>
 <div class="col-sm-6">
-<label>Category :</label><%=roomTransObj.getCategory()%></div>
+<label>Category :</label><c:out value="${updateRoomDetails.roomNumber}"></c:out></div>
 <div class="col-sm-6">
-<label>Location :</label><%=roomTransObj.getLocation() %></div>
+<label>Location :</label><c:out value="${updateRoomDetails.roomNumber}"></c:out></div>
 <div class="col-sm-12">
-<label>Price :</label><%=price %></div>
+<label>Price :</label><c:out value="${updateRoomPrice }"></c:out></div>
 </div>
 
 <div class="col-sm-6">

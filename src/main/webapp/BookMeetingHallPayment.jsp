@@ -74,11 +74,7 @@ input[type=checkbox] {
 
 </head>
 <body>
-<%
-MeetingHallTransaction meetingHallTransObj1=(MeetingHallTransaction)session.getAttribute("bookMeetingHallDetails");
-MeetingHallTransactionDaoImpl meetingHallTransObj = new MeetingHallTransactionDaoImpl();
-int price = meetingHallTransObj.findBookMeetingPrice(session);
-%>
+
 
 <div class="registerForm row">	
 
@@ -94,7 +90,7 @@ int price = meetingHallTransObj.findBookMeetingPrice(session);
 <div class="col-sm-6">
 <label>Location :</label><c:out value="${bookMeetingHallDetails.location}"></c:out></div>
 <div class="col-sm-12">
-<label>Price :</label><%=price %></div>
+<label>Price :</label><c:out value="${bookMeetingPrice }"></c:out></div>
 </div>
 
 <div class="col-sm-6">

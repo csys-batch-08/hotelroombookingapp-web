@@ -8,6 +8,8 @@
 <%@page import="com.hotelroombooking.model.RoomDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,27 +72,23 @@ input[type=checkbox] {
 
 </head>
 <body>
-<%
-WeddingHallTransaction weddingHallTransObj1=(WeddingHallTransaction)session.getAttribute("updateWeddingHallDetails");
-WeddingHallTransactionDaoImpl weddingHallTransObj = new WeddingHallTransactionDaoImpl();
-int price = weddingHallTransObj.findUpdateWeddingPrice(session);
-%>
+
 
 <div class="registerForm row">	
 
 <div class="col-sm-6 row verticalRule">
 
-<div class="col-sm-12"><label>Room Number :</label><%=weddingHallTransObj1.getroomNumber() %></div>
+<div class="col-sm-12"><label>Room Number :</label><c:out value="${updateWeddingHallDetails.roomNumber}"></c:out></div>
 <div class="col-sm-6">
-<label>Check-In Date :</label><%=weddingHallTransObj1.getCheckIn() %></div>
+<label>Check-In Date :</label><c:out value="${updateWeddingHallDetails.checkIn}"></c:out></div>
 <div class="col-sm-6">
-<label>Check-Out Date :</label><%=weddingHallTransObj1.getCheckOut() %></div>
+<label>Check-Out Date :</label><c:out value="${updateWeddingHallDetails.checkOut}"></c:out></div>
 <div class="col-sm-6">
-<label>Category :</label><%=weddingHallTransObj1.getCategory()%></div>
+<label>Category :</label><c:out value="${updateWeddingHallDetails.category}"></c:out></div>
 <div class="col-sm-6">
-<label>Location :</label><%=weddingHallTransObj1.getLocation() %></div>
+<label>Location :</label><c:out value="${updateWeddingHallDetails.location}"></c:out></div>
 <div class="col-sm-12">
-<label>Price :</label><%=price %></div>
+<label>Price :</label><c:out value="${updateWeddingPrice }"></c:out></div>
 </div>
 
 <div class="col-sm-6">

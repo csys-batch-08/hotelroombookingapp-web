@@ -53,7 +53,11 @@ public class BookRoom extends HttpServlet {
 		RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
 		HttpSession session = request.getSession();
 		session.setAttribute("bookRoomDetails", roomTransObj);
+		Integer bookRoomPrice = roomTransDaoObj.findBookRoomPrice(session);
+		session.setAttribute("bookRoomPrice", bookRoomPrice);
 		roomTransDaoObj.bookRoom(session);
+		
+		
 		
 		if(session.getAttribute("NoRoomsToBook")!=null) {
 			response.sendRedirect("GuestDashboard.jsp");

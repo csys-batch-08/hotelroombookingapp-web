@@ -104,55 +104,50 @@ ul.dropdown {
 </head>
 <body>
 
-<%
-if(session.getAttribute("NoRoomsToBook")!=null){
-%><script type="text/javascript">
+
+<c:if test="${not empty NoRoomsToBook }">
+<script type="text/javascript">
 alert("No Rooms Availble");
 <% session.removeAttribute("NoRoomsToBook"); %>
 </script>
-<%} %>
+</c:if>
 
-<%
-if(session.getAttribute("noRoomsToUpdate")!=null){
-%><script type="text/javascript">
+
+<c:if test="${not empty noRoomsToUpdate }">
+<script type="text/javascript">
 alert("No Rooms Availble");
 <% session.removeAttribute("noRoomsToUpdate"); %>
 </script>
-<%} %>
+</c:if>
 
-<%
-if(session.getAttribute("NoWeddingHallToBook")!=null){
-%><script type="text/javascript">
+
+<c:if test="${not empty NoWeddingHallToBook }">
+<script type="text/javascript">
 alert("No Wedding Hall Availble");
 <% session.removeAttribute("NoWeddingHallToBook"); %>
 </script>
-<%} %>
+</c:if>
 
-<%
-if(session.getAttribute("noWeddingHallsToUpdate")!=null){
-%><script type="text/javascript">
+<c:if test="${not empty noWeddingHallsToUpdate }">
+<script type="text/javascript">
 alert("No Wedding Hall Availble");
 <% session.removeAttribute("noWeddingHallsToUpdate"); %>
 </script>
-<%} %>
+</c:if>
 
-<%
-if(session.getAttribute("noMeetingHallToBook")!=null){
-%><script type="text/javascript">
+<c:if test="${not empty noMeetingHallToBook }">
+<script type="text/javascript">
 alert("No Meeting Hall Availble");
 <% session.removeAttribute("noMeetingHallToBook"); %>
 </script>
-<%} %>
+</c:if>
 
-<%
-if(session.getAttribute("noMeetingHallToUpdate")!=null){
-%><script type="text/javascript">
+<c:if test="${not empty noMeetingHallToUpdate }">
+<script type="text/javascript">
 alert("No Wedding Hall Availble");
-<% session.removeAttribute("noMeetingHallToUpdate"); %>
+<%session.removeAttribute("noMeetingHallToUpdate");%>
 </script>
-<%} %>
-
-
+</c:if>
 
 
 

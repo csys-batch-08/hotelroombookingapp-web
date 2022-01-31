@@ -71,7 +71,7 @@ public class Login extends HttpServlet {
 			
 			HttpSession session=request.getSession();
 			session.setAttribute("invalidLogin", "invalid");
-			response.sendRedirect("Index.jsp");
+			response.sendRedirect("login.jsp");
 		}
 		
 		

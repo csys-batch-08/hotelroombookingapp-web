@@ -56,6 +56,9 @@ public class UpdateWeddingHall extends HttpServlet {
 		WeddingHallTransactionDaoImpl weddingHallTransDaoObj = new WeddingHallTransactionDaoImpl();
 		HttpSession session = request.getSession();
 		session.setAttribute("updateWeddingHallDetails", weddingHallTransObj);
+		Integer updateWeddingPrice = weddingHallTransDaoObj.findUpdateWeddingPrice(session);
+		session.setAttribute("updateWeddingPrice", updateWeddingPrice);
+		
 		weddingHallTransDaoObj.updateWeddingHall(session);
 		
 		

@@ -55,6 +55,9 @@ public class UpdateRoom extends HttpServlet {
 		RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
 		HttpSession session = request.getSession();
 		session.setAttribute("updateRoomDetails", roomTransObj);
+		Integer updateRoomPrice = roomTransDaoObj.findUpdateRoomPrice(session);
+		session.setAttribute("updateRoomPrice", updateRoomPrice);
+		
 		boolean flag=roomTransDaoObj.updateRoom(session);
 		
 		
