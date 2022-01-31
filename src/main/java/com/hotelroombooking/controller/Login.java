@@ -59,12 +59,12 @@ public class Login extends HttpServlet {
 			HttpSession session=request.getSession();
 			session.setAttribute("currentUser",guestObj);
 			
-			response.sendRedirect("GuestDashboard.jsp");
+			response.sendRedirect("guestDashboard.jsp");
 		}
 		else if(adminObj!=null)
 		{
 			
-			response.sendRedirect("AdminDashboard.jsp");
+			response.sendRedirect("adminDashboard.jsp");
 		}
 		else
 		{

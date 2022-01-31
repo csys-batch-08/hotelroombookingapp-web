@@ -62,11 +62,11 @@ public class BookMeetingHall extends HttpServlet {
 		meetingHallTransDaoObj.bookMeetingHall(session);
 		
 		if(session.getAttribute("noMeetingHallToBook")!=null) {
-			response.sendRedirect("GuestDashboard.jsp");
+			response.sendRedirect("guestDashboard.jsp");
 			
 		}	
 		else {
-		response.sendRedirect("BookMeetingHallPayment.jsp");
+		response.sendRedirect("bookMeetingHallPayment.jsp");
 		}
 
 	}

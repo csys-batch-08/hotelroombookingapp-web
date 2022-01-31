@@ -62,11 +62,11 @@ public class UpdateRoom extends HttpServlet {
 		
 		
 		if(session.getAttribute("noRoomsToUpdate")!=null) {
-			response.sendRedirect("GuestDashboard.jsp");
+			response.sendRedirect("guestDashboard.jsp");
 			
 		}
 		else {
-			response.sendRedirect("UpdateRoomPayment.jsp");
+			response.sendRedirect("updateRoomPayment.jsp");
 		}
 		
 		

@@ -58,7 +58,7 @@ public class CancelWeddingHall extends HttpServlet {
 		
 		if(flag)
 		{
-			response.sendRedirect("GuestDashboard.jsp");
+			response.sendRedirect("guestDashboard.jsp");
 		}
 		
 		

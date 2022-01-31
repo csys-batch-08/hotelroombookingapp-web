@@ -60,7 +60,7 @@ public class AddRoom extends HttpServlet {
 		if(flag)
 		{
 		  
-			response.sendRedirect("AdminDashboard.jsp");
+			response.sendRedirect("adminDashboard.jsp");
 		}
 		
 		

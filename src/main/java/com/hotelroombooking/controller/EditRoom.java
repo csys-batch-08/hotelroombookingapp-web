@@ -58,7 +58,7 @@ public class EditRoom extends HttpServlet {
 		if(flag)
 		{
 		  
-			response.sendRedirect("AdminDashboard.jsp");
+			response.sendRedirect("adminDashboard.jsp");
 		}
 		
 		

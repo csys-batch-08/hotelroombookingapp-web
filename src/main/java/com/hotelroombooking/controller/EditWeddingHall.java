@@ -63,7 +63,7 @@ public class EditWeddingHall extends HttpServlet {
 		if(flag)
 		{
 		  
-			response.sendRedirect("AdminDashboard.jsp");
+			response.sendRedirect("adminDashboard.jsp");
 		}
 		
 		

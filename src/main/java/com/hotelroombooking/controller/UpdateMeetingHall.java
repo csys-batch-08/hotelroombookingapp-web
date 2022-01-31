@@ -63,11 +63,11 @@ public class UpdateMeetingHall extends HttpServlet {
 		
 		
 		if(session.getAttribute("noMeetingHallsToUpdate")!=null) {
-			response.sendRedirect("GuestDashboard.jsp");
+			response.sendRedirect("guestDashboard.jsp");
 			
 		}
 		else {
-		response.sendRedirect("UpdateMeetingHallPayment.jsp");
+		response.sendRedirect("updateMeetingHallPayment.jsp");
 		}
 		
 //		PrintWriter pw = response.getWriter();

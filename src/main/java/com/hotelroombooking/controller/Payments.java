@@ -85,7 +85,7 @@ public class Payments extends HttpServlet {
 		
 		if(flag)
 		{
-			response.sendRedirect("GuestDashboard.jsp");
+			response.sendRedirect("guestDashboard.jsp");
 		}
 		
 //		PrintWriter pw = response.getWriter();

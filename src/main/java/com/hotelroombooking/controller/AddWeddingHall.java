@@ -65,7 +65,7 @@ public class AddWeddingHall extends HttpServlet {
 		if(flag)
 		{
 		  
-			response.sendRedirect("AdminDashboard.jsp");
+			response.sendRedirect("adminDashboard.jsp");
 		}
 		
 		

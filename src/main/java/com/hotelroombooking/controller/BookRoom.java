@@ -60,11 +60,11 @@ public class BookRoom extends HttpServlet {
 		
 		
 		if(session.getAttribute("NoRoomsToBook")!=null) {
-			response.sendRedirect("GuestDashboard.jsp");
+			response.sendRedirect("guestDashboard.jsp");
 			
 		}
 		else {
-			response.sendRedirect("BookRoomPayment.jsp");
+			response.sendRedirect("bookRoomPayment.jsp");
 		}
 
 	}

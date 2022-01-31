@@ -61,12 +61,12 @@ public class BookWeedingHall extends HttpServlet {
 		
 		
 		if(session.getAttribute("NoWeddingHallToBook")!=null) {
-			response.sendRedirect("GuestDashboard.jsp");
+			response.sendRedirect("guestDashboard.jsp");
 			
 		}
 		else {
 		
-		response.sendRedirect("BookWeddingHallPayment.jsp");
+		response.sendRedirect("bookWeddingHallPayment.jsp");
 		}
 //		PrintWriter pw = response.getWriter();
 //		pw.write(flag+"");

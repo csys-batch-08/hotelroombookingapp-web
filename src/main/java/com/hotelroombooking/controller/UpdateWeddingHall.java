@@ -64,12 +64,12 @@ public class UpdateWeddingHall extends HttpServlet {
 		
 		
 		if(session.getAttribute("noWeddingHallsToUpdate")!=null) {
-			response.sendRedirect("GuestDashboard.jsp");
+			response.sendRedirect("guestDashboard.jsp");
 			
 		}
 		else {
 		
-		response.sendRedirect("UpdateWeddingHallPayment.jsp");
+		response.sendRedirect("updateWeddingHallPayment.jsp");
 		}
 		
 //		PrintWriter pw = response.getWriter();

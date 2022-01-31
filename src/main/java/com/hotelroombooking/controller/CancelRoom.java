@@ -55,7 +55,7 @@ public class CancelRoom extends HttpServlet {
 		
 		if(flag)
 		{
-			response.sendRedirect("GuestDashboard.jsp");
+			response.sendRedirect("guestDashboard.jsp");
 		}
 
 		

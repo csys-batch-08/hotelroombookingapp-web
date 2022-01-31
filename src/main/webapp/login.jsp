@@ -84,7 +84,7 @@ alert("Invalid Login");
 								<a href="register.jsp"><input type="button" class="btn btn-success" value="REGISTER"></a>
 						 	</div>
 						 	<div class="text-center forget">
-						 		<a href="ForgetPassword.jsp"><label>Forget Password</label></a>
+						 		<a href="forgetPassword.jsp"><label>Forget Password</label></a>
 						 	</div>  	
 						</form>
 					</div>
