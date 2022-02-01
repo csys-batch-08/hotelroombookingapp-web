@@ -60,9 +60,13 @@ public class AddmeetingHall extends HttpServlet {
 		
 		
 		
-	
+	try {
 		
 		doGet(request, response);
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
 	}
 
 }
