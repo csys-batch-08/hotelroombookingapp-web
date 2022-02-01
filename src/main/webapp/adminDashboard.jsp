@@ -579,6 +579,7 @@ room number:<input type="text" id="roomNumber"name="roomNumber" class="form-cont
 <div class="col-sm-8 align-items-center mt-3" style="display: none;" id="listAll">
 <div style="justify-content: space-between;width:100%">
 <table cellpadding=2px cellspacing=20px width="100%">
+<caption>Guest Details</caption>
 <tr>
 <th>Firstname</th>
 <th>Lastname</th>
