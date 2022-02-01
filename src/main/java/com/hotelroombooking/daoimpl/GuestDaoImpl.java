@@ -158,7 +158,7 @@ public class GuestDaoImpl  implements GuestDao{
 	
 	public List<Guest> showAllUser()
 	{
-		List<Guest> guestList = new ArrayList<Guest>();
+		List<Guest> guestList = new ArrayList<>();
 		String allUserQuery = "select firstname,lastname,email,password,mobile from guest_details";
 		
 		Connection conn = ConnectionUtil.getDbConnection();

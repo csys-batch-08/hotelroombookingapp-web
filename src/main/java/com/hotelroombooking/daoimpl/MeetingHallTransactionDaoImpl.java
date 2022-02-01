@@ -32,7 +32,9 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		
 		boolean flag=false;
 		Connection conn=  ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt1=null,pstmt2=null,pstmt3=null;
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		PreparedStatement pstmt3=null;
 		
 		
 		try 
@@ -369,7 +371,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		int guestId=0;
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt=null;
-		List<MeetingHallTransaction> meetingHallBooking = new ArrayList<MeetingHallTransaction>();
+		List<MeetingHallTransaction> meetingHallBooking = new ArrayList<>();
 		
 		try {
 		String showMeetingHallBookingQuery = "select meeting_hall_number,check_in,check_out,category,location from meeting_hall_transaction where guest_id=?";

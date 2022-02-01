@@ -266,7 +266,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao
 	{
 		int guestId=0;
 		WeddingHallTransaction weddingHallTrans=null;
-		List<WeddingHallTransaction> weddingHallBooking = new ArrayList<WeddingHallTransaction>();
+		List<WeddingHallTransaction> weddingHallBooking = new ArrayList<>();
 		
 		try {
 		String showWeddingHallBookingQuery = "select wedding_hall_number,check_in,check_out,category,location from wedding_hall_transaction where guest_id=?";

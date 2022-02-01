@@ -17,9 +17,9 @@ import com.hotelroombooking.model.RoomDetails;
 import com.hotelroombooking.model.RoomTransaction;
 
 public class RoomTransactionDaoImpl implements RoomTransactionDao{
-	public String from="hemnaathrsurya@gmail.com";
-	public String password="hangover@18!!";
-	public String subject = "Hotel Room Booking Application";
+	public static final String from="hemnaathrsurya@gmail.com";
+	public static final String password="hangover@18!!";
+	public static final String subject = "Hotel Room Booking Application";
 	
 	public boolean bookRoom(HttpSession session)
 	{
@@ -272,7 +272,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	public List<RoomTransaction> showRoomBooking(Guest guestObj)	
 	{
 		int guestId=0;		
-		List<RoomTransaction> roomBooking = new ArrayList<RoomTransaction>();
+		List<RoomTransaction> roomBooking = new ArrayList<>();
 		
 		try {
 		String showRoomBookingQuery = "select room_number,check_in,check_out,category,location from room_transaction where guest_id=?";
