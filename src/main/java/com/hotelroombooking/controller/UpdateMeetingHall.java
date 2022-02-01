@@ -56,7 +56,7 @@ public class UpdateMeetingHall extends HttpServlet {
 		Integer updateMeetingPrice = meetingHallTransDaoObj.findUpdateMeetingPrice(session);
 		session.setAttribute("updateMeetingPrice", updateMeetingPrice);
 		
-		boolean flag=meetingHallTransDaoObj.updateMeetingHall(session);
+		meetingHallTransDaoObj.updateMeetingHall(session);
 		
 		
 		if(session.getAttribute("noMeetingHallsToUpdate")!=null) {

@@ -3,14 +3,9 @@ package com.hotelroombooking.daoimpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,8 +13,6 @@ import com.hotelroombooking.dao.WeddingHallTransactionDao;
 import com.hotelroombooking.message.Mail;
 import com.hotelroombooking.message.Mailer;
 import com.hotelroombooking.model.Guest;
-import com.hotelroombooking.model.RoomDetails;
-import com.hotelroombooking.model.RoomTransaction;
 import com.hotelroombooking.model.WeddingHallDetails;
 import com.hotelroombooking.model.WeddingHallTransaction;
 import com.hotelroombooking.util.ConnectionUtil;
@@ -31,32 +24,12 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int vacantWeddingRoomNumber=0;
 		int guestId=0;
-		int i=0;
+		
 		boolean flag=false;
 //		WeddingHallTransaction weddingHallTransObj=null;
 		
 		try {
-//		do {
-//		System.out.println("enter check-in date");
-//		checkIn = sdf.parse(sc.nextLine());
-//		System.out.println("enter check-out date");
-//		checkOut = sdf.parse(sc.nextLine());
-//		if(checkIn.after(checkOut))
-//		{
-//			System.out.println("Invalid Date Format");
-//			dateFlag=false;
-//		}
-//		else
-//		{
-//			dateFlag=true;
-//		}
-//		}while(dateFlag!=true);
-//		System.out.println("enter category");
-//		System.out.println("1.Premium\n2.luxury\n3.standard\n4.budget");
-//		int categoryChoice = Integer.parseInt(sc.nextLine());
-//		String category = (categoryChoice==1)?"premium":(categoryChoice==2)?"luxury":(categoryChoice==3)?"standard":"budget";
-//		System.out.println("enter location");
-//		String location = sc.nextLine();
+
 		
 		String fetchVacantWeddingRoom="select wedding_hall_number from wedding_hall_details where status='vacant' and category=? and location=?";
 		
@@ -182,7 +155,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao
 	public boolean updateWeddingHall(HttpSession session)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Scanner sc = new Scanner(System.in);
+		
 		int vacantWeddingRoomNumber=0;
 		
 		int guestId=0;
@@ -460,7 +433,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao
 	
 	public int findBookWeddingPrice(HttpSession session)
 	{
-		int price=0;
+		
 		try {
 			WeddingHallTransaction weddingHallTransObj=(WeddingHallTransaction)session.getAttribute("bookWeddingHallDetails");
 			System.out.println(weddingHallTransObj.getCategory());
@@ -484,7 +457,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao
 	
 	public int findUpdateWeddingPrice(HttpSession session)
 	{
-		int price=0;
+		
 		try {
 			WeddingHallTransaction weddingHallTransObj=(WeddingHallTransaction)session.getAttribute("updateWeddingHallDetails");
 			System.out.println(weddingHallTransObj.getCategory());

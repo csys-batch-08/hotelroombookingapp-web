@@ -3,9 +3,6 @@ package com.hotelroombooking.daoimpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,9 +17,6 @@ import com.hotelroombooking.message.Mailer;
 import com.hotelroombooking.model.Guest;
 import com.hotelroombooking.model.MeetingHallDetails;
 import com.hotelroombooking.model.MeetingHallTransaction;
-import com.hotelroombooking.model.RoomTransaction;
-import com.hotelroombooking.model.WeddingHallDetails;
-import com.hotelroombooking.model.WeddingHallTransaction;
 import com.hotelroombooking.util.ConnectionUtil;
 
 public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
@@ -183,13 +177,12 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		
 		 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Scanner sc = new Scanner(System.in);
+	
 		int vacantMeetingHallNumber=0;
-		int i=0;
+	
 		int guestId=0;
 		boolean flag=false;
-		Date checkIn;
-		Date checkOut;
+		
 		
 		try {
 
@@ -479,7 +472,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 	
 	public int findBookMeetingPrice(HttpSession session)
 	{
-		int price=0;
+		
 		try {
 			MeetingHallTransaction meetingHallTransObj=(MeetingHallTransaction)session.getAttribute("bookMeetingHallDetails");
 //			System.out.println(weddingHallTransObj.getCategory());
@@ -503,7 +496,8 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 	
 	public int findUpdateMeetingPrice(HttpSession session)
 	{
-		int price=0;
+		
+		
 		try {
 			MeetingHallTransaction meetingHallTransObj=(MeetingHallTransaction)session.getAttribute("updateMeetingHallDetails");
 //			System.out.println(weddingHallTransObj.getCategory());

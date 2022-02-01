@@ -3,14 +3,9 @@ package com.hotelroombooking.daoimpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.servlet.http.HttpSession;
 import com.hotelroombooking.dao.RoomTransactionDao;
@@ -28,36 +23,11 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int vacantRoomNumber=0;
 		int guestId=0;
-		int i=0;
+		
 		
 		boolean flag=false;
 		
 		try {
-		
-//		do {
-//		System.out.println("enter check-in date");
-//		checkIn = sdf.parse(sc.nextLine());
-//		System.out.println("enter check-out date");
-//		checkOut = sdf.parse(sc.nextLine());
-//		if(checkIn.after(checkOut))
-//		{
-//			.println("Invalid Date Format");
-//			dateFlag=false;
-//		}
-//		else
-//		{
-//			dateFlag=true;
-//		}
-//		}while(dateFlag!=true);
-//		
-//		System.out.println("enter category");
-//		System.out.println("1.premium\n2.luxury\n3.standard\n4.budget");
-//		int categoryChoice = Integer.parseInt(sc.nextLine());
-//		String category = (categoryChoice==1)?"premium":(categoryChoice==2)?"luxury":(categoryChoice==3)?"standard":"budget";
-//		System.out.println("enter location");
-//		String location = sc.nextLine();
-//		
-//		Guest guestObj = new Guest();
 		
 		
 		String fetchVacantRoom="select room_number from room_details where status='vacant' and category=? and location=?";
@@ -75,10 +45,6 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		pstmt1.setString(2, roomTransObj.getLocation());
 		
 		ResultSet rs = pstmt1.executeQuery();
-//		System.out.println("hlo");
-		
-//		System.out.println(roomTransObj.getCategory());
-//		System.out.println(roomTransObj.getLocation());
 		
 //		RoomTransaction roomTransObj = null;
 		if(rs.next())
@@ -146,7 +112,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	public boolean cancelRoom(HttpSession session)
 	{
 		boolean flag=false;
-		Scanner sc = new Scanner(System.in);
+	
 //		System.out.println("Enter room number");
 //		int roomNumber = Integer.parseInt(sc.nextLine());
 //		RoomTransaction roomTransObj = null;
@@ -472,7 +438,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	
 	public int findBookRoomPrice(HttpSession session)
 	{
-		int price=0;
+		
 		try {
 		RoomTransaction roomTransObj=(RoomTransaction)session.getAttribute("bookRoomDetails");
 		String findPriceQuery = "select price from room_details where category='"+roomTransObj.getCategory()+"'";
@@ -496,7 +462,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	
 	public int findUpdateRoomPrice(HttpSession session)
 	{
-		int price=0;
+		
 		try {
 		RoomTransaction roomTransObj=(RoomTransaction)session.getAttribute("updateRoomDetails");
 		String findPriceQuery = "select price from room_details where category='"+roomTransObj.getCategory()+"'";

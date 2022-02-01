@@ -7,13 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.servlet.http.HttpSession;
 
 import com.hotelroombooking.dao.GuestDao;
 import com.hotelroombooking.model.Guest;
-import com.hotelroombooking.model.MeetingHallTransaction;
 import com.hotelroombooking.util.ConnectionUtil;
 
 public class GuestDaoImpl  implements GuestDao{

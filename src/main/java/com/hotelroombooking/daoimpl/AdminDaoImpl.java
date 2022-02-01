@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 
 import com.hotelroombooking.dao.AdminDao;
 import com.hotelroombooking.model.Admin;
-import com.hotelroombooking.model.Guest;
 import com.hotelroombooking.util.ConnectionUtil;
 
 public class AdminDaoImpl implements AdminDao{
