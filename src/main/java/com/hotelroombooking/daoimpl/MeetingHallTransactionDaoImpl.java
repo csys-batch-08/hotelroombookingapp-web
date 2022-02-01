@@ -3,6 +3,7 @@ package com.hotelroombooking.daoimpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,104 +23,116 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 	public boolean bookMeetingHall(HttpSession session) 
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Guest guestObj=(Guest)session.getAttribute("currentUser");
+		MeetingHallTransaction meetingHallTransObj=(MeetingHallTransaction)session.getAttribute("bookMeetingHallDetails");
+		
 		
 		int vacantMeetingRoomNumber=0;
 		int guestId=0;
 		
 		boolean flag=false;
+		Connection conn=  ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt1=null,pstmt2=null,pstmt3=null;
 		
 		
-		try {
-//		do {
-//		System.out.println("enter check-in date");
-//		checkIn = sdf.parse(sc.nextLine());
-//		System.out.println("enter check-out date");
-//		checkOut = sdf.parse(sc.nextLine());
-//		if(checkIn.after(checkOut))
-//		{
-//			System.out.println("Invalid Date Format");
-//			dateFlag=false;
-//		}
-//		else
-//		{
-//			dateFlag=true;
-//		}
-//		}while(dateFlag!=true);
-//		System.out.println("enter category");
-//		System.out.println("1.Premium\n2.luxury\n3.standard\n4.budget");
-//		int categoryChoice = Integer.parseInt(sc.nextLine());
-//		String category = (categoryChoice==1)?"premium":(categoryChoice==2)?"luxury":(categoryChoice==3)?"standard":"budget";
-//		System.out.println("enter location");
-//		String location = sc.nextLine();
-			Guest guestObj=(Guest)session.getAttribute("currentUser");
-			MeetingHallTransaction meetingHallTransObj=(MeetingHallTransaction)session.getAttribute("bookMeetingHallDetails");
-			
+		try 
+		{	
+			String fetchVacantMeetingRoom="select meeting_hall_number from meeting_hall_details where status='vacant' and category=? and location=?";	
+			pstmt1 = conn.prepareStatement(fetchVacantMeetingRoom);
+			pstmt1.setString(1, meetingHallTransObj.getCategory());
+			pstmt1.setString(2, meetingHallTransObj.getLocation());		
+			ResultSet rs = pstmt1.executeQuery();
+			if(rs.next())
+			{
+				vacantMeetingRoomNumber=rs.getInt(1);
+			}
+			if(vacantMeetingRoomNumber!=0) 
+			{
+				try {
+				String bookMeetingRoomQuery="insert into meeting_hall_transaction(meeting_hall_number,check_in,check_out,category,location,guest_id) values(?,?,?,?,?,?)";
+				pstmt2 = conn.prepareStatement(bookMeetingRoomQuery);
+				
+				GuestDaoImpl guestDaoObj = new GuestDaoImpl();
+				guestId=guestDaoObj.findGuestId(guestObj);
+				
+				meetingHallTransObj.setroomNumber(vacantMeetingRoomNumber);
+				
+				pstmt2.setInt(1, vacantMeetingRoomNumber);
+				pstmt2.setDate(2, new java.sql.Date(sdf.parse(meetingHallTransObj.getCheckIn()).getTime()));
+				pstmt2.setDate(3, new java.sql.Date(sdf.parse(meetingHallTransObj.getCheckOut()).getTime()));
+				pstmt2.setString(4, meetingHallTransObj.getCategory());
+				pstmt2.setString(5,meetingHallTransObj.getLocation());
+				pstmt2.setInt(6, guestId);
+				
 		
-		String fetchVacantMeetingRoom="select meeting_hall_number from meeting_hall_details where status='vacant' and category=? and location=?";
-		
-		String bookMeetingRoomQuery="insert into meeting_hall_transaction(meeting_hall_number,check_in,check_out,category,location,guest_id) values(?,?,?,?,?,?)";
-		String updateBookMeetingRoomQuery="update meeting_hall_details set status='occupied' where meeting_hall_number=?";
-//		System.out.println(bookRoomQuery);
-		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt1 = conn.prepareStatement(fetchVacantMeetingRoom);
-		
-		
-		pstmt1.setString(1, meetingHallTransObj.getCategory());
-		pstmt1.setString(2, meetingHallTransObj.getLocation());
-		
-		ResultSet rs = pstmt1.executeQuery();
-		if(rs.next())
+				
+				
+				flag = pstmt2.executeUpdate()>0;
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+				finally {
+					if(pstmt2!=null) {
+						pstmt2.close();
+					}
+					if(conn!=null) {
+						conn.close();
+					}
+				}
+				if(flag)
+				{
+					System.out.println("Meeting Hall booked");
+					
+					try {
+					String updateBookMeetingRoomQuery="update meeting_hall_details set status='occupied' where meeting_hall_number=?";
+					pstmt3 = conn.prepareStatement(updateBookMeetingRoomQuery);
+					pstmt3.setInt(1, vacantMeetingRoomNumber);
+					pstmt3.executeUpdate();
+					}
+					catch(Exception e) {
+						e.printStackTrace();
+					}
+					finally {
+						if(pstmt3!=null) {
+							pstmt3.close();
+						}
+						if(conn!=null) {
+							conn.close();
+						}
+					}
+					
+					Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.bookMeetingHallMail(meetingHallTransObj));
+				}
+				else
+				{
+					System.out.println("Error in booking");
+				}
+			}
+			else 
+			{
+				session.setAttribute("noMeetingHallToBook","noMeetingHall");
+			}
+		}
+		catch(Exception e) 
 		{
-			vacantMeetingRoomNumber=rs.getInt(1);
-		}
-		
-		
-		if(vacantMeetingRoomNumber!=0) {
-		
-		
-		PreparedStatement pstmt2 = conn.prepareStatement(bookMeetingRoomQuery);
-		PreparedStatement pstmt3 = conn.prepareStatement(updateBookMeetingRoomQuery);
-		
-		GuestDaoImpl guestDaoObj = new GuestDaoImpl();
-		
-		guestId=guestDaoObj.findGuestId(guestObj);
-//		System.out.println(guestId);c
-		meetingHallTransObj.setroomNumber(vacantMeetingRoomNumber);
-		
-		pstmt2.setInt(1, vacantMeetingRoomNumber);
-		pstmt2.setDate(2, new java.sql.Date(sdf.parse(meetingHallTransObj.getCheckIn()).getTime()));
-		pstmt2.setDate(3, new java.sql.Date(sdf.parse(meetingHallTransObj.getCheckOut()).getTime()));
-		pstmt2.setString(4, meetingHallTransObj.getCategory());
-		pstmt2.setString(5,meetingHallTransObj.getLocation());
-		pstmt2.setInt(6, guestId);
-		
-		pstmt3.setInt(1, vacantMeetingRoomNumber);
-		
-//		MeetingHallTransaction meetingHallTransObj= new MeetingHallTransaction(vacantMeetingRoomNumber,String.valueOf(checkIn),String.valueOf(checkOut),category,location);
-
-		
-//		System.out.println(bookRoomQuery);
-
-		
-		flag = pstmt2.executeUpdate()>0;
-		if(flag)
-		{
-			System.out.println("Meeting Hall booked");
-			pstmt3.executeUpdate();
-			Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.bookMeetingHallMail(meetingHallTransObj));
-
-		}
-		else
-		{
-			System.out.println("Error in booking");
-		}
-		}
-		else {
-			session.setAttribute("noMeetingHallToBook","noMeetingHall");
-		}
-		}
-		catch(Exception e) {
 			e.printStackTrace();
+		}
+		finally {
+			if(pstmt1!=null) {
+				try {
+					pstmt1.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 

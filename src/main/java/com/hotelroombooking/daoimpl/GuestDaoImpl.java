@@ -25,11 +25,12 @@ public class GuestDaoImpl  implements GuestDao{
 		Connection conn = ConnectionUtil.getDbConnection();
 		 
 		boolean flag=false;
+		PreparedStatement p=null;
 		
 		
 		try
 		{
-			PreparedStatement p = conn.prepareStatement(registerquery);
+			p = conn.prepareStatement(registerquery);
 			p.setString(1, rgFirstname);
 			p.setString(2, rgLastname);
 			p.setString(3, rgMail);
@@ -43,6 +44,22 @@ public class GuestDaoImpl  implements GuestDao{
 		{
 			e.printStackTrace();
 		}
+		finally {
+			if(p!=null) {
+				try {
+					p.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return flag;
 	}
 	
@@ -55,9 +72,10 @@ public class GuestDaoImpl  implements GuestDao{
 		Connection conn = ConnectionUtil.getDbConnection();
 		
 		Guest guestObj=null;
+		PreparedStatement p2 = null;
 		try
 		{
-			PreparedStatement p2 = conn.prepareStatement(loginquery);
+			 p2 = conn.prepareStatement(loginquery);
 			p2.setString(1, gUserName);
 			p2.setString(2, gPassword);
 			ResultSet rs1 = p2.executeQuery();
@@ -71,6 +89,22 @@ public class GuestDaoImpl  implements GuestDao{
 		{ 	
 			e.printStackTrace();
 		}
+		finally {
+			if(p2!=null) {
+				try {
+					p2.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return guestObj;
 	}
 	
@@ -78,11 +112,13 @@ public class GuestDaoImpl  implements GuestDao{
 	public int findGuestId(Guest guestObj) 
 	{
 		int guestId=0;
+		PreparedStatement pstmt = null;
+		Connection conn=null;
 		try
 		{
 			String findIdQuery="select id from guest_details where email=?";
-			Connection conn = ConnectionUtil.getDbConnection();
-			PreparedStatement pstmt = conn.prepareStatement(findIdQuery);
+			 conn = ConnectionUtil.getDbConnection();
+			 pstmt = conn.prepareStatement(findIdQuery);
 			pstmt.setString(1, guestObj.getEmail());
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next())
@@ -99,6 +135,22 @@ public class GuestDaoImpl  implements GuestDao{
 		{
 			e.printStackTrace();
 		}
+		finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 			return guestId;
 	}
 	
@@ -110,8 +162,9 @@ public class GuestDaoImpl  implements GuestDao{
 		String allUserQuery = "select firstname,lastname,email,password,mobile from guest_details";
 		
 		Connection conn = ConnectionUtil.getDbConnection();
+		Statement stmt=null;
 		try {
-			Statement stmt = conn.createStatement();
+			 stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(allUserQuery);
 			while(rs.next())
 			{
@@ -121,6 +174,22 @@ public class GuestDaoImpl  implements GuestDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			if(stmt!=null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return guestList;
 	}
@@ -132,25 +201,22 @@ public class GuestDaoImpl  implements GuestDao{
 	
 	public boolean forgetPassword(HttpSession session) 
 	{
-//		Scanner sc = new Scanner(System.in);
 		boolean flag=false;
+		PreparedStatement pstmt=null;
+		Connection conn=null;
+		
+		
 		try {
-//		System.out.println("Enter email");
-//		String mail=sc.nextLine();
-//		System.out.println("Enter new password");
-//		String passwd=sc.nextLine();
 			
 			Guest guestObj = (Guest)session.getAttribute("forgetPassword");
 		
 		String forgetPasswordQuery = "update guest_details set password=? where email=?";
 		
-		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt = conn.prepareStatement(forgetPasswordQuery);
+		 conn = ConnectionUtil.getDbConnection();
+		 pstmt = conn.prepareStatement(forgetPasswordQuery);
 		
 		pstmt.setString(1, guestObj.getPassword());
-//		System.out.println(guestObj.getEmail());
 		pstmt.setString(2, guestObj.getEmail());
-//		System.out.println(guestObj.getPassword());
 		
 		flag = pstmt.executeUpdate()>0;
 		pstmt.executeUpdate("commit");
@@ -166,6 +232,22 @@ public class GuestDaoImpl  implements GuestDao{
 		catch(Exception e)
 		{
 			System.out.println(e);
+		}
+		finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 	}
