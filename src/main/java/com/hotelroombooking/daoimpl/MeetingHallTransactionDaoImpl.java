@@ -68,18 +68,6 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 				
 				
 				flag = pstmt2.executeUpdate()>0;
-				}
-				catch(Exception e) {
-					e.printStackTrace();
-				}
-				finally {
-					if(pstmt2!=null) {
-						pstmt2.close();
-					}
-					if(conn!=null) {
-						conn.close();
-					}
-				}
 				if(flag)
 				{
 					System.out.println("Meeting Hall booked");
@@ -107,6 +95,18 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 				else
 				{
 					System.out.println("Error in booking");
+				}
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+				finally {
+					if(pstmt2!=null) {
+						pstmt2.close();
+					}
+					if(conn!=null) {
+						conn.close();
+					}
 				}
 			}
 			else 
@@ -230,6 +230,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 			if(vacantMeetingHallNumber!=0) 
 			{
 				try {
+					
 				String updateRoomQuery="update meeting_hall_transaction set check_in=?,check_out=?,category=?,location=? where meeting_hall_number=?";
 				 pstmt1 = conn.prepareStatement(updateRoomQuery);
 
@@ -254,6 +255,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 				}
 		
 				try {
+					conn=ConnectionUtil.getDbConnection();
 				String updateRoomQuery2="update meeting_hall_transaction set meeting_hall_number=? where check_in=? and check_out=? and category=? and location=? and guest_id=?";
 				 pstmt3 = conn.prepareStatement(updateRoomQuery2);
 
@@ -284,6 +286,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 				Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.updateMeetingHallMail(meetingHallTransObj));
 
 				try {
+					conn=ConnectionUtil.getDbConnection();
 				String updateRoomQuery3 = "update meeting_hall_details set status='vacant' where meeting_hall_number=?";
 				 pstmt4 = conn.prepareStatement(updateRoomQuery3);
 
@@ -305,6 +308,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 				meetingHallTransObj.setroomNumber(vacantMeetingHallNumber);
 		
 				try {
+					conn=ConnectionUtil.getDbConnection();
 				String updateRoomQuery4 = "update meeting_hall_details set status='occupied' where meeting_hall_number=?";
 				 pstmt5 = conn.prepareStatement(updateRoomQuery4);
 		

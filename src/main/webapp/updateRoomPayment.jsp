@@ -78,13 +78,13 @@ input[type=checkbox] {
 
 <div class="col-sm-12"><label>Room Number :</label><c:out value="${updateRoomDetails.roomNumber}"></c:out></div>
 <div class="col-sm-6">
-<label>Check-In Date :</label><c:out value="${updateRoomDetails.roomNumber}"></c:out></div>
+<label>Check-In Date :</label><c:out value="${updateRoomDetails.checkIn}"></c:out></div>
 <div class="col-sm-6">
-<label>Check-Out Date :</label><c:out value="${updateRoomDetails.roomNumber}"></c:out></div>
+<label>Check-Out Date :</label><c:out value="${updateRoomDetails.checkOut}"></c:out></div>
 <div class="col-sm-6">
-<label>Category :</label><c:out value="${updateRoomDetails.roomNumber}"></c:out></div>
+<label>Category :</label><c:out value="${updateRoomDetails.category}"></c:out></div>
 <div class="col-sm-6">
-<label>Location :</label><c:out value="${updateRoomDetails.roomNumber}"></c:out></div>
+<label>Location :</label><c:out value="${updateRoomDetails.location}"></c:out></div>
 <div class="col-sm-12">
 <label>Price :</label><c:out value="${updateRoomPrice }"></c:out></div>
 </div>
