@@ -211,7 +211,11 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		int guestId=0;
 		boolean flag=false;
 		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt1=null,pstmt2=null,pstmt3=null,pstmt4=null,pstmt5=null;
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		PreparedStatement pstmt3=null;
+		PreparedStatement pstmt4=null;
+		PreparedStatement pstmt5=null;
 
 		
 		
