@@ -34,7 +34,7 @@ public class AddRoom extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class AddRoom extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		
+		try {
 		int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
 		String category = request.getParameter("category");
 		String location = request.getParameter("location");
@@ -63,17 +63,11 @@ public class AddRoom extends HttpServlet {
 			response.sendRedirect("adminDashboard.jsp");
 		}
 		
-		
-//		PrintWriter pw = response.getWriter();
-//		pw.write(flag+"");
-		
-		
-		
-		
-		
-		
-		
-//		doGet(request, response);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+
 	}
 
  }
