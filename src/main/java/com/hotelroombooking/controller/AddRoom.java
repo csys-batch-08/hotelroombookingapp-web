@@ -1,7 +1,6 @@
 package com.hotelroombooking.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.hotelroombooking.daoimpl.RoomTransactionDaoImpl;
 import com.hotelroombooking.model.RoomDetails;
-import com.hotelroombooking.model.RoomTransaction;
 
 /**
  * Servlet implementation class addRoom
