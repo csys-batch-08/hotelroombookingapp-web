@@ -33,7 +33,7 @@ public class AddWeddingHall extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class AddWeddingHall extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		
+		try {
 		int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
 		System.out.println(weddingHallNumber);
 		String category = request.getParameter("category");
@@ -66,6 +66,10 @@ public class AddWeddingHall extends HttpServlet {
 		{
 		  
 			response.sendRedirect("adminDashboard.jsp");
+		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 		
 		
