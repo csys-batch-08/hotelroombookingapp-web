@@ -17,6 +17,9 @@ import com.hotelroombooking.model.RoomDetails;
 import com.hotelroombooking.model.RoomTransaction;
 
 public class RoomTransactionDaoImpl implements RoomTransactionDao{
+	public String from="hemnaathrsurya@gmail.com";
+	public String password="hangover@18!!";
+	public String subject = "Hotel Room Booking Application";
 	
 	public boolean bookRoom(HttpSession session)
 	{
@@ -88,7 +91,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 				pstmt3.executeUpdate();
 //				System.out.println("hlooo");
 				
-				Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.bookRoomMail(roomTransObj));
+				Mailer.send(from, password, guestObj.getEmail(), subject, Mail.bookRoomMail(roomTransObj));
 			}
 		}
 		else
@@ -133,7 +136,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		if(flag)
 		{
 //			System.out.println("Booking Cancelled");
-			Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.cancelRoomMail(roomTransObj));
+			Mailer.send(from, password, guestObj.getEmail(), subject, Mail.cancelRoomMail(roomTransObj));
 
 		}
 		
@@ -247,7 +250,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		if(flag)
 		{
 			System.out.println("Updated Room details");
-			Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.updateRoomMail(roomTransObj));
+			Mailer.send(from , password, guestObj.getEmail(), subject, Mail.updateRoomMail(roomTransObj));
 
 		}
 		}
