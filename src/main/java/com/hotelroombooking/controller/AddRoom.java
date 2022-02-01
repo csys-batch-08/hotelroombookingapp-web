@@ -61,9 +61,12 @@ public class AddRoom extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		try {
 		doGet(request, response);
-	
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
 
 	}
 

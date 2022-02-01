@@ -63,10 +63,14 @@ public class ForgetPassword extends HttpServlet {
 		
 		
 		
-		
+		try {
 		
 		
 		doGet(request, response);
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
 	}
 
 }

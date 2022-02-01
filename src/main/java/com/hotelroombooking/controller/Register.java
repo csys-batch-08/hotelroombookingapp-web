@@ -59,10 +59,14 @@ public class Register extends HttpServlet {
 		
 		
 	
-		
+		try {
 		
 		
 		doGet(request, response);
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
 	}
 
 }
