@@ -3,6 +3,7 @@ package com.hotelroombooking.daoimpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.hotelroombooking.dao.AdminDao;
 import com.hotelroombooking.model.Admin;
@@ -13,12 +14,16 @@ public class AdminDaoImpl implements AdminDao{
 	public Admin loginAdmin(String adminMail, String adminPassword)
 	{
 		String loginquery="select * from admin where email=? and password=?";
-		Connection conn = ConnectionUtil.getDbConnection();
+		
 		
 		Admin adminObj = null;
+		PreparedStatement p2=null;
+		Connection conn = ConnectionUtil.getDbConnection();
 		try
 		{
-			PreparedStatement p2 = conn.prepareStatement(loginquery);
+			
+			
+			p2 = conn.prepareStatement(loginquery);
 			p2.setString(1, adminMail);
 			p2.setString(2, adminPassword);
 			ResultSet rs1 = p2.executeQuery();
@@ -30,6 +35,22 @@ public class AdminDaoImpl implements AdminDao{
 		catch(Exception e)
 		{
 			e.printStackTrace();
+		}
+		finally {
+			if(p2!=null) {
+				try {
+					p2.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return adminObj;
 	}
