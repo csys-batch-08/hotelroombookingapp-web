@@ -60,7 +60,7 @@ public class Payments extends HttpServlet {
 		{
 			
 		
-			try {
+		
 				MessageDigest md = MessageDigest.getInstance("SHA-256");
 				md.update(cvv.getBytes());
 				byte[] digest = md.digest();
@@ -68,10 +68,7 @@ public class Payments extends HttpServlet {
 				String encode = new String(digest);
 				cvv = encode;
 				System.out.println(cvv);
-			}
-			catch(Exception e) {	
-				e.printStackTrace();
-			}
+		
 			
 		}
 		
