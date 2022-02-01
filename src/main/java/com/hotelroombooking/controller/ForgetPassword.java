@@ -41,6 +41,8 @@ public class ForgetPassword extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
+		
+		try {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
@@ -54,6 +56,10 @@ public class ForgetPassword extends HttpServlet {
 		if(flag)
 		{
 			response.sendRedirect("login.jsp");
+		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 		
 		

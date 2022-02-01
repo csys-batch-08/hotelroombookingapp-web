@@ -43,6 +43,8 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		
+		try {
 		String email  = request.getParameter("email");
 		String password  = request.getParameter("password");
 		
@@ -51,7 +53,7 @@ public class Login extends HttpServlet {
 		Guest guestObj=guestDaoObj.loginGuest(email, password);
 		Admin adminObj=adminDaoObj.loginAdmin(email, password);
 //		System.out.println(email+password);
-		PrintWriter pw = response.getWriter();
+		
 //		pw.write("welcome"+guestObj.getFirstName());
 		
 		if(guestObj!=null)
@@ -72,6 +74,10 @@ public class Login extends HttpServlet {
 			HttpSession session=request.getSession();
 			session.setAttribute("invalidLogin", "invalid");
 			response.sendRedirect("login.jsp");
+		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 		
 		

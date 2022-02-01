@@ -43,6 +43,8 @@ public class CancelWeddingHall extends HttpServlet {
 		
 		
 		
+		try {
+		
 		int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
 		
 		WeddingHallTransaction weddingHallTransObj = new WeddingHallTransaction(weddingHallNumber,null,null,null,null);
@@ -58,8 +60,11 @@ public class CancelWeddingHall extends HttpServlet {
 			response.sendRedirect("guestDashboard.jsp");
 		}
 		
-		
-//		doGet(request, response);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

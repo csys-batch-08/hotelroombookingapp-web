@@ -29,7 +29,7 @@ public class EditRoom extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class EditRoom extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		
+		try {
 		int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
 		String category = request.getParameter("category");
 		String location = request.getParameter("location");
@@ -59,7 +59,10 @@ public class EditRoom extends HttpServlet {
 		  
 			response.sendRedirect("adminDashboard.jsp");
 		}
-		
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 		
 //		doGet(request, response);

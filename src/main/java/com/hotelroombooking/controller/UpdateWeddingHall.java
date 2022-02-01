@@ -32,7 +32,7 @@ public class UpdateWeddingHall extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class UpdateWeddingHall extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		
+		try {
 		
 		int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
 		String checkIn = request.getParameter("checkIn");
@@ -69,14 +69,12 @@ public class UpdateWeddingHall extends HttpServlet {
 		
 		response.sendRedirect("updateWeddingHallPayment.jsp");
 		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-//		PrintWriter pw = response.getWriter();
-//		pw.write(flag+"");
-		
-		
-		
-		
-//		doGet(request, response);
+
 	}
 
 }

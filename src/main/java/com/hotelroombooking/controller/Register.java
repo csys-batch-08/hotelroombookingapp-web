@@ -41,6 +41,8 @@ public class Register extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
+		
+	try {	
 	String firstName=request.getParameter("firstName");	
 	String 	lastName = request.getParameter("lastName");
 	String email  = request.getParameter("email");
@@ -50,12 +52,16 @@ public class Register extends HttpServlet {
 		GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 		boolean flag=guestDaoObj.registerGuest(firstName, lastName, email, password, password, mobileNumber);
 		
-		PrintWriter out = response.getWriter();
+		
 		if(flag)
 		{
 		  
 			response.sendRedirect("login.jsp");
 		}
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
 		
 		
 		

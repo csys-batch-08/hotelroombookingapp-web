@@ -43,6 +43,8 @@ public class DeleteRoom extends HttpServlet {
 		
 		
 		
+		try {
+		
 		int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
 		
 		RoomDetails roomDetailsObj = new RoomDetails(roomNumber,null,null,null,0);
@@ -50,8 +52,7 @@ public class DeleteRoom extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("deleteRoomDetails", roomDetailsObj);
 		boolean flag = roomTransDaoObj.deleteRoomAdmin(session);
-//		PrintWriter pw = response.getWriter();
-//		pw.write(flag+"");
+
 
 		
 		if(flag)
@@ -59,9 +60,12 @@ public class DeleteRoom extends HttpServlet {
 		  
 			response.sendRedirect("adminDashboard.jsp");
 		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		
-//		doGet(request, response);
+
 	}
 
 }

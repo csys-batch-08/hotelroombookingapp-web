@@ -42,6 +42,8 @@ public class BookRoom extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
+		
+		try {
 		String checkIn = request.getParameter("checkIn");
 		String checkOut = request.getParameter("checkOut");
 		String category = request.getParameter("category");
@@ -63,6 +65,10 @@ public class BookRoom extends HttpServlet {
 		}
 		else {
 			response.sendRedirect("bookRoomPayment.jsp");
+		}
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 
 	}

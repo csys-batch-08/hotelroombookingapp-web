@@ -30,9 +30,13 @@ public class Logout extends HttpServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		
-
+		try {
 		request.getSession().invalidate();
 		response.sendRedirect("login.jsp");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 		
 		
@@ -50,7 +54,7 @@ public class Logout extends HttpServlet {
 		
 		
 		
-		doGet(request, response);
+		
 	}
 
 }

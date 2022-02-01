@@ -33,7 +33,7 @@ public class Payments extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
 
 	/**
@@ -43,6 +43,7 @@ public class Payments extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
+		try {
 		
 		long cardNumber = Long.parseLong(request.getParameter("cardNumber"));
 		String expiryDate = request.getParameter("expiryDate");
@@ -83,6 +84,10 @@ public class Payments extends HttpServlet {
 		if(flag)
 		{
 			response.sendRedirect("guestDashboard.jsp");
+		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 		
 //		PrintWriter pw = response.getWriter();

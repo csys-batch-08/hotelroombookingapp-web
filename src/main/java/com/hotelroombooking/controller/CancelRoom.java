@@ -42,6 +42,8 @@ public class CancelRoom extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
+		try {
+		
 		int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
 		
 		RoomTransaction roomTransObj = new RoomTransaction(roomNumber,null,null,null,null);
@@ -56,10 +58,14 @@ public class CancelRoom extends HttpServlet {
 		{
 			response.sendRedirect("guestDashboard.jsp");
 		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 
 		
 		
-//		doGet(request, response);
+
 	}
 
 }

@@ -42,7 +42,7 @@ public class DeleteWeddingHall extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		
+		try {
 		
 		int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
 		
@@ -51,8 +51,6 @@ public class DeleteWeddingHall extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("deleteWeddingHallDetails", weddingHallDetailsObj);
 		boolean flag = weddingHallTransDaoObj.deleteWeddingHallAdmin(session);
-//		PrintWriter pw = response.getWriter();
-//		pw.write(flag+"");
 
 		
 		if(flag)
@@ -60,9 +58,12 @@ public class DeleteWeddingHall extends HttpServlet {
 		  
 			response.sendRedirect("adminDashboard.jsp");
 		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		
-//		doGet(request, response);
+
 	}
 
 }

@@ -42,7 +42,7 @@ public class BookMeetingHall extends HttpServlet {
 		
 		
 		
-		
+		try {
 		
 		String checkIn = request.getParameter("checkIn");
 		String checkOut = request.getParameter("checkOut");
@@ -64,6 +64,10 @@ public class BookMeetingHall extends HttpServlet {
 		}	
 		else {
 		response.sendRedirect("bookMeetingHallPayment.jsp");
+		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 
 	}

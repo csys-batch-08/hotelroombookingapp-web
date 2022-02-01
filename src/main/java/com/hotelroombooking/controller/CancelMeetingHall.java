@@ -42,6 +42,8 @@ public class CancelMeetingHall extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
+		
+		try {
 
 		int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
 		
@@ -59,8 +61,10 @@ public class CancelMeetingHall extends HttpServlet {
 			response.sendRedirect("guestDashboard.jsp");
 		}
 		
-		
-//		doGet(request, response);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

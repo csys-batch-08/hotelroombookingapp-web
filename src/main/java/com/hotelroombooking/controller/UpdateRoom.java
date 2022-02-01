@@ -32,7 +32,7 @@ public class UpdateRoom extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class UpdateRoom extends HttpServlet {
 		
 		
 		
-		
+		try {
 		int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
 		String checkIn = request.getParameter("checkIn");
 		String checkOut = request.getParameter("checkOut");
@@ -66,6 +66,10 @@ public class UpdateRoom extends HttpServlet {
 		}
 		else {
 			response.sendRedirect("updateRoomPayment.jsp");
+		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 		
 		

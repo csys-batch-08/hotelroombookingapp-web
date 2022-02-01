@@ -42,7 +42,7 @@ public class EditMeetingHall extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		
+		try {
 		int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
 		String category = request.getParameter("category");
 		String location = request.getParameter("location");
@@ -53,8 +53,7 @@ public class EditMeetingHall extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("editMeetingHallDetails", meetingHallDetailsObj);
 		boolean flag = meetingHallTransDaoObj.updateMeetingHallAdmin(session);
-//		PrintWriter pw = response.getWriter();
-//		pw.write(flag+"");
+
 		
 		
 		if(flag)
@@ -62,9 +61,11 @@ public class EditMeetingHall extends HttpServlet {
 		  
 			response.sendRedirect("adminDashboard.jsp");
 		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		
-//		doGet(request, response);
 	}
 
 }

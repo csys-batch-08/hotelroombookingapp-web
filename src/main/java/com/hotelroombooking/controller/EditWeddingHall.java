@@ -32,7 +32,7 @@ public class EditWeddingHall extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -42,6 +42,7 @@ public class EditWeddingHall extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
+		try {
 		
 		int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
 		String category = request.getParameter("category");
@@ -53,8 +54,6 @@ public class EditWeddingHall extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("editWeddingHallDetails", weddingHallDetailsObj);
 		boolean flag = weddingHallTransDaoObj.updateWeddingHallAdmin(session);
-//		PrintWriter pw = response.getWriter();
-//		pw.write(flag+"");
 		
 		
 		if(flag)
@@ -62,9 +61,12 @@ public class EditWeddingHall extends HttpServlet {
 		  
 			response.sendRedirect("adminDashboard.jsp");
 		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		
-//		doGet(request, response);
+
 	}
 
 }

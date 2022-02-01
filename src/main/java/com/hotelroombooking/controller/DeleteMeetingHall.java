@@ -43,6 +43,8 @@ public class DeleteMeetingHall extends HttpServlet {
 		
 		
 		
+		try {
+		
 		int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
 		
 		MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber,null,null,null,0);
@@ -50,8 +52,7 @@ public class DeleteMeetingHall extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("deleteMeetingHallDetails", meetingHallDetailsObj);
 		boolean flag = meetingHallTransDaoObj.deleteMeetingHallAdmin(session);
-//		PrintWriter pw = response.getWriter();
-//		pw.write(flag+"");
+
 		
 		
 		if(flag)
@@ -59,9 +60,12 @@ public class DeleteMeetingHall extends HttpServlet {
 		  
 			response.sendRedirect("adminDashboard.jsp");
 		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		
-//		doGet(request, response);
+
 	}
 
 }
