@@ -142,25 +142,22 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 	
 	public boolean cancelMeetingHall(HttpSession session) 
 	{
-//		MeetingHallTransaction meetingHallTransObj=null;
 		boolean flag=false;
-		
-		try {
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("Enter meeting hall number");
-//		int meetingRoomNumber = Integer.parseInt(sc.nextLine());
-			
-			
-		
-		String updateCancelRoomQuery = "update meeting_hall_details set status='vacant' where meeting_hall_number=?";
+		PreparedStatement pstmt=null;
 		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt = conn.prepareStatement(updateCancelRoomQuery);
+
+		
+		try 
+		{
+
+		String updateCancelRoomQuery = "update meeting_hall_details set status='vacant' where meeting_hall_number=?";
+		 pstmt = conn.prepareStatement(updateCancelRoomQuery);
 		Guest guestObj=(Guest)session.getAttribute("currentUser");
 		MeetingHallTransaction meetingHallTransObj=(MeetingHallTransaction)session.getAttribute("cancelMeetingHallDetails");
 				
 		pstmt.setInt(1, meetingHallTransObj.getroomNumber());
 		
-//		meetingHallTransObj= new MeetingHallTransaction(meetingRoomNumber,null,null,null,null);
+
 
 				
 		flag=pstmt.executeUpdate()>0;
@@ -177,6 +174,22 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 		}
 		catch(Exception e) {
 			System.out.println(e);
+		}
+		finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 	}
