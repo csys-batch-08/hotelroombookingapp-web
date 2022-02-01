@@ -639,7 +639,7 @@ function updateRoom()
 <div class="col-sm-8 align-items-center mt-3" style="display: none;" id="myBookings">
 <div style="justify-content: space-between;width:100%;height: 80vh;overflow: auto;">
 <table cellpadding=2px cellspacing=20px width="100%" class="myBooking">
-<caption>Guest Details</caption>
+<caption></caption>
 <tr>
 <th>Room Number</th>
 <th>CheckIn Date</th>

@@ -28,7 +28,6 @@ public class EditRoom extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -36,7 +35,6 @@ public class EditRoom extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		
 		try {
@@ -50,9 +48,7 @@ public class EditRoom extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("editRoomDetails", roomDetailsObj);
 		boolean flag = roomTransDaoObj.updateRoomAdmin(session);
-//		PrintWriter pw = response.getWriter();
-//		pw.write(flag+"");
-		
+
 		
 		if(flag)
 		{
