@@ -30,7 +30,6 @@ public class MeetingHallTransaction {
 	}
 	public MeetingHallTransaction() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {

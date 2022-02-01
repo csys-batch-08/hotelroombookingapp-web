@@ -120,7 +120,6 @@ public class GuestDaoImpl  implements GuestDao{
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return guestList;

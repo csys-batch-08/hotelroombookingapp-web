@@ -20,7 +20,6 @@ public class WeddingHallDetails {
 	
 	public WeddingHallDetails() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {

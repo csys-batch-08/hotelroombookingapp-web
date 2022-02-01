@@ -19,7 +19,6 @@ public class MeetingHallDetails {
 	}
 	public MeetingHallDetails() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {

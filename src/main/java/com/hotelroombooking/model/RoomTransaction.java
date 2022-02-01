@@ -31,7 +31,6 @@ public class RoomTransaction {
 	}
 	public RoomTransaction() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {

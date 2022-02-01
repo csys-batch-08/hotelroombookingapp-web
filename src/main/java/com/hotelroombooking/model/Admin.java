@@ -13,7 +13,6 @@ public class Admin
 	}
 	public Admin() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
