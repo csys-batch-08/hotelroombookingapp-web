@@ -29,6 +29,28 @@ public class ForgetPassword extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			
+			Guest guestObj = new Guest(null,null,email,password,0);
+			GuestDaoImpl guestDaoObj = new GuestDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("forgetPassword", guestObj);
+			boolean flag = guestDaoObj.forgetPassword(session);
+			
+			
+			if(flag)
+			{
+				response.sendRedirect("login.jsp");
+			}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
 		
 	}
 
@@ -39,33 +61,12 @@ public class ForgetPassword extends HttpServlet {
 		
 		
 		
-		try {
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		
-		Guest guestObj = new Guest(null,null,email,password,0);
-		GuestDaoImpl guestDaoObj = new GuestDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("forgetPassword", guestObj);
-		boolean flag = guestDaoObj.forgetPassword(session);
-		
-		
-		if(flag)
-		{
-			response.sendRedirect("login.jsp");
-		}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
 		
 		
 		
 		
 		
-		
-		
-//		doGet(request, response);
+		doGet(request, response);
 	}
 
 }

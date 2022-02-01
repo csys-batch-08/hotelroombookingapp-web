@@ -30,6 +30,27 @@ public class DeleteRoom extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
+			
+			RoomDetails roomDetailsObj = new RoomDetails(roomNumber,null,null,null,0);
+			RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("deleteRoomDetails", roomDetailsObj);
+			boolean flag = roomTransDaoObj.deleteRoomAdmin(session);
+
+
+			
+			if(flag)
+			{
+			  
+				response.sendRedirect("adminDashboard.jsp");
+			}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 	}
 
 	/**
@@ -39,27 +60,7 @@ public class DeleteRoom extends HttpServlet {
 		
 		
 		
-		try {
-		
-		int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
-		
-		RoomDetails roomDetailsObj = new RoomDetails(roomNumber,null,null,null,0);
-		RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("deleteRoomDetails", roomDetailsObj);
-		boolean flag = roomTransDaoObj.deleteRoomAdmin(session);
-
-
-		
-		if(flag)
-		{
-		  
-			response.sendRedirect("adminDashboard.jsp");
-		}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+		doGet(request, response);
 		
 
 	}

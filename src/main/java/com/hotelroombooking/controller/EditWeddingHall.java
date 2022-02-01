@@ -30,6 +30,30 @@ public class EditWeddingHall extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
+			String category = request.getParameter("category");
+			String location = request.getParameter("location");
+			int price = Integer.parseInt(request.getParameter("price"));
+			
+			WeddingHallDetails weddingHallDetailsObj = new WeddingHallDetails(weddingHallNumber,null,category,location,price);
+			WeddingHallTransactionDaoImpl weddingHallTransDaoObj = new WeddingHallTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("editWeddingHallDetails", weddingHallDetailsObj);
+			boolean flag = weddingHallTransDaoObj.updateWeddingHallAdmin(session);
+			
+			
+			if(flag)
+			{
+			  
+				response.sendRedirect("adminDashboard.jsp");
+			}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 		
 	}
 
@@ -39,30 +63,7 @@ public class EditWeddingHall extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		try {
-		
-		int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
-		String category = request.getParameter("category");
-		String location = request.getParameter("location");
-		int price = Integer.parseInt(request.getParameter("price"));
-		
-		WeddingHallDetails weddingHallDetailsObj = new WeddingHallDetails(weddingHallNumber,null,category,location,price);
-		WeddingHallTransactionDaoImpl weddingHallTransDaoObj = new WeddingHallTransactionDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("editWeddingHallDetails", weddingHallDetailsObj);
-		boolean flag = weddingHallTransDaoObj.updateWeddingHallAdmin(session);
-		
-		
-		if(flag)
-		{
-		  
-			response.sendRedirect("adminDashboard.jsp");
-		}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		
+		doGet(request, response);
 
 	}
 

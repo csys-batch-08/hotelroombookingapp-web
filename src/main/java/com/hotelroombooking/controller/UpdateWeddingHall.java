@@ -30,6 +30,37 @@ public class UpdateWeddingHall extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
+			String checkIn = request.getParameter("checkIn");
+			String checkOut = request.getParameter("checkOut");
+			String category = request.getParameter("category");
+			String location = request.getParameter("location");
+			
+			WeddingHallTransaction weddingHallTransObj = new WeddingHallTransaction(weddingHallNumber,checkIn,checkOut,category,location);
+			WeddingHallTransactionDaoImpl weddingHallTransDaoObj = new WeddingHallTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("updateWeddingHallDetails", weddingHallTransObj);
+			Integer updateWeddingPrice = weddingHallTransDaoObj.findUpdateWeddingPrice(session);
+			session.setAttribute("updateWeddingPrice", updateWeddingPrice);
+			
+			weddingHallTransDaoObj.updateWeddingHall(session);
+			
+			
+			
+			if(session.getAttribute("noWeddingHallsToUpdate")!=null) {
+				response.sendRedirect("guestDashboard.jsp");
+				
+			}
+			else {
+			
+			response.sendRedirect("updateWeddingHallPayment.jsp");
+			}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		
 	}
 
@@ -39,37 +70,7 @@ public class UpdateWeddingHall extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		try {
-		
-		int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
-		String checkIn = request.getParameter("checkIn");
-		String checkOut = request.getParameter("checkOut");
-		String category = request.getParameter("category");
-		String location = request.getParameter("location");
-		
-		WeddingHallTransaction weddingHallTransObj = new WeddingHallTransaction(weddingHallNumber,checkIn,checkOut,category,location);
-		WeddingHallTransactionDaoImpl weddingHallTransDaoObj = new WeddingHallTransactionDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("updateWeddingHallDetails", weddingHallTransObj);
-		Integer updateWeddingPrice = weddingHallTransDaoObj.findUpdateWeddingPrice(session);
-		session.setAttribute("updateWeddingPrice", updateWeddingPrice);
-		
-		weddingHallTransDaoObj.updateWeddingHall(session);
-		
-		
-		
-		if(session.getAttribute("noWeddingHallsToUpdate")!=null) {
-			response.sendRedirect("guestDashboard.jsp");
-			
-		}
-		else {
-		
-		response.sendRedirect("updateWeddingHallPayment.jsp");
-		}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+		doGet(request, response);
 		
 
 	}

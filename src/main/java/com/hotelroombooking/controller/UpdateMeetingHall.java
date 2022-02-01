@@ -30,6 +30,34 @@ public class UpdateMeetingHall extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
+			String checkIn = request.getParameter("checkIn");
+			String checkOut = request.getParameter("checkOut");
+			String category = request.getParameter("category");
+			String location = request.getParameter("location");
+			
+			MeetingHallTransaction meetingHallTransObj = new MeetingHallTransaction(meetingHallNumber,checkIn,checkOut,category,location);
+			MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("updateMeetingHallDetails", meetingHallTransObj);
+			Integer updateMeetingPrice = meetingHallTransDaoObj.findUpdateMeetingPrice(session);
+			session.setAttribute("updateMeetingPrice", updateMeetingPrice);
+			
+			meetingHallTransDaoObj.updateMeetingHall(session);
+			
+			
+			if(session.getAttribute("noMeetingHallsToUpdate")!=null) {
+				response.sendRedirect("guestDashboard.jsp");
+				
+			}
+			else {
+			response.sendRedirect("updateMeetingHallPayment.jsp");
+			}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		
 	}
 
@@ -39,34 +67,7 @@ public class UpdateMeetingHall extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		try {
-		int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
-		String checkIn = request.getParameter("checkIn");
-		String checkOut = request.getParameter("checkOut");
-		String category = request.getParameter("category");
-		String location = request.getParameter("location");
-		
-		MeetingHallTransaction meetingHallTransObj = new MeetingHallTransaction(meetingHallNumber,checkIn,checkOut,category,location);
-		MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("updateMeetingHallDetails", meetingHallTransObj);
-		Integer updateMeetingPrice = meetingHallTransDaoObj.findUpdateMeetingPrice(session);
-		session.setAttribute("updateMeetingPrice", updateMeetingPrice);
-		
-		meetingHallTransDaoObj.updateMeetingHall(session);
-		
-		
-		if(session.getAttribute("noMeetingHallsToUpdate")!=null) {
-			response.sendRedirect("guestDashboard.jsp");
-			
-		}
-		else {
-		response.sendRedirect("updateMeetingHallPayment.jsp");
-		}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+		doGet(request, response);
 		
 
 	}

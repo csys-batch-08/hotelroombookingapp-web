@@ -30,6 +30,27 @@ public class DeleteMeetingHall extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
+			
+			MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber,null,null,null,0);
+			MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("deleteMeetingHallDetails", meetingHallDetailsObj);
+			boolean flag = meetingHallTransDaoObj.deleteMeetingHallAdmin(session);
+
+			
+			
+			if(flag)
+			{
+			  
+				response.sendRedirect("adminDashboard.jsp");
+			}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 	}
 
 	/**
@@ -39,27 +60,7 @@ public class DeleteMeetingHall extends HttpServlet {
 		
 		
 		
-		try {
-		
-		int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
-		
-		MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber,null,null,null,0);
-		MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("deleteMeetingHallDetails", meetingHallDetailsObj);
-		boolean flag = meetingHallTransDaoObj.deleteMeetingHallAdmin(session);
-
-		
-		
-		if(flag)
-		{
-		  
-			response.sendRedirect("adminDashboard.jsp");
-		}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+		doGet(request, response);
 		
 
 	}

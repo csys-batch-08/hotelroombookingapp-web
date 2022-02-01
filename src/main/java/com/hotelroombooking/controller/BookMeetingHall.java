@@ -31,6 +31,33 @@ public class BookMeetingHall extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			String checkIn = request.getParameter("checkIn");
+			String checkOut = request.getParameter("checkOut");
+			String category = request.getParameter("category");
+			String location = request.getParameter("location");
+			
+			MeetingHallTransaction meetingHallTransObj = new MeetingHallTransaction(0,checkIn,checkOut,category,location);
+			MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("bookMeetingHallDetails", meetingHallTransObj);
+			Integer bookMeetingPrice = meetingHallTransDaoObj.findBookMeetingPrice(session);
+			session.setAttribute("bookMeetingPrice", bookMeetingPrice);
+			
+			meetingHallTransDaoObj.bookMeetingHall(session);
+			
+			if(session.getAttribute("noMeetingHallToBook")!=null) {
+				response.sendRedirect("guestDashboard.jsp");
+				
+			}	
+			else {
+			response.sendRedirect("bookMeetingHallPayment.jsp");
+			}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		
 		
 	}
@@ -41,34 +68,9 @@ public class BookMeetingHall extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		doGet(request, response);
 		
-		try {
 		
-		String checkIn = request.getParameter("checkIn");
-		String checkOut = request.getParameter("checkOut");
-		String category = request.getParameter("category");
-		String location = request.getParameter("location");
-		
-		MeetingHallTransaction meetingHallTransObj = new MeetingHallTransaction(0,checkIn,checkOut,category,location);
-		MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("bookMeetingHallDetails", meetingHallTransObj);
-		Integer bookMeetingPrice = meetingHallTransDaoObj.findBookMeetingPrice(session);
-		session.setAttribute("bookMeetingPrice", bookMeetingPrice);
-		
-		meetingHallTransDaoObj.bookMeetingHall(session);
-		
-		if(session.getAttribute("noMeetingHallToBook")!=null) {
-			response.sendRedirect("guestDashboard.jsp");
-			
-		}	
-		else {
-		response.sendRedirect("bookMeetingHallPayment.jsp");
-		}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
 
 	}
 

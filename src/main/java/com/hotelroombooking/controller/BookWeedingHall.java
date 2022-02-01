@@ -30,6 +30,34 @@ public class BookWeedingHall extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			String checkIn = request.getParameter("checkIn");
+			String checkOut = request.getParameter("checkOut");
+			String category = request.getParameter("category");
+			String location = request.getParameter("location");
+			
+			WeddingHallTransaction weddingHallTransObj = new WeddingHallTransaction(0,checkIn,checkOut,category,location);
+			WeddingHallTransactionDaoImpl weddingHallTransDaoObj = new WeddingHallTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("bookWeddingHallDetails", weddingHallTransObj);
+			Integer bookWeddingPrice = weddingHallTransDaoObj.findBookWeddingPrice(session);
+			session.setAttribute("bookWeddingPrice", bookWeddingPrice);
+			weddingHallTransDaoObj.bookWeddingHall(session);
+			
+			
+			if(session.getAttribute("NoWeddingHallToBook")!=null) {
+				response.sendRedirect("guestDashboard.jsp");
+				
+			}
+			else {
+			
+			response.sendRedirect("bookWeddingHallPayment.jsp");
+			}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 	}
 
 	/**
@@ -39,34 +67,7 @@ public class BookWeedingHall extends HttpServlet {
 		
 		
 		
-		try {
-		
-		String checkIn = request.getParameter("checkIn");
-		String checkOut = request.getParameter("checkOut");
-		String category = request.getParameter("category");
-		String location = request.getParameter("location");
-		
-		WeddingHallTransaction weddingHallTransObj = new WeddingHallTransaction(0,checkIn,checkOut,category,location);
-		WeddingHallTransactionDaoImpl weddingHallTransDaoObj = new WeddingHallTransactionDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("bookWeddingHallDetails", weddingHallTransObj);
-		Integer bookWeddingPrice = weddingHallTransDaoObj.findBookWeddingPrice(session);
-		session.setAttribute("bookWeddingPrice", bookWeddingPrice);
-		weddingHallTransDaoObj.bookWeddingHall(session);
-		
-		
-		if(session.getAttribute("NoWeddingHallToBook")!=null) {
-			response.sendRedirect("guestDashboard.jsp");
-			
-		}
-		else {
-		
-		response.sendRedirect("bookWeddingHallPayment.jsp");
-		}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+		doGet(request, response);
 
 	}
 

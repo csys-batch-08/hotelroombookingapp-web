@@ -30,6 +30,25 @@ public class CancelWeddingHall extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
+			
+			WeddingHallTransaction weddingHallTransObj = new WeddingHallTransaction(weddingHallNumber,null,null,null,null);
+			WeddingHallTransactionDaoImpl weddingHallTransDaoObj = new WeddingHallTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("cancelWeddingHallDetails", weddingHallTransObj);
+			boolean flag=weddingHallTransDaoObj.cancelWeddingHall(session);
+			
+			if(flag)
+			{
+				response.sendRedirect("guestDashboard.jsp");
+			}
+			
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 	}
 
 	/**
@@ -39,25 +58,7 @@ public class CancelWeddingHall extends HttpServlet {
 		
 		
 		
-		try {
-		
-		int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
-		
-		WeddingHallTransaction weddingHallTransObj = new WeddingHallTransaction(weddingHallNumber,null,null,null,null);
-		WeddingHallTransactionDaoImpl weddingHallTransDaoObj = new WeddingHallTransactionDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("cancelWeddingHallDetails", weddingHallTransObj);
-		boolean flag=weddingHallTransDaoObj.cancelWeddingHall(session);
-		
-		if(flag)
-		{
-			response.sendRedirect("guestDashboard.jsp");
-		}
-		
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+		doGet(request, response);
 
 	}
 

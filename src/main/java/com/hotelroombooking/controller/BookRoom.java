@@ -30,6 +30,33 @@ public class BookRoom extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			String checkIn = request.getParameter("checkIn");
+			String checkOut = request.getParameter("checkOut");
+			String category = request.getParameter("category");
+			String location = request.getParameter("location");
+			
+			RoomTransaction roomTransObj = new RoomTransaction(0,checkIn,checkOut,category,location);
+			RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("bookRoomDetails", roomTransObj);
+			Integer bookRoomPrice = roomTransDaoObj.findBookRoomPrice(session);
+			session.setAttribute("bookRoomPrice", bookRoomPrice);
+			roomTransDaoObj.bookRoom(session);
+			
+			
+			
+			if(session.getAttribute("NoRoomsToBook")!=null) {
+				response.sendRedirect("guestDashboard.jsp");
+				
+			}
+			else {
+				response.sendRedirect("bookRoomPayment.jsp");
+			}
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
 		
 	}
 
@@ -40,33 +67,7 @@ public class BookRoom extends HttpServlet {
 		
 		
 		
-		try {
-		String checkIn = request.getParameter("checkIn");
-		String checkOut = request.getParameter("checkOut");
-		String category = request.getParameter("category");
-		String location = request.getParameter("location");
-		
-		RoomTransaction roomTransObj = new RoomTransaction(0,checkIn,checkOut,category,location);
-		RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("bookRoomDetails", roomTransObj);
-		Integer bookRoomPrice = roomTransDaoObj.findBookRoomPrice(session);
-		session.setAttribute("bookRoomPrice", bookRoomPrice);
-		roomTransDaoObj.bookRoom(session);
-		
-		
-		
-		if(session.getAttribute("NoRoomsToBook")!=null) {
-			response.sendRedirect("guestDashboard.jsp");
-			
-		}
-		else {
-			response.sendRedirect("bookRoomPayment.jsp");
-		}
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+		doGet(request, response);
 
 	}
 

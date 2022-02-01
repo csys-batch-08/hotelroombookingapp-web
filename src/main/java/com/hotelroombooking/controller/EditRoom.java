@@ -28,6 +28,28 @@ public class EditRoom extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
+			String category = request.getParameter("category");
+			String location = request.getParameter("location");
+			int price = Integer.parseInt(request.getParameter("price"));
+			
+			RoomDetails roomDetailsObj = new RoomDetails(roomNumber,null,category,location,price);
+			RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("editRoomDetails", roomDetailsObj);
+			boolean flag = roomTransDaoObj.updateRoomAdmin(session);
+
+			
+			if(flag)
+			{
+			  
+				response.sendRedirect("adminDashboard.jsp");
+			}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		
 	}
 
@@ -37,31 +59,10 @@ public class EditRoom extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		try {
-		int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
-		String category = request.getParameter("category");
-		String location = request.getParameter("location");
-		int price = Integer.parseInt(request.getParameter("price"));
-		
-		RoomDetails roomDetailsObj = new RoomDetails(roomNumber,null,category,location,price);
-		RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
-		HttpSession session = request.getSession();
-		session.setAttribute("editRoomDetails", roomDetailsObj);
-		boolean flag = roomTransDaoObj.updateRoomAdmin(session);
-
-		
-		if(flag)
-		{
-		  
-			response.sendRedirect("adminDashboard.jsp");
-		}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
 		
 		
-//		doGet(request, response);
+		
+		doGet(request, response);
 	}
 
 }

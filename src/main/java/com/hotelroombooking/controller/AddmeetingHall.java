@@ -27,45 +27,42 @@ public class AddmeetingHall extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
+			String category = request.getParameter("category");
+			String location = request.getParameter("location");
+			int price = Integer.parseInt(request.getParameter("price"));
+			
+			MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber,null,category,location,price);
+			MeetingHallTransactionDaoImpl meetingHallTransDao = new MeetingHallTransactionDaoImpl();
+			HttpSession session = request.getSession();
+			session.setAttribute("addMeetingHallDetails", meetingHallDetailsObj);
+			boolean flag = meetingHallTransDao.addMeetingHallAdmin(session);
+
+			
+			if(flag)
+			{
+			  
+				response.sendRedirect("adminDashboard.jsp");
+			}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
 		
-		try {
-		int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
-		String category = request.getParameter("category");
-		String location = request.getParameter("location");
-		int price = Integer.parseInt(request.getParameter("price"));
+	
 		
-		MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber,null,category,location,price);
-//		System.out.println("hi");
-		MeetingHallTransactionDaoImpl meetingHallTransDao = new MeetingHallTransactionDaoImpl();
-//		System.out.println("hii");
-		HttpSession session = request.getSession();
-		session.setAttribute("addMeetingHallDetails", meetingHallDetailsObj);
-//		System.out.println("hy");
-		boolean flag = meetingHallTransDao.addMeetingHallAdmin(session);
-//		PrintWriter pw = response.getWriter();
-//		pw.write(flag+"");
-		
-		
-		if(flag)
-		{
-		  
-			response.sendRedirect("adminDashboard.jsp");
-		}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-//		doGet(request, response);
+		doGet(request, response);
 	}
 
 }
