@@ -347,7 +347,7 @@ function editRoom()
 						<li onclick="cancelMeetingHall()">Delete Meeting Hall</li>
 					</ul>
 				</li>
-				<li><a onclick="listAll()">LIST ALL USERS</a></li>
+				<li><a href="Users">LIST ALL USERS</a></li>
 			</ul>
 			<div class="logoutbtn">
 				<a href="Logout"><h3>LOGOUT</h3></a>
@@ -574,7 +574,7 @@ room number:<input type="text" id="roomNumber"name="roomNumber" class="form-cont
 
 
 
-<div class="col-sm-8 align-items-center mt-3" style="display: none;" id="listAll">
+<%-- <div class="col-sm-8 align-items-center mt-3" style="display: none;" id="listAll">
 <div style="justify-content: space-between;width:100%">
 <table cellpadding=2px cellspacing=20px width="100%">
 <caption></caption>
@@ -604,9 +604,7 @@ for(int i=0;i<guestList.size();i++)
 <%}%>
 </table>
 </div>
-</div>
-</div>
-</div>
+</div> --%>
 </div>
 </div>
 </body>

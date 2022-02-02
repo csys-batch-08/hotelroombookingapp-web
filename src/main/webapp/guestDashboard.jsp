@@ -18,10 +18,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <style type="text/css">
-table,td,th,tr{
-border:1px solid black;
-border-collapse: collapse;
-}
+
 .gestDashboard form {
     background: #ffffff;
     padding: 10px;
@@ -34,9 +31,7 @@ border-collapse: collapse;
     width: 100%;
     margin-bottom: 10px;
 }
-table th,td {
-    text-align: center;
-}
+
 .sideMenuItems ul {
     padding: 0px;
 }
@@ -153,7 +148,6 @@ alert("No Wedding Hall Availble");
 
 <div class="header container-fluid">
 
- <%Guest guestObj = (Guest)session.getAttribute("currentUser");%>
 	<h3>Welcome <c:out value="${currentUser.firstName }"></c:out></h3>
 	
 	
@@ -415,7 +409,7 @@ function updateRoom()
 						<li onclick="cancelMeetingHall()">Cancel Meeting Hall</li>
 					</ul>
 				</li>
-				<li><a onclick="myBookings()">MY BOOKINGS</a></li>
+				<li><a href="Bookings">MY BOOKINGS</a></li>
 			</ul>
 			<div class="logoutbtn">
 				<a href="Logout"><h3>LOGOUT</h3></a>
@@ -636,7 +630,7 @@ function updateRoom()
 			</form>
 		</div>
 </div>
-<div class="col-sm-8 align-items-center mt-3" style="display: none;" id="myBookings">
+<%-- <div class="col-sm-8 align-items-center mt-3" style="display: none;" id="myBookings">
 <div style="justify-content: space-between;width:100%;height: 80vh;overflow: auto;">
 <table cellpadding=2px cellspacing=20px width="100%" class="myBooking">
 <caption></caption>
@@ -704,7 +698,7 @@ for(int i=0;i<meetingHallList.size();i++)
 <%}%>
 </table>
 </div>
-</div>
+</div> --%>
 </div>
 </div>
 </body>

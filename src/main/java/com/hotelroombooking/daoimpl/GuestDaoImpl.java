@@ -16,6 +16,7 @@ import com.hotelroombooking.util.ConnectionUtil;
 
 public class GuestDaoImpl implements GuestDao {
 
+	@Override
 	public boolean registerGuest(String rgFirstname, String rgLastname, String rgMail, String rgPassword,
 			String rgConfirmPassword, long rgMobileNumber) {
 		String registerquery = "insert into guest_details (firstname,lastname,email,password,mobile) values (?,?,?,?,?)";
@@ -55,6 +56,7 @@ public class GuestDaoImpl implements GuestDao {
 		return flag;
 	}
 
+	@Override
 	public Guest loginGuest(String gUserName, String gPassword) {
 		String loginquery = "select * from guest_details where email=? and password=?";
 		Connection conn = ConnectionUtil.getDbConnection();
@@ -92,6 +94,7 @@ public class GuestDaoImpl implements GuestDao {
 		return guestObj;
 	}
 
+	@Override
 	public int findGuestId(Guest guestObj) {
 		int guestId = 0;
 		PreparedStatement pstmt = null;
@@ -129,6 +132,7 @@ public class GuestDaoImpl implements GuestDao {
 		return guestId;
 	}
 
+	@Override
 	public List<Guest> showAllUser() {
 		List<Guest> guestList = new ArrayList<>();
 		String allUserQuery = "select firstname,lastname,email,password,mobile from guest_details";
@@ -139,8 +143,8 @@ public class GuestDaoImpl implements GuestDao {
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(allUserQuery);
 			while (rs.next()) {
-				Guest guest = new Guest(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getLong(6));
+				Guest guest = new Guest(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getLong(5));
 				guestList.add(guest);
 			}
 
@@ -165,6 +169,7 @@ public class GuestDaoImpl implements GuestDao {
 		return guestList;
 	}
 
+	@Override
 	public boolean forgetPassword(HttpSession session) {
 		boolean flag = false;
 		PreparedStatement pstmt = null;
