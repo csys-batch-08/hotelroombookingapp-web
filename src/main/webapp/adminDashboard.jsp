@@ -601,39 +601,6 @@ function editRoom()
 			</div>
 
 
-
-
-			<%-- <div class="col-sm-8 align-items-center mt-3" style="display: none;" id="listAll">
-<div style="justify-content: space-between;width:100%">
-<table cellpadding=2px cellspacing=20px width="100%">
-<caption></caption>
-<tr>
-<th>Firstname</th>
-<th>Lastname</th>
-<th>Email</th>
-<th>Password</th>
-<th>Mobile Number</th>
-</tr>
-
-<%
-GuestDaoImpl guestDaoObj = new GuestDaoImpl();
-List<Guest> guestList = guestDaoObj.showAllUser();
-
-for(int i=0;i<guestList.size();i++)
-{
-	Guest guestObj = guestList.get(i);
-%>
-<tr>
-<td><%=guestObj.getFirstName()%></td>
-<td><%=guestObj.getLastName()%></td>
-<td><%=guestObj.getEmail()%></td>
-<td><%=guestObj.getPassword()%></td>
-<td><%=guestObj.getMobileNumber()%></td>
-</tr>
-<%}%>
-</table>
-</div>
-</div> --%>
 		</div>
 	</div>
 </body>
