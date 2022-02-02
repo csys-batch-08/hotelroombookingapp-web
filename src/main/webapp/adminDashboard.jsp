@@ -599,8 +599,6 @@ function editRoom()
 					</form>
 				</div>
 			</div>
-
-
 		</div>
 	</div>
 </body>
