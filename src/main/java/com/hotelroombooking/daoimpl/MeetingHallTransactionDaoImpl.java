@@ -20,6 +20,9 @@ import com.hotelroombooking.util.ConnectionUtil;
 
 public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 {
+	public static final String from="hemnaathrsurya@gmail.com";
+	public static final String password="hangover@18!!";
+	public static final String subject = "Hotel Room Booking Application";
 	public boolean bookMeetingHall(HttpSession session) 
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
