@@ -3,6 +3,7 @@ package com.hotelroombooking.daoimpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,23 +19,23 @@ import com.hotelroombooking.model.WeddingHallTransaction;
 import com.hotelroombooking.util.ConnectionUtil;
 
 public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao {
+	@Override
 	public boolean bookWeddingHall(HttpSession session) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int vacantWeddingRoomNumber = 0;
 		int guestId = 0;
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
 
 		boolean flag = false;
-//		WeddingHallTransaction weddingHallTransObj=null;
 
 		try {
 
 			String fetchVacantWeddingRoom = "select wedding_hall_number from wedding_hall_details where status='vacant' and category=? and location=?";
 
-			String bookWeddingRoomQuery = "insert into wedding_hall_transaction(wedding_hall_number,check_in,check_out,category,location,guest_id) values(?,?,?,?,?,?)";
-			String updateWeddingRoomQuery = "update wedding_hall_details set status='occupied' where wedding_hall_number=?";
-//		System.out.println(bookRoomQuery);
-			Connection conn = ConnectionUtil.getDbConnection();
-			PreparedStatement pstmt1 = conn.prepareStatement(fetchVacantWeddingRoom);
+			pstmt1 = conn.prepareStatement(fetchVacantWeddingRoom);
 			Guest guestObj = (Guest) session.getAttribute("currentUser");
 			WeddingHallTransaction weddingHallTransObj = (WeddingHallTransaction) session
 					.getAttribute("bookWeddingHallDetails");
@@ -49,183 +50,284 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 
 			if (vacantWeddingRoomNumber != 0) {
 
-				PreparedStatement pstmt2 = conn.prepareStatement(bookWeddingRoomQuery);
-				PreparedStatement pstmt3 = conn.prepareStatement(updateWeddingRoomQuery);
+				try {
+					String bookWeddingRoomQuery = "insert into wedding_hall_transaction(wedding_hall_number,check_in,check_out,category,location,guest_id) values(?,?,?,?,?,?)";
+					pstmt2 = conn.prepareStatement(bookWeddingRoomQuery);
 
-				GuestDaoImpl guestDaoObj = new GuestDaoImpl();
+					GuestDaoImpl guestDaoObj = new GuestDaoImpl();
+					guestId = guestDaoObj.findGuestId(guestObj);
 
-				guestId = guestDaoObj.findGuestId(guestObj);
-//		System.out.println(guestId);
-				weddingHallTransObj.setroomNumber(vacantWeddingRoomNumber);
+					weddingHallTransObj.setroomNumber(vacantWeddingRoomNumber);
 
-				pstmt2.setInt(1, vacantWeddingRoomNumber);
-				pstmt2.setDate(2, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckIn()).getTime()));
-				pstmt2.setDate(3, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckOut()).getTime()));
-				pstmt2.setString(4, weddingHallTransObj.getCategory());
-				pstmt2.setString(5, weddingHallTransObj.getLocation());
-				pstmt2.setInt(6, guestId);
+					pstmt2.setInt(1, vacantWeddingRoomNumber);
+					pstmt2.setDate(2, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckIn()).getTime()));
+					pstmt2.setDate(3, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckOut()).getTime()));
+					pstmt2.setString(4, weddingHallTransObj.getCategory());
+					pstmt2.setString(5, weddingHallTransObj.getLocation());
+					pstmt2.setInt(6, guestId);
 
-				pstmt3.setInt(1, vacantWeddingRoomNumber);
+					flag = pstmt2.executeUpdate() > 0;
 
-//		System.out.println(bookRoomQuery);
-//		 weddingHallTransObj = new WeddingHallTransaction(vacantWeddingRoomNumber,String.valueOf(checkIn),
-//				String.valueOf(checkOut),category,location);
+					if (flag) {
 
-				flag = pstmt2.executeUpdate() > 0;
+						try {
+							String updateWeddingRoomQuery = "update wedding_hall_details set status='occupied' where wedding_hall_number=?";
+							pstmt3 = conn.prepareStatement(updateWeddingRoomQuery);
+							pstmt3.setInt(1, vacantWeddingRoomNumber);
+							pstmt3.executeUpdate();
+						} catch (Exception e) {
+							e.printStackTrace();
+						} finally {
+							if (pstmt3 != null) {
+								pstmt3.close();
+							}
+							if (conn != null) {
+								conn.close();
+							}
+						}
+						Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(),
+								"Hotel Room Booking Application", Mail.bookWeddingHallMail(weddingHallTransObj));
 
-				if (flag) {
-//			System.out.println("Weddings Hall booked");
-					pstmt3.executeUpdate();
-					Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(),
-							"Hotel Room Booking Application", Mail.bookWeddingHallMail(weddingHallTransObj));
-
-				} else {
-					System.out.println("Error in booking");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (pstmt2 != null) {
+						pstmt2.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
 				}
 			} else {
 				session.setAttribute("NoWeddingHallToBook", "noWeddingHall");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (pstmt1 != null) {
+				try {
+					pstmt1.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 
 	}
 
+	@Override
 	public boolean cancelWeddingHall(HttpSession session) {
-//		WeddingHallTransaction weddingHallTransObj=null;
 		boolean flag = false;
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt = null;
 
 		try {
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("Enter wedding hall number");
-//		int weddingRoomNumber = Integer.parseInt(sc.nextLine());
 
 			String updateCancelWeddingRoomQuery = "update wedding_hall_details set status='vacant' where wedding_hall_number=?";
-			Connection conn = ConnectionUtil.getDbConnection();
-			PreparedStatement pstmt = conn.prepareStatement(updateCancelWeddingRoomQuery);
+			pstmt = conn.prepareStatement(updateCancelWeddingRoomQuery);
 			Guest guestObj = (Guest) session.getAttribute("currentUser");
 			WeddingHallTransaction weddingHallTransObj = (WeddingHallTransaction) session
 					.getAttribute("cancelWeddingHallDetails");
 
 			pstmt.setInt(1, weddingHallTransObj.getroomNumber());
 
-//		 weddingHallTransObj = new WeddingHallTransaction(weddingRoomNumber,null,null,null,null);
-
 			flag = pstmt.executeUpdate() > 0;
 
 			if (flag) {
-				System.out.println("Booking Cancelled");
 				Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(),
 						"Hotel Room Booking Application", Mail.cancelWeddingHallMail(weddingHallTransObj));
 
-			} else {
-				System.out.println("Invalid Room");
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 	}
 
+	@Override
 	public boolean updateWeddingHall(HttpSession session) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Guest guestObj = (Guest) session.getAttribute("currentUser");
+		WeddingHallTransaction weddingHallTransObj = (WeddingHallTransaction) session
+				.getAttribute("updateWeddingHallDetails");
 
 		int vacantWeddingRoomNumber = 0;
 
 		int guestId = 0;
 		boolean flag = false;
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
+		PreparedStatement pstmt4 = null;
+		PreparedStatement pstmt5 = null;
 
 		try {
 
-			Guest guestObj = (Guest) session.getAttribute("currentUser");
-			WeddingHallTransaction weddingHallTransObj = (WeddingHallTransaction) session
-					.getAttribute("updateWeddingHallDetails");
-
-			Connection conn = ConnectionUtil.getDbConnection();
-
 			String fetchVacantRoom = "select wedding_hall_number from wedding_hall_details where status='vacant' and category=? and location=?";
-			String updateRoomQuery = "update wedding_hall_transaction set check_in=?,check_out=?,category=?,location=? where wedding_hall_number=?";
-			String updateRoomQuery2 = "update wedding_hall_transaction set wedding_hall_number=? where check_in=? and check_out=? and category=? and location=? and guest_id=?";
-			String updateRoomQuery3 = "update wedding_hall_details set status='vacant' where wedding_hall_number=?";
-			String updateRoomQuery4 = "update wedding_hall_details set status='occupied' where wedding_hall_number=?";
 
-			PreparedStatement pstmt2 = conn.prepareStatement(fetchVacantRoom);
-			PreparedStatement pstmt1 = conn.prepareStatement(updateRoomQuery);
-			PreparedStatement pstmt3 = conn.prepareStatement(updateRoomQuery2);
-			PreparedStatement pstmt4 = conn.prepareStatement(updateRoomQuery3);
-			PreparedStatement pstmt5 = conn.prepareStatement(updateRoomQuery4);
+			pstmt2 = conn.prepareStatement(fetchVacantRoom);
 
 			pstmt2.setString(1, weddingHallTransObj.getCategory());
-//		System.out.println(category);
 			pstmt2.setString(2, weddingHallTransObj.getLocation());
-//		System.out.println(location);
 
 			ResultSet rs = pstmt2.executeQuery();
 			if (rs.next()) {
 				vacantWeddingRoomNumber = rs.getInt(1);
-				System.out.println(rs.getInt(1));
 			}
-//		System.out.println(vacantRoomNumber);
 
 			if (vacantWeddingRoomNumber != 0) {
+				try {
+					String updateRoomQuery = "update wedding_hall_transaction set check_in=?,check_out=?,category=?,location=? where wedding_hall_number=?";
+					pstmt1 = conn.prepareStatement(updateRoomQuery);
 
-				pstmt1.setDate(1, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckIn()).getTime()));
-				pstmt1.setDate(2, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckOut()).getTime()));
-				pstmt1.setString(3, weddingHallTransObj.getCategory());
-				pstmt1.setString(4, weddingHallTransObj.getLocation());
-				pstmt1.setInt(5, weddingHallTransObj.getroomNumber());
+					pstmt1.setDate(1, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckIn()).getTime()));
+					pstmt1.setDate(2, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckOut()).getTime()));
+					pstmt1.setString(3, weddingHallTransObj.getCategory());
+					pstmt1.setString(4, weddingHallTransObj.getLocation());
+					pstmt1.setInt(5, weddingHallTransObj.getroomNumber());
 
-				pstmt1.executeUpdate();
+					pstmt1.executeUpdate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (pstmt1 != null) {
+						pstmt1.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
+				}
 
-				GuestDaoImpl guestDaoObj = new GuestDaoImpl();
-				guestId = guestDaoObj.findGuestId(guestObj);
+				try {
+					conn = ConnectionUtil.getDbConnection();
+					String updateRoomQuery2 = "update wedding_hall_transaction set wedding_hall_number=? where check_in=? and check_out=? and category=? and location=? and guest_id=?";
+					pstmt3 = conn.prepareStatement(updateRoomQuery2);
 
-				pstmt3.setInt(1, vacantWeddingRoomNumber);
-				pstmt3.setDate(2, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckIn()).getTime()));
-				pstmt3.setDate(3, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckIn()).getTime()));
-				pstmt3.setString(4, weddingHallTransObj.getCategory());
-				pstmt3.setString(5, weddingHallTransObj.getLocation());
-				pstmt3.setInt(6, guestId);
+					GuestDaoImpl guestDaoObj = new GuestDaoImpl();
+					guestId = guestDaoObj.findGuestId(guestObj);
 
-				pstmt3.executeUpdate();
+					pstmt3.setInt(1, vacantWeddingRoomNumber);
+					pstmt3.setDate(2, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckIn()).getTime()));
+					pstmt3.setDate(3, new java.sql.Date(sdf.parse(weddingHallTransObj.getCheckIn()).getTime()));
+					pstmt3.setString(4, weddingHallTransObj.getCategory());
+					pstmt3.setString(5, weddingHallTransObj.getLocation());
+					pstmt3.setInt(6, guestId);
 
-//		 weddingHallTransObj = new WeddingHallTransaction(vacantWeddingRoomNumber,String.valueOf(checkIn),String.valueOf(checkOut)
-//				,category,location);
+					pstmt3.executeUpdate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (pstmt3 != null) {
+						pstmt3.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
+				}
+
 				Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(),
 						"Hotel Room Booking Application", Mail.updateWeddingHallMail(weddingHallTransObj));
 
-				pstmt4.setInt(1, weddingHallTransObj.getroomNumber());
-				pstmt4.executeUpdate();
+				try {
+					conn = ConnectionUtil.getDbConnection();
+					String updateRoomQuery3 = "update wedding_hall_details set status='vacant' where wedding_hall_number=?";
+					pstmt4 = conn.prepareStatement(updateRoomQuery3);
+
+					pstmt4.setInt(1, weddingHallTransObj.getroomNumber());
+					pstmt4.executeUpdate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (pstmt4 != null) {
+						pstmt4.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
+				}
 
 				weddingHallTransObj.setroomNumber(vacantWeddingRoomNumber);
 
-				pstmt5.setInt(1, vacantWeddingRoomNumber);
-				flag = pstmt5.executeUpdate() > 0;
+				try {
+					conn = ConnectionUtil.getDbConnection();
+					String updateRoomQuery4 = "update wedding_hall_details set status='occupied' where wedding_hall_number=?";
+					pstmt5 = conn.prepareStatement(updateRoomQuery4);
 
-				if (flag) {
-					System.out.println("Updated Room details");
+					pstmt5.setInt(1, vacantWeddingRoomNumber);
+					flag = pstmt5.executeUpdate() > 0;
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (pstmt5 != null) {
+						pstmt5.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
 				}
+
 			} else {
 				session.setAttribute("noWeddingHallsToUpdate", "noWeddingHallUpdate");
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			if (pstmt2 != null) {
+				try {
+					pstmt2.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 
 	}
 
+	@Override
 	public List<WeddingHallTransaction> showWeddingHallBooking(Guest guestObj) {
 		int guestId = 0;
 		WeddingHallTransaction weddingHallTrans = null;
 		List<WeddingHallTransaction> weddingHallBooking = new ArrayList<>();
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt = null;
 
 		try {
 			String showWeddingHallBookingQuery = "select wedding_hall_number,check_in,check_out,category,location from wedding_hall_transaction where guest_id=?";
 
-			Connection conn = ConnectionUtil.getDbConnection();
-			PreparedStatement pstmt = conn.prepareStatement(showWeddingHallBookingQuery);
+			pstmt = conn.prepareStatement(showWeddingHallBookingQuery);
 
 			GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 			guestId = guestDaoObj.findGuestId(guestObj);
@@ -240,32 +342,41 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 				weddingHallBooking.add(weddingHallTrans);
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		return weddingHallBooking;
 	}
 
+	@Override
 	public boolean addWeddingHallAdmin(HttpSession session) {
-//		Scanner sc = new Scanner(System.in);
 		boolean flag = false;
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt = null;
 
 		try {
-//		System.out.println("enter wedding hall number");
-//		int weedingHallNumber = Integer.parseInt(sc.nextLine());
-//		System.out.println("enter wedding hall category");
-//		String weddingHallCategory = sc.nextLine();
-//		System.out.println("enter wedding hall location");
-//		String weddingHallLocation = sc.nextLine();
-//		System.out.println("enter wedding hall price");
-//		int weddingHallPrice = Integer.parseInt(sc.nextLine());
+
 			WeddingHallDetails weddingHallDetailsObj = (WeddingHallDetails) session
 					.getAttribute("addWeddingHallDetails");
 
 			String addWeddingHallQuery = "insert into wedding_hall_details(wedding_hall_number,category,location,price) values(?,?,?,?)";
 
-			Connection conn = ConnectionUtil.getDbConnection();
-			PreparedStatement pstmt = conn.prepareStatement(addWeddingHallQuery);
+			pstmt = conn.prepareStatement(addWeddingHallQuery);
 
 			pstmt.setInt(1, weddingHallDetailsObj.getweddingHallNumber());
 			pstmt.setString(2, weddingHallDetailsObj.getCategory());
@@ -273,66 +384,82 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 			pstmt.setInt(4, weddingHallDetailsObj.getPrice());
 
 			flag = pstmt.executeUpdate() > 0;
-			if (flag) {
-				System.out.println("wedding hall added");
-			} else {
-				System.out.println("Error");
-			}
+
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 	}
 
+	@Override
 	public boolean deleteWeddingHallAdmin(HttpSession session) {
-//		Scanner sc = new Scanner(System.in);
 		boolean flag = false;
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt = null;
 
 		try {
-//		System.out.println("enter wedding hall number");
-//		int weddingHallNumber = Integer.parseInt(sc.nextLine());
+
 			WeddingHallDetails weddingHallDetailsObj = (WeddingHallDetails) session
 					.getAttribute("deleteWeddingHallDetails");
 
 			String deleteWeddingHallQuery = "delete from wedding_hall_details where wedding_hall_number=?";
 
-			Connection conn = ConnectionUtil.getDbConnection();
-			PreparedStatement pstmt = conn.prepareStatement(deleteWeddingHallQuery);
+			pstmt = conn.prepareStatement(deleteWeddingHallQuery);
 
 			pstmt.setInt(1, weddingHallDetailsObj.getweddingHallNumber());
 
 			flag = pstmt.executeUpdate() > 0;
-			if (flag) {
-				System.out.println("wedding hall deleted");
-			} else {
-				System.err.println("error");
-			}
+
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 	}
 
+	@Override
 	public boolean updateWeddingHallAdmin(HttpSession session) {
-//		Scanner sc = new Scanner(System.in);
 		boolean flag = false;
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt = null;
 
 		try {
-//		System.out.println("enter wedding room number");
-//		int weddingHallNumber = Integer.parseInt(sc.nextLine());
-//		System.out.println("enter wedding room category");
-//		String weddingHallCategory = sc.nextLine();
-//		System.out.println("enter wedding room location");
-//		String weddingHallLocation = sc.nextLine();
-//		System.out.println("enter wedding room price");
-//		int weddingHallPrice = Integer.parseInt(sc.nextLine());
+
 			WeddingHallDetails weddingHallDetailsObj = (WeddingHallDetails) session
 					.getAttribute("editWeddingHallDetails");
 
 			String updateRoomQuery = "update wedding_hall_details set category=?,location=?,price=? where wedding_hall_number=?";
 
-			Connection conn = ConnectionUtil.getDbConnection();
-			PreparedStatement pstmt = conn.prepareStatement(updateRoomQuery);
+			pstmt = conn.prepareStatement(updateRoomQuery);
 
 			pstmt.setString(1, weddingHallDetailsObj.getCategory());
 			pstmt.setString(2, weddingHallDetailsObj.getLocation());
@@ -340,55 +467,96 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 			pstmt.setInt(4, weddingHallDetailsObj.getweddingHallNumber());
 
 			flag = pstmt.executeUpdate() > 0;
-			if (flag) {
-				System.out.println("wedding hall updated");
-			} else {
-				System.err.println("error");
-			}
+
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 	}
 
+	@Override
 	public int findBookWeddingPrice(HttpSession session) {
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt = null;
 
 		try {
 			WeddingHallTransaction weddingHallTransObj = (WeddingHallTransaction) session
 					.getAttribute("bookWeddingHallDetails");
-			System.out.println(weddingHallTransObj.getCategory());
 			String findPriceQuery = "select price from wedding_hall_details where category='"
 					+ weddingHallTransObj.getCategory() + "'";
-			System.out.println(weddingHallTransObj.getCategory());
-			Connection conn = ConnectionUtil.getDbConnection();
-			PreparedStatement pstmt = conn.prepareStatement(findPriceQuery);
+			pstmt = conn.prepareStatement(findPriceQuery);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				return rs.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return 0;
 	}
 
+	@Override
 	public int findUpdateWeddingPrice(HttpSession session) {
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt = null;
 
 		try {
 			WeddingHallTransaction weddingHallTransObj = (WeddingHallTransaction) session
 					.getAttribute("updateWeddingHallDetails");
-			System.out.println(weddingHallTransObj.getCategory());
 			String findPriceQuery = "select price from wedding_hall_details where category='"
 					+ weddingHallTransObj.getCategory() + "'";
-			System.out.println(weddingHallTransObj.getCategory());
-			Connection conn = ConnectionUtil.getDbConnection();
-			PreparedStatement pstmt = conn.prepareStatement(findPriceQuery);
+			pstmt = conn.prepareStatement(findPriceQuery);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				return rs.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return 0;
 	}
