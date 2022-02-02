@@ -19,77 +19,69 @@ import com.hotelroombooking.model.Payment;
 @WebServlet("/payment")
 public class Payments extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Payments() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Payments() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-			
+
 			long cardNumber = Long.parseLong(request.getParameter("cardNumber"));
 			String expiryDate = request.getParameter("expiryDate");
 			String cvvCheck = request.getParameter("cvvCheck");
-			
+
 			String cvv = request.getParameter("cvv");
-			
-			
-			if(cvvCheck == null)
-			{
-				cvv=null;
+
+			if (cvvCheck == null) {
+				cvv = null;
+			} else {
+
+				MessageDigest md = MessageDigest.getInstance("SHA-256");
+				md.update(cvv.getBytes());
+				byte[] digest = md.digest();
+				System.out.println(digest);
+				String encode = new String(digest);
+				cvv = encode;
+				System.out.println(cvv);
+
 			}
-			else
-			{
-				
-			
-			
-					MessageDigest md = MessageDigest.getInstance("SHA-256");
-					md.update(cvv.getBytes());
-					byte[] digest = md.digest();
-					System.out.println(digest);  
-					String encode = new String(digest);
-					cvv = encode;
-					System.out.println(cvv);
-			
-				
-			}
-			
-			Payment paymentObj = new Payment(0,cardNumber,expiryDate,cvv,null);
+
+			Payment paymentObj = new Payment(0, cardNumber, expiryDate, cvv, null);
 			PaymentDaoImpl paymentDaoObj = new PaymentDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("payment", paymentObj);
 			boolean flag = paymentDaoObj.payment(session);
-			
-			if(flag)
-			{
+
+			if (flag) {
 				response.sendRedirect("guestDashboard.jsp");
 			}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-		
-	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
-		doGet(request, response);
-	}
-	catch(Exception e) {
-		e.printStackTrace();
-	}
-		
+			doGet(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

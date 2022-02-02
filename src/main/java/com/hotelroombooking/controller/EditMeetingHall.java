@@ -18,56 +18,56 @@ import com.hotelroombooking.model.MeetingHallDetails;
 @WebServlet("/EditMeetingHall")
 public class EditMeetingHall extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditMeetingHall() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public EditMeetingHall() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
 			String category = request.getParameter("category");
 			String location = request.getParameter("location");
 			int price = Integer.parseInt(request.getParameter("price"));
-			
-			MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber,null,category,location,price);
+
+			MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber, null, category,
+					location, price);
 			MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("editMeetingHallDetails", meetingHallDetailsObj);
 			boolean flag = meetingHallTransDaoObj.updateMeetingHallAdmin(session);
 
-			
-			
-			if(flag)
-			{
-			  
+			if (flag) {
+
 				response.sendRedirect("adminDashboard.jsp");
 			}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
-		doGet(request, response);
-	}
-	catch(Exception e) {
-		e.printStackTrace();
-	}
-		
+			doGet(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

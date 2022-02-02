@@ -9,42 +9,34 @@ import com.hotelroombooking.dao.AdminDao;
 import com.hotelroombooking.model.Admin;
 import com.hotelroombooking.util.ConnectionUtil;
 
-public class AdminDaoImpl implements AdminDao{
+public class AdminDaoImpl implements AdminDao {
 
-	public Admin loginAdmin(String adminMail, String adminPassword)
-	{
-		String loginquery="select * from admin where email=? and password=?";
-		
-		
+	public Admin loginAdmin(String adminMail, String adminPassword) {
+		String loginquery = "select * from admin where email=? and password=?";
+
 		Admin adminObj = null;
-		PreparedStatement p2=null;
+		PreparedStatement p2 = null;
 		Connection conn = ConnectionUtil.getDbConnection();
-		try
-		{
-			
-			
+		try {
+
 			p2 = conn.prepareStatement(loginquery);
 			p2.setString(1, adminMail);
 			p2.setString(2, adminPassword);
 			ResultSet rs1 = p2.executeQuery();
-			while(rs1.next())
-			{
-				adminObj = new Admin(rs1.getString(2),rs1.getString(3));
+			while (rs1.next()) {
+				adminObj = new Admin(rs1.getString(2), rs1.getString(3));
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
-			if(p2!=null) {
+		} finally {
+			if (p2 != null) {
 				try {
 					p2.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(conn!=null) {
+			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
@@ -54,5 +46,5 @@ public class AdminDaoImpl implements AdminDao{
 		}
 		return adminObj;
 	}
-	
+
 }

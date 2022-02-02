@@ -20,73 +20,64 @@ import com.hotelroombooking.model.Guest;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Login() {
-        super();
-
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Login() {
+		super();
+
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-			String email  = request.getParameter("email");
-			String password  = request.getParameter("password");
-			
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+
 			GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 			AdminDaoImpl adminDaoObj = new AdminDaoImpl();
-			Guest guestObj=guestDaoObj.loginGuest(email, password);
-			Admin adminObj=adminDaoObj.loginAdmin(email, password);
+			Guest guestObj = guestDaoObj.loginGuest(email, password);
+			Admin adminObj = adminDaoObj.loginAdmin(email, password);
 
-			if(guestObj!=null)
-			{
-				HttpSession session=request.getSession();
-				session.setAttribute("currentUser",guestObj);
-				
+			if (guestObj != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("currentUser", guestObj);
+
 				response.sendRedirect("guestDashboard.jsp");
-			}
-			else if(adminObj!=null)
-			{
-				
+			} else if (adminObj != null) {
+
 				response.sendRedirect("adminDashboard.jsp");
-			}
-			else
-			{
-				
-				HttpSession session=request.getSession();
+			} else {
+
+				HttpSession session = request.getSession();
 				session.setAttribute("invalidLogin", "invalid");
 				response.sendRedirect("login.jsp");
 			}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
-		
-	doGet(request, response);
-	}
-	catch(Exception e) {
-		e.printStackTrace();
-	}
-		
-	}
 
-		
-		
+			doGet(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
-
+}

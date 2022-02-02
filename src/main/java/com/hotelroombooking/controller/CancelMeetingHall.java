@@ -18,51 +18,53 @@ import com.hotelroombooking.model.MeetingHallTransaction;
 @WebServlet("/CancelMeetingHall")
 public class CancelMeetingHall extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CancelMeetingHall() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CancelMeetingHall() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 
 			int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
-			
-			MeetingHallTransaction meetingHallTransObj = new MeetingHallTransaction(meetingHallNumber,null,null,null,null);
+
+			MeetingHallTransaction meetingHallTransObj = new MeetingHallTransaction(meetingHallNumber, null, null, null,
+					null);
 			MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("cancelMeetingHallDetails", meetingHallTransObj);
-			boolean flag=meetingHallTransDaoObj.cancelMeetingHall(session);
+			boolean flag = meetingHallTransDaoObj.cancelMeetingHall(session);
 
-			if(flag)
-			{
+			if (flag) {
 				response.sendRedirect("guestDashboard.jsp");
 			}
-			
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
-		
-		doGet(request, response);
-	}
-	catch(Exception e) {
-		e.printStackTrace();
-	}
+
+			doGet(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

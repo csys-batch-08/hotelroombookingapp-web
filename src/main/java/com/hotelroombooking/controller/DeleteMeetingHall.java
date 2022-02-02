@@ -18,53 +18,51 @@ import com.hotelroombooking.model.MeetingHallDetails;
 @WebServlet("/DeleteMeetingHall")
 public class DeleteMeetingHall extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteMeetingHall() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DeleteMeetingHall() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-			
+
 			int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
-			
-			MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber,null,null,null,0);
+
+			MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber, null, null, null, 0);
 			MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("deleteMeetingHallDetails", meetingHallDetailsObj);
 			boolean flag = meetingHallTransDaoObj.deleteMeetingHallAdmin(session);
 
-			
-			
-			if(flag)
-			{
-			  
+			if (flag) {
+
 				response.sendRedirect("adminDashboard.jsp");
 			}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
-		doGet(request, response);
-	}
-	catch(Exception e) {
-		e.printStackTrace();
-	}
+			doGet(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

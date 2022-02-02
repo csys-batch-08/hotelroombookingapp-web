@@ -39,13 +39,11 @@ table th,td {
     line-heditMeetingHall: 1.5;
     font-size: 15px;
     font-weditMeetingHall: bold;
-    /* border-bottom: 1px solid #565656; */
     margin-bottom: 6px;
     color: white;
 }
 .sideMenu {
     heditMeetingHall: 100%;
-    /* box-shadow: 0px 0px 17px 0px #d5d5d5; */
     border-radius: 0px;
     padding: 20px;
     background: black;
