@@ -3,6 +3,7 @@ package com.hotelroombooking.daoimpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,15 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	public boolean bookRoom(HttpSession session)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Guest guestObj=(Guest)session.getAttribute("currentUser");
+		RoomTransaction roomTransObj=(RoomTransaction)session.getAttribute("bookRoomDetails");
+		
 		int vacantRoomNumber=0;
 		int guestId=0;
-		
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		PreparedStatement pstmt3=null;
 		
 		boolean flag=false;
 		
@@ -35,74 +42,107 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		
 		String fetchVacantRoom="select room_number from room_details where status='vacant' and category=? and location=?";
 		
-		String bookRoomQuery="insert into room_transaction(room_number,check_in,check_out,category,location,guest_id) values(?,?,?,?,?,?)";
-		String updateBookRoomQuery="update room_details set status='occupied' where room_number=?";
-//		System.out.println(bookRoomQuery);
-		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt1 = conn.prepareStatement(fetchVacantRoom);
+		 pstmt1 = conn.prepareStatement(fetchVacantRoom);
 		
-	Guest guestObj=(Guest)session.getAttribute("currentUser");
-	RoomTransaction roomTransObj=(RoomTransaction)session.getAttribute("bookRoomDetails");
 	
 		pstmt1.setString(1, roomTransObj.getCategory());
 		pstmt1.setString(2, roomTransObj.getLocation());
 		
 		ResultSet rs = pstmt1.executeQuery();
 		
-//		RoomTransaction roomTransObj = null;
 		if(rs.next())
 		{
 			flag=true;
 			vacantRoomNumber=rs.getInt(1);
-//			System.out.println(vacantRoomNumber);
 			
 		}
-//		System.out.println(vacantRoomNumber);
 		
 		if(vacantRoomNumber!=0)
 		{
-			PreparedStatement pstmt2 = conn.prepareStatement(bookRoomQuery);
-			PreparedStatement pstmt3 = conn.prepareStatement(updateBookRoomQuery);
-		
+			try {
+			String bookRoomQuery="insert into room_transaction(room_number,check_in,check_out,category,location,guest_id) values(?,?,?,?,?,?)";
+			 pstmt2 = conn.prepareStatement(bookRoomQuery);
+			
 			GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 
 			guestId=guestDaoObj.findGuestId(guestObj);
-//			System.out.println(guestId);
 	
 			roomTransObj.setroomNumber(vacantRoomNumber);
 			pstmt2.setInt(1, vacantRoomNumber);
 			pstmt2.setDate(2, new java.sql.Date(sdf.parse(roomTransObj.getCheckIn()).getTime()));
-//			System.out.println(sdf.parse(roomTransObj.getCheckIn()));
 			pstmt2.setDate(3, new java.sql.Date(sdf.parse(roomTransObj.getCheckOut()).getTime()));
 			pstmt2.setString(4, roomTransObj.getCategory());
 			pstmt2.setString(5,roomTransObj.getLocation());
 			pstmt2.setInt(6, guestId);
+			
+			
 		
-			pstmt3.setInt(1, vacantRoomNumber);
+			
 		
-//			System.out.println(bookRoomQuery);
-//			roomTransObj= new RoomTransaction(vacantRoomNumber,String.valueOf(checkIn),String.valueOf(checkOut),roomTransObj.getCategory(),roomTransObj.getLocation());
 		
+
 			flag = pstmt2.executeUpdate()>0;
-//			System.out.println("hloo");
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				if(pstmt3!=null) {
+					pstmt3.close();
+				}
+				if(conn!=null) {
+					conn.close();
+				}
+			}
+			
 			if(flag)
 			{
-//				System.out.println("Room booked");
+				try {
+				String updateBookRoomQuery="update room_details set status='occupied' where room_number=?";
+				 pstmt3 = conn.prepareStatement(updateBookRoomQuery);
+				pstmt3.setInt(1, vacantRoomNumber);
+
 				pstmt3.executeUpdate();
-//				System.out.println("hlooo");
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+				finally {
+					if(pstmt2!=null) {
+						pstmt2.close();
+					}
+					if(conn!=null) {
+						conn.close();
+					}
+				}
 				
 				Mailer.send(from, password, guestObj.getEmail(), subject, Mail.bookRoomMail(roomTransObj));
 			}
 		}
 		else
 		{
-			System.out.println("Error in room booking");
 			session.setAttribute("NoRoomsToBook", "noRooms");
 		}
 	}
 		catch(Exception e)
 		{
 			e.printStackTrace();
+		}
+		finally {
+			if(pstmt1!=null) {
+				try {
+					pstmt1.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 		 
@@ -115,39 +155,48 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	public boolean cancelRoom(HttpSession session)
 	{
 		boolean flag=false;
-	
-//		System.out.println("Enter room number");
-//		int roomNumber = Integer.parseInt(sc.nextLine());
-//		RoomTransaction roomTransObj = null;
+		PreparedStatement pstmt=null;
+		Connection conn = ConnectionUtil.getDbConnection();
+
 		
 		try {
 			Guest guestObj=(Guest)session.getAttribute("currentUser");
 			RoomTransaction roomTransObj=(RoomTransaction)session.getAttribute("cancelRoomDetails");
 			
 		String updateCancelRoomQuery = "update room_details set status='vacant' where room_number=?";
-		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt = conn.prepareStatement(updateCancelRoomQuery);
+		 pstmt = conn.prepareStatement(updateCancelRoomQuery);
 				
 		pstmt.setInt(1, roomTransObj.getroomNumber());
 		
-//		roomTransObj = new RoomTransaction(roomNumber,null,null,null,null);
 				
 		flag=pstmt.executeUpdate()>0;
 		if(flag)
 		{
-//			System.out.println("Booking Cancelled");
 			Mailer.send(from, password, guestObj.getEmail(), subject, Mail.cancelRoomMail(roomTransObj));
 
 		}
 		
-		else
-		{
-			System.out.println("Invalid Room");
-		}
+		
 		}
 		
 		catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 		
@@ -165,7 +214,14 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		int guestId=0;
 		boolean flag=false;
 		
-//		RoomTransaction roomTransObj=null;
+		Connection conn = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		PreparedStatement pstmt3=null;
+		PreparedStatement pstmt4=null;
+		PreparedStatement pstmt5=null;
+
+		
 		
 		try {
 			
@@ -174,39 +230,35 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		
 		
 		
-		Connection conn = ConnectionUtil.getDbConnection();
 		
 		
 		
 
 		
 		String fetchVacantRoom="select room_number from room_details where status='vacant' and category=? and location=?";
-		String updateRoomQuery="update room_transaction set check_in=?,check_out=?,category=?,location=? where room_number=?";
-		String updateRoomQuery2="update room_transaction set room_number=? where check_in=? and check_out=? and category=? and location=? and guest_id=?";
-		String updateRoomQuery3 = "update room_details set status='vacant' where room_number=?";
 		String updateRoomQuery4 = "update room_details set status='occupied' where room_number=?";
 		
-		PreparedStatement pstmt2 = conn.prepareStatement(fetchVacantRoom);
-		PreparedStatement pstmt1 = conn.prepareStatement(updateRoomQuery);
-		PreparedStatement pstmt3 = conn.prepareStatement(updateRoomQuery2);
-		PreparedStatement pstmt4 = conn.prepareStatement(updateRoomQuery3);
-		PreparedStatement pstmt5 = conn.prepareStatement(updateRoomQuery4);
+		 pstmt2 = conn.prepareStatement(fetchVacantRoom);
+		 pstmt5 = conn.prepareStatement(updateRoomQuery4);
 		
 		pstmt2.setString(1, roomTransObj.getCategory());
-//		System.out.println(category);
 		pstmt2.setString(2, roomTransObj.getLocation());
-//		System.out.println(location);
 
 		
 		ResultSet rs = pstmt2.executeQuery();
 		if(rs.next())
 		{
 			vacantRoomNumber=rs.getInt(1);
-			System.out.println(rs.getInt(1));
 		}
-//		System.out.println(vacantRoomNumber);
 		
-		if(vacantRoomNumber!=0) {
+		if(vacantRoomNumber!=0) 
+		{
+			try {
+				conn=ConnectionUtil.getDbConnection();
+				String updateRoomQuery="update room_transaction set check_in=?,check_out=?,category=?,location=? where room_number=?";
+				 pstmt1 = conn.prepareStatement(updateRoomQuery);
+
+			
 		
 		pstmt1.setDate(1, new java.sql.Date(sdf.parse(roomTransObj.getCheckIn()).getTime()));
 		pstmt1.setDate(2, new java.sql.Date(sdf.parse(roomTransObj.getCheckOut()).getTime()));
@@ -215,8 +267,24 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		pstmt1.setInt(5, roomTransObj.getroomNumber());
 		
 		pstmt1.executeUpdate();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				if(pstmt1!=null) {
+					pstmt1.close();
+				}
+				if(conn!=null) {
+					conn.close();
+				}
+			}
 		
-		
+			try {
+				conn=ConnectionUtil.getDbConnection();
+				String updateRoomQuery2="update room_transaction set room_number=? where check_in=? and check_out=? and category=? and location=? and guest_id=?";
+				 pstmt3 = conn.prepareStatement(updateRoomQuery2);
+
 		
 		GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 		guestId=guestDaoObj.findGuestId(guestObj);
@@ -229,29 +297,66 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		pstmt3.setString(4, roomTransObj.getCategory());
 		pstmt3.setString(5, roomTransObj.getLocation());
 		pstmt3.setInt(6, guestId);
-		System.out.println(guestId);
 		
 		pstmt3.executeUpdate();
-//		roomTransObj = new RoomTransaction(vacantRoomNumber,String.valueOf(checkIn),String.valueOf(checkOut),category,location);
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				if(pstmt3!=null) {
+					pstmt3.close();
+				}
+				if(conn!=null) {
+					conn.close();
+				}
+			}
 
 
-		
+			try {
+				conn=ConnectionUtil.getDbConnection();
+				String updateRoomQuery3 = "update room_details set status='vacant' where room_number=?";
+				 pstmt4 = conn.prepareStatement(updateRoomQuery3);
+
+
 		pstmt4.setInt(1, roomTransObj.getroomNumber());
-		System.out.println(roomTransObj.getroomNumber());
 		pstmt4.executeUpdate();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				if(pstmt4!=null) {
+					pstmt4.close();
+				}
+				if(conn!=null) {
+					conn.close();
+				}
+			}
 		
 		roomTransObj.setroomNumber(vacantRoomNumber);
 		
+		try {
 		pstmt5.setInt(1, vacantRoomNumber);
-		System.out.println(vacantRoomNumber);
-		System.out.println(roomTransObj.getroomNumber());
+		
 		flag=pstmt5.executeUpdate()>0;
 		
 		if(flag)
 		{
-			System.out.println("Updated Room details");
 			Mailer.send(from , password, guestObj.getEmail(), subject, Mail.updateRoomMail(roomTransObj));
 
+		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(pstmt5!=null) {
+				pstmt5.close();
+			}
+			if(conn!=null) {
+				conn.close();
+			}
 		}
 		}
 		else {
@@ -259,7 +364,23 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		}
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if(pstmt2!=null) {
+				try {
+					pstmt2.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 		
@@ -273,12 +394,14 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	{
 		int guestId=0;		
 		List<RoomTransaction> roomBooking = new ArrayList<>();
+		PreparedStatement pstmt=null;
+		Connection conn = ConnectionUtil.getDbConnection();
+
 		
 		try {
 		String showRoomBookingQuery = "select room_number,check_in,check_out,category,location from room_transaction where guest_id=?";
 		
-		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt = conn.prepareStatement(showRoomBookingQuery);
+		 pstmt = conn.prepareStatement(showRoomBookingQuery);
 		
 		GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 		guestId=guestDaoObj.findGuestId(guestObj);
@@ -294,7 +417,23 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		}
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return roomBooking;
@@ -306,25 +445,16 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	public boolean addRoomAdmin(HttpSession session)
 	{
 		boolean flag=false;
+		PreparedStatement pstmt=null;
+		Connection conn = ConnectionUtil.getDbConnection();
 		try {
-//		Scanner sc = new Scanner(System.in);
-//		
-//		System.out.println("enter room number");
-//		int roomNumber = Integer.parseInt(sc.nextLine());
-//		System.out.println("enter room category");
-//		String roomCategory = sc.nextLine();
-//		System.out.println("enter room location");
-//		String roomLocation = sc.nextLine();
-//		System.out.println("enter room price");
-//		int roomPrice = Integer.parseInt(sc.nextLine());
-			
+
 			RoomDetails roomDetailsObj=(RoomDetails)session.getAttribute("addRoomDetails");
 		
 		
 		String addRoomQuery="insert into room_details(room_number,category,location,price) values(?,?,?,?)";
 		
-		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt = conn.prepareStatement(addRoomQuery);
+		 pstmt = conn.prepareStatement(addRoomQuery);
 		
 		pstmt.setInt(1,roomDetailsObj.getRoomNumber());
 		pstmt.setString(2,roomDetailsObj.getCategory());
@@ -332,17 +462,25 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		pstmt.setInt(4,roomDetailsObj.getPrice());
 		
 		flag=pstmt.executeUpdate()>0;
-		if(flag)
-		{
-			System.out.println("Room added");
-		}
-		else
-		{
-			System.out.println("Error");
-		}
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 	}
@@ -353,34 +491,42 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	public boolean deleteRoomAdmin(HttpSession session)
 	{
 		boolean flag=false;
+		PreparedStatement pstmt=null;
+		Connection conn = ConnectionUtil.getDbConnection();
+		
 		try {
-//		Scanner sc = new Scanner(System.in);
-//		
-//		System.out.println("enter room number");
-//		int roomNumber = Integer.parseInt(sc.nextLine());
+
 			RoomDetails roomDetailsObj=(RoomDetails)session.getAttribute("deleteRoomDetails");
 
 		
 		String deleteRoomQuery = "delete from room_details where room_number=?";
 		
-		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt = conn.prepareStatement(deleteRoomQuery);
+		 pstmt = conn.prepareStatement(deleteRoomQuery);
 		
 		pstmt.setInt(1, roomDetailsObj.getRoomNumber());
 		
 		flag=pstmt.executeUpdate()>0;
-		if(flag)
-		{
-			System.out.println("room deleted");
-		}
-		else
-		{
-			System.err.println("error");
-		}
+		
 		}
 		catch(Exception e)
 		{
-			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 	}
@@ -393,25 +539,19 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	
 	public boolean updateRoomAdmin(HttpSession session)
 	{
-//		Scanner sc = new Scanner(System.in);
+
 		boolean flag=false;
+		PreparedStatement pstmt=null;
+		Connection conn = ConnectionUtil.getDbConnection();
 		
 		try {
-//		System.out.println("enter room number");
-//		int roomNumber = Integer.parseInt(sc.nextLine());
-//		System.out.println("enter room category");
-//		String roomCategory = sc.nextLine();
-//		System.out.println("enter room location");
-//		String roomLocation = sc.nextLine();
-//		System.out.println("enter room price");
-//		int roomPrice = Integer.parseInt(sc.nextLine());
+
 			RoomDetails roomDetailsObj=(RoomDetails)session.getAttribute("editRoomDetails");
 
 		
 		String updateRoomQuery="update room_details set category=?,location=?,price=? where room_number=?";
 		
-		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt = conn.prepareStatement(updateRoomQuery);
+		 pstmt = conn.prepareStatement(updateRoomQuery);
 		
 		pstmt.setString(1, roomDetailsObj.getCategory());
 		pstmt.setString(2, roomDetailsObj.getLocation());
@@ -419,17 +559,26 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		pstmt.setInt(4, roomDetailsObj.getRoomNumber());
 		
 		flag=pstmt.executeUpdate()>0;
-		if(flag)
-		{
-			System.out.println("room updated");
-		}
-		else
-		{
-			System.err.println("error");
-		}
+		
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return flag;
 		
@@ -441,13 +590,13 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	
 	public int findBookRoomPrice(HttpSession session)
 	{
+		PreparedStatement pstmt=null;
+		Connection conn = ConnectionUtil.getDbConnection();
 		
 		try {
 		RoomTransaction roomTransObj=(RoomTransaction)session.getAttribute("bookRoomDetails");
 		String findPriceQuery = "select price from room_details where category='"+roomTransObj.getCategory()+"'";
-		System.out.println(roomTransObj.getCategory());
-		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt=conn.prepareStatement(findPriceQuery);
+		 pstmt=conn.prepareStatement(findPriceQuery);
 		ResultSet rs=pstmt.executeQuery();
 		while(rs.next()) {
 		return rs.getInt(1);
@@ -456,6 +605,22 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		catch(Exception e)
 		{
 			e.printStackTrace();
+		}
+		finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return 0;
 	}
@@ -465,13 +630,13 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 	
 	public int findUpdateRoomPrice(HttpSession session)
 	{
+		PreparedStatement pstmt=null;
+		Connection conn = ConnectionUtil.getDbConnection();
 		
 		try {
 		RoomTransaction roomTransObj=(RoomTransaction)session.getAttribute("updateRoomDetails");
 		String findPriceQuery = "select price from room_details where category='"+roomTransObj.getCategory()+"'";
-		System.out.println(roomTransObj.getCategory());
-		Connection conn = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt=conn.prepareStatement(findPriceQuery);
+		 pstmt=conn.prepareStatement(findPriceQuery);
 		ResultSet rs=pstmt.executeQuery();
 		while(rs.next()) {
 		return rs.getInt(1);
@@ -480,6 +645,22 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		catch(Exception e)
 		{
 			e.printStackTrace();
+		}
+		finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return 0;
 	}
