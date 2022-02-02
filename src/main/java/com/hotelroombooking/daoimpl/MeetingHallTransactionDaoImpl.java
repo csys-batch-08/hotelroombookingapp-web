@@ -72,7 +72,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 				flag = pstmt2.executeUpdate()>0;
 				if(flag)
 				{
-					System.out.println("Meeting Hall booked");
+					
 					
 					try {
 					String updateBookMeetingRoomQuery="update meeting_hall_details set status='occupied' where meeting_hall_number=?";
@@ -94,10 +94,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao
 					
 					Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(), "Hotel Room Booking Application", Mail.bookMeetingHallMail(meetingHallTransObj));
 				}
-				else
-				{
-					System.out.println("Error in booking");
-				}
+				
 				}
 				catch(Exception e) {
 					e.printStackTrace();

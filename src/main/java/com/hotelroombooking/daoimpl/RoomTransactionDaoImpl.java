@@ -82,18 +82,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		
 
 			flag = pstmt2.executeUpdate()>0;
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-			finally {
-				if(pstmt3!=null) {
-					pstmt3.close();
-				}
-				if(conn!=null) {
-					conn.close();
-				}
-			}
+			
 			
 			if(flag)
 			{
@@ -108,8 +97,8 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 					e.printStackTrace();
 				}
 				finally {
-					if(pstmt2!=null) {
-						pstmt2.close();
+					if(pstmt3!=null) {
+						pstmt3.close();
 					}
 					if(conn!=null) {
 						conn.close();
@@ -117,6 +106,18 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 				}
 				
 				Mailer.send(from, password, guestObj.getEmail(), subject, Mail.bookRoomMail(roomTransObj));
+			}
+		}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				if(pstmt2!=null) {
+					pstmt2.close();
+				}
+				if(conn!=null) {
+					conn.close();
+				}
 			}
 		}
 		else
@@ -236,10 +237,9 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 
 		
 		String fetchVacantRoom="select room_number from room_details where status='vacant' and category=? and location=?";
-		String updateRoomQuery4 = "update room_details set status='occupied' where room_number=?";
+		
 		
 		 pstmt2 = conn.prepareStatement(fetchVacantRoom);
-		 pstmt5 = conn.prepareStatement(updateRoomQuery4);
 		
 		pstmt2.setString(1, roomTransObj.getCategory());
 		pstmt2.setString(2, roomTransObj.getLocation());
@@ -336,9 +336,14 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao{
 		
 		roomTransObj.setroomNumber(vacantRoomNumber);
 		
-		try {
-		pstmt5.setInt(1, vacantRoomNumber);
 		
+			
+		
+		
+		try {
+		String updateRoomQuery4 = "update room_details set status='occupied' where room_number=?";
+		 pstmt5 = conn.prepareStatement(updateRoomQuery4);
+		 pstmt5.setInt(1, vacantRoomNumber);
 		flag=pstmt5.executeUpdate()>0;
 		
 		if(flag)
