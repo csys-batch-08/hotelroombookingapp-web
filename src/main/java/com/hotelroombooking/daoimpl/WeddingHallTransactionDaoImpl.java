@@ -19,6 +19,11 @@ import com.hotelroombooking.model.WeddingHallTransaction;
 import com.hotelroombooking.util.ConnectionUtil;
 
 public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao {
+
+	public static final String from = "hemnaathrsurya@gmail.com";
+	public static final String password = "hangover@18!!";
+	public static final String subject = "Hotel Room Booking Application";
+
 	@Override
 	public boolean bookWeddingHall(HttpSession session) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -85,8 +90,8 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 								conn.close();
 							}
 						}
-						Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(),
-								"Hotel Room Booking Application", Mail.bookWeddingHallMail(weddingHallTransObj));
+						Mailer.send(from, password, guestObj.getEmail(), subject,
+								Mail.bookWeddingHallMail(weddingHallTransObj));
 
 					}
 				} catch (Exception e) {
@@ -143,8 +148,8 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 			flag = pstmt.executeUpdate() > 0;
 
 			if (flag) {
-				Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(),
-						"Hotel Room Booking Application", Mail.cancelWeddingHallMail(weddingHallTransObj));
+				Mailer.send(from, password, guestObj.getEmail(), subject,
+						Mail.cancelWeddingHallMail(weddingHallTransObj));
 
 			}
 		} catch (Exception e) {
@@ -250,8 +255,8 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 					}
 				}
 
-				Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(),
-						"Hotel Room Booking Application", Mail.updateWeddingHallMail(weddingHallTransObj));
+				Mailer.send(from, password, guestObj.getEmail(), subject,
+						Mail.updateWeddingHallMail(weddingHallTransObj));
 
 				try {
 					conn = ConnectionUtil.getDbConnection();

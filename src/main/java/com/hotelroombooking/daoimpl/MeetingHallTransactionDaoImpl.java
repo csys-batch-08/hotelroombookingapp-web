@@ -23,6 +23,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 	public static final String password = "hangover@18!!";
 	public static final String subject = "Hotel Room Booking Application";
 
+	@Override
 	public boolean bookMeetingHall(HttpSession session) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Guest guestObj = (Guest) session.getAttribute("currentUser");
@@ -83,8 +84,8 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 							}
 						}
 
-						Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(),
-								"Hotel Room Booking Application", Mail.bookMeetingHallMail(meetingHallTransObj));
+						Mailer.send(from, password, guestObj.getEmail(), subject,
+								Mail.bookMeetingHallMail(meetingHallTransObj));
 					}
 
 				} catch (Exception e) {
@@ -122,6 +123,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 
 	}
 
+	@Override
 	public boolean cancelMeetingHall(HttpSession session) {
 		boolean flag = false;
 		PreparedStatement pstmt = null;
@@ -140,8 +142,8 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 			flag = pstmt.executeUpdate() > 0;
 			if (flag) {
 				System.out.println("Booking Cancelled");
-				Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(),
-						"Hotel Room Booking Application", Mail.cancelMeetingHallMail(meetingHallTransObj));
+				Mailer.send(from, password, guestObj.getEmail(), subject,
+						Mail.cancelMeetingHallMail(meetingHallTransObj));
 
 			} else {
 				System.out.println("Invalid Room");
@@ -167,6 +169,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return flag;
 	}
 
+	@Override
 	public boolean updateMeetingHall(HttpSession session) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -248,8 +251,8 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 					}
 				}
 
-				Mailer.send("hemnaathrsurya@gmail.com", "hangover@18!!", guestObj.getEmail(),
-						"Hotel Room Booking Application", Mail.updateMeetingHallMail(meetingHallTransObj));
+				Mailer.send(from, password, guestObj.getEmail(), subject,
+						Mail.updateMeetingHallMail(meetingHallTransObj));
 
 				try {
 					conn = ConnectionUtil.getDbConnection();
@@ -316,6 +319,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 
 	}
 
+	@Override
 	public List<MeetingHallTransaction> showMeetingHallBooking(Guest guestObj) {
 		int guestId = 0;
 		Connection conn = ConnectionUtil.getDbConnection();
@@ -361,6 +365,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return meetingHallBooking;
 	}
 
+	@Override
 	public boolean addMeetingHallAdmin(HttpSession session) {
 		boolean flag = false;
 		Connection conn = ConnectionUtil.getDbConnection();
@@ -409,6 +414,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return flag;
 	}
 
+	@Override
 	public boolean deleteMeetingHallAdmin(HttpSession session) {
 		boolean flag = false;
 		Connection conn = ConnectionUtil.getDbConnection();
@@ -453,6 +459,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return flag;
 	}
 
+	@Override
 	public boolean updateMeetingHallAdmin(HttpSession session) {
 		boolean flag = false;
 		Connection conn = ConnectionUtil.getDbConnection();
@@ -499,6 +506,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return flag;
 	}
 
+	@Override
 	public int findBookMeetingPrice(HttpSession session) {
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = null;
@@ -534,6 +542,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return 0;
 	}
 
+	@Override
 	public int findUpdateMeetingPrice(HttpSession session) {
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = null;
