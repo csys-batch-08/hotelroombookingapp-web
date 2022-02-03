@@ -16,55 +16,71 @@ table, td, th, tr {
 table th, td {
 	text-align: center;
 }
+
+.header {
+	padding-top: 0px;
+	background: #075fbc;
+	color: white;
+	padding-bottom: 24px;
+}
 </style>
 </head>
 <body>
-	<div class="col-sm-8 align-items-center mt-3">
-		<div
-			style="justify-content: space-between; width: 100%; height: 80vh; overflow: auto;">
-			<table cellpadding=2px cellspacing=20px width="100%"
-				class="myBooking">
-				<caption></caption>
-				<tr>
-					<th>Room Number</th>
-					<th>CheckIn Date</th>
-					<th>CheckOut Date</th>
-					<th>Category</th>
-					<th>Location</th>
-				</tr>
+	<div class="header">
+		<a href="guestDashboard.jsp"><h4
+				style="position: relative; top: 23px; left: 23px; color: white; text-decoration: none;">HOME</h4></a>
+		<a href="Logout"><h4
+				style="float: right; position: relative; bottom: 36px; right: 28px; color: white;">LOGOUT</h4></a>
 
-				<c:forEach items="${myRoomBookings }" var="rooms">
-					<tr>
-						<td><c:out value="${rooms.roomNumber }"></c:out></td>
-						<td><c:out value="${rooms.checkIn }"></c:out></td>
-						<td><c:out value="${rooms.checkOut }"></c:out></td>
-						<td><c:out value="${rooms.category }"></c:out></td>
-						<td><c:out value="${rooms.location }"></c:out></td>
-					</tr>
-				</c:forEach>
+	</div>
+	<br>
+	<br>
+	<input type"text" placeholder="Search">
+	<button>Search</button>
 
-				<c:forEach items="${myWeddingHallBookings }" var="weddingHalls">
-					<tr>
-						<td><c:out value="${weddingHalls.roomNumber }"></c:out></td>
-						<td><c:out value="${weddingHalls.checkIn }"></c:out></td>
-						<td><c:out value="${weddingHalls.checkOut }"></c:out></td>
-						<td><c:out value="${weddingHalls.category }"></c:out></td>
-						<td><c:out value="${weddingHalls.location }"></c:out></td>
-					</tr>
-				</c:forEach>
 
-				<c:forEach items="${myMeetingHallBookings }" var="meetingHalls">
-					<tr>
-						<td><c:out value="${meetingHalls.roomNumber }"></c:out></td>
-						<td><c:out value="${meetingHalls.checkIn }"></c:out></td>
-						<td><c:out value="${meetingHalls.checkOut }"></c:out></td>
-						<td><c:out value="${meetingHalls.category }"></c:out></td>
-						<td><c:out value="${meetingHalls.location }"></c:out></td>
-					</tr>
-				</c:forEach>
+	<table cellpadding=2px cellspacing=20px width="100%">
+		<caption></caption>
+		<tr>
+			<th>Room Number</th>
+			<th>CheckIn Date</th>
+			<th>CheckOut Date</th>
+			<th>Category</th>
+			<th>Location</th>
+		</tr>
 
-			</table>
-		</div>
+		<c:forEach items="${myRoomBookings }" var="rooms">
+			<tr>
+				<td><c:out value="${rooms.roomNumber }"></c:out></td>
+				<td><c:out value="${rooms.checkIn }"></c:out></td>
+				<td><c:out value="${rooms.checkOut }"></c:out></td>
+				<td><c:out value="${rooms.category }"></c:out></td>
+				<td><c:out value="${rooms.location }"></c:out></td>
+			</tr>
+		</c:forEach>
+
+		<c:forEach items="${myWeddingHallBookings }" var="weddingHalls">
+			<tr>
+				<td><c:out value="${weddingHalls.roomNumber }"></c:out></td>
+				<td><c:out value="${weddingHalls.checkIn }"></c:out></td>
+				<td><c:out value="${weddingHalls.checkOut }"></c:out></td>
+				<td><c:out value="${weddingHalls.category }"></c:out></td>
+				<td><c:out value="${weddingHalls.location }"></c:out></td>
+			</tr>
+		</c:forEach>
+
+		<c:forEach items="${myMeetingHallBookings }" var="meetingHalls">
+			<tr>
+				<td><c:out value="${meetingHalls.roomNumber }"></c:out></td>
+				<td><c:out value="${meetingHalls.checkIn }"></c:out></td>
+				<td><c:out value="${meetingHalls.checkOut }"></c:out></td>
+				<td><c:out value="${meetingHalls.category }"></c:out></td>
+				<td><c:out value="${meetingHalls.location }"></c:out></td>
+			</tr>
+		</c:forEach>
+
+	</table>
+	</div>
 	</div>
 </body>
 </html>

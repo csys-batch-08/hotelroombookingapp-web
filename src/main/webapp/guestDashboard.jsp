@@ -469,21 +469,18 @@ function updateRoom()
 							name="roomNumber" required class="form-control"> <label>Check-In
 							:</label> <input type="date" id="updateRoomCheckIn" name="checkIn"
 							required class="form-control"> <label>Check-Out :</label>
-						<br>
-						<input type="date" id="updateRoomCheckOut" name="checkOut"
-							required class="form-control"> <label>Category :</label>
-						<br>
-						<input type="text" id="cat" list="category" name="category"
-							required class="form-control">
+						<br> <input type="date" id="updateRoomCheckOut"
+							name="checkOut" required class="form-control"> <label>Category
+							:</label> <br> <input type="text" id="cat" list="category"
+							name="category" required class="form-control">
 						<datalist id="category" name="category">
 							<option value="premium">premium</option>
 							<option value="luxury">luxury</option>
 							<option value="standard">standard</option>
 							<option value="budget">budget</option>
 						</datalist>
-						<label>Location :</label> <br>
-						<input type="text" id="loc" list="location" name="location"
-							required class="form-control">
+						<label>Location :</label> <br> <input type="text" id="loc"
+							list="location" name="location" required class="form-control">
 						<datalist id="location" name="location">
 							<option value="chennai">Chennai</option>
 							<option value="coimbatore">Coimbatore</option>
@@ -549,9 +546,8 @@ function updateRoom()
 							class="form-control"> <label>Check-Out :</label> <input
 							type="date" id="updateWeddingHallCheckOut" name="checkOut"
 							required class="form-control"> <label>Category :</label>
-						<br>
-						<input type="text" id="cat" list="category" name="category"
-							required class="form-control">
+						<br> <input type="text" id="cat" list="category"
+							name="category" required class="form-control">
 						<datalist id="category" name="category">
 							<option value="premium">premium</option>
 							<option value="luxury">luxury</option>
@@ -627,9 +623,8 @@ function updateRoom()
 							required class="form-control"> <label>Check-Out :</label>
 						<input type="date" id="updateMeetingHallCheckOut" name="checkOut"
 							required class="form-control"> <label>Category :</label>
-						<br>
-						<input type="text" id="cat" list="category" name="category"
-							required class="form-control">
+						<br> <input type="text" id="cat" list="category"
+							name="category" required class="form-control">
 						<datalist id="category" name="category">
 							<option value="premium">premium</option>
 							<option value="luxury">luxury</option>
