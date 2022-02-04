@@ -563,7 +563,7 @@ function editRoom()
 					</form>
 				</div>
 			</div>
-			
+
 			<div class="col-sm-8 align-items-center" style="display: none;"
 				id="cancelMeetingHall">
 				<div style="justify-content: space-between; width: 100%">

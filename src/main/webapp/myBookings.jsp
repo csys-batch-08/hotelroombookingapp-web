@@ -7,7 +7,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
 
 <style type="text/css">
 table, td, th, tr {
@@ -38,55 +39,58 @@ table th, td {
 	</div>
 
 
-	<table cellpadding=2px cellspacing=20px width="100%" id="myBookingsTable">
+	<table cellpadding=2px cellspacing=20px width="100%"
+		id="myBookingsTable">
 		<caption></caption>
-		<thead>	
-		<tr>
-			<th>Room Number</th>
-			<th>CheckIn Date</th>
-			<th>CheckOut Date</th>
-			<th>Category</th>
-			<th>Location</th>
-		</tr>
+		<thead>
+			<tr>
+				<th>Room Number</th>
+				<th>CheckIn Date</th>
+				<th>CheckOut Date</th>
+				<th>Category</th>
+				<th>Location</th>
+			</tr>
 		</thead>
 		<tbody>
 
-		<c:forEach items="${myRoomBookings }" var="rooms">
-			<tr>
-				<td><c:out value="${rooms.roomNumber }"></c:out></td>
-				<td><c:out value="${rooms.checkIn }"></c:out></td>
-				<td><c:out value="${rooms.checkOut }"></c:out></td>
-				<td><c:out value="${rooms.category }"></c:out></td>
-				<td><c:out value="${rooms.location }"></c:out></td>
-			</tr>
-		</c:forEach>
+			<c:forEach items="${myRoomBookings }" var="rooms">
+				<tr>
+					<td><c:out value="${rooms.roomNumber }"></c:out></td>
+					<td><c:out value="${rooms.checkIn }"></c:out></td>
+					<td><c:out value="${rooms.checkOut }"></c:out></td>
+					<td><c:out value="${rooms.category }"></c:out></td>
+					<td><c:out value="${rooms.location }"></c:out></td>
+				</tr>
+			</c:forEach>
 
-		<c:forEach items="${myWeddingHallBookings }" var="weddingHalls">
-			<tr>
-				<td><c:out value="${weddingHalls.roomNumber }"></c:out></td>
-				<td><c:out value="${weddingHalls.checkIn }"></c:out></td>
-				<td><c:out value="${weddingHalls.checkOut }"></c:out></td>
-				<td><c:out value="${weddingHalls.category }"></c:out></td>
-				<td><c:out value="${weddingHalls.location }"></c:out></td>
-			</tr>
-		</c:forEach>
+			<c:forEach items="${myWeddingHallBookings }" var="weddingHalls">
+				<tr>
+					<td><c:out value="${weddingHalls.roomNumber }"></c:out></td>
+					<td><c:out value="${weddingHalls.checkIn }"></c:out></td>
+					<td><c:out value="${weddingHalls.checkOut }"></c:out></td>
+					<td><c:out value="${weddingHalls.category }"></c:out></td>
+					<td><c:out value="${weddingHalls.location }"></c:out></td>
+				</tr>
+			</c:forEach>
 
-		<c:forEach items="${myMeetingHallBookings }" var="meetingHalls">
-			<tr>
-				<td><c:out value="${meetingHalls.roomNumber }"></c:out></td>
-				<td><c:out value="${meetingHalls.checkIn }"></c:out></td>
-				<td><c:out value="${meetingHalls.checkOut }"></c:out></td>
-				<td><c:out value="${meetingHalls.category }"></c:out></td>
-				<td><c:out value="${meetingHalls.location }"></c:out></td>
-			</tr>
-		</c:forEach>
+			<c:forEach items="${myMeetingHallBookings }" var="meetingHalls">
+				<tr>
+					<td><c:out value="${meetingHalls.roomNumber }"></c:out></td>
+					<td><c:out value="${meetingHalls.checkIn }"></c:out></td>
+					<td><c:out value="${meetingHalls.checkOut }"></c:out></td>
+					<td><c:out value="${meetingHalls.category }"></c:out></td>
+					<td><c:out value="${meetingHalls.location }"></c:out></td>
+				</tr>
+			</c:forEach>
 		</tbody>
 
 	</table>
-	
+
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready( function () {
     $('#myBookingsTable').DataTable();
