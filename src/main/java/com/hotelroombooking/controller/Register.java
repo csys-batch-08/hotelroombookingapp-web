@@ -28,6 +28,7 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -43,6 +44,8 @@ public class Register extends HttpServlet {
 			if (flag) {
 
 				response.sendRedirect("login.jsp");
+			} else {
+				request.setAttribute("invalidRegister", "invalid");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,6 +57,7 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
