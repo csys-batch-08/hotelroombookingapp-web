@@ -2,6 +2,7 @@ package com.hotelroombooking.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +47,8 @@ public class Register extends HttpServlet {
 				response.sendRedirect("login.jsp");
 			} else {
 				request.setAttribute("invalidRegister", "invalid");
+				RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+				rd.forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
