@@ -7,6 +7,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+
 <style type="text/css">
 table, td, th, tr {
 	border: 1px solid black;
@@ -24,6 +26,7 @@ table th, td {
 	padding-bottom: 24px;
 }
 </style>
+
 </head>
 <body>
 	<div class="header">
@@ -33,14 +36,11 @@ table th, td {
 				style="float: right; position: relative; bottom: 36px; right: 28px; color: white;">LOGOUT</h4></a>
 
 	</div>
-	<br>
-	<br>
-	<input type"text" placeholder="Search">
-	<button>Search</button>
 
 
-	<table cellpadding=2px cellspacing=20px width="100%">
+	<table cellpadding=2px cellspacing=20px width="100%" id="myBookingsTable">
 		<caption></caption>
+		<thead>	
 		<tr>
 			<th>Room Number</th>
 			<th>CheckIn Date</th>
@@ -48,6 +48,8 @@ table th, td {
 			<th>Category</th>
 			<th>Location</th>
 		</tr>
+		</thead>
+		<tbody>
 
 		<c:forEach items="${myRoomBookings }" var="rooms">
 			<tr>
@@ -78,9 +80,17 @@ table th, td {
 				<td><c:out value="${meetingHalls.location }"></c:out></td>
 			</tr>
 		</c:forEach>
+		</tbody>
 
 	</table>
-	</div>
-	</div>
+	
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#myBookingsTable').DataTable();
+} );
+
+</script>
 </html>

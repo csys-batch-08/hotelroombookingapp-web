@@ -312,28 +312,6 @@ function editRoom()
 	room.style.display="flex";
 	var room=document.getElementById("listAll");
 	room.style.display="none";
-}function listAll()
-{
-	var room=document.getElementById("addRoom");
-	room.style.display="none";
-	var room=document.getElementById("editRoom");
-	room.style.display="none";
-	var room=document.getElementById("deleteRoom");
-	room.style.display="none";
-	var room=document.getElementById("addWeddingHall");
-	room.style.display="none";
-	var room=document.getElementById("editWeddingHall");
-	room.style.display="none";
-	var room=document.getElementById("cancelWeddingHall");
-	room.style.display="none";
-	var room=document.getElementById("addMeetingHall");
-	room.style.display="none";
-	var room=document.getElementById("editMeetingHall");
-	room.style.display="none";
-	var room=document.getElementById("cancelMeetingHall");
-	room.style.display="none";
-	var room=document.getElementById("listAll");
-	room.style.display="block";
 }
 </script>
 	<div class="container-fluid">
@@ -585,7 +563,7 @@ function editRoom()
 					</form>
 				</div>
 			</div>
-
+			
 			<div class="col-sm-8 align-items-center" style="display: none;"
 				id="cancelMeetingHall">
 				<div style="justify-content: space-between; width: 100%">
