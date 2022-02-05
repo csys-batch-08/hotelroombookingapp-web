@@ -9,75 +9,13 @@
 <title>Register</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/regsiter.css">
+	
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<style>
-.loginForm {
-	box-shadow: 0px 0px 14px 0px #747474;
-	padding: 20px 10px;
-	background: white;
-	border-radius: 10px;
-}
 
-.formBtn {
-	text-align: center;
-	justify-content: space-between;
-}
-
-.formBtn input {
-	margin: 0px 0px;
-	font-size: 13px;
-	padding: 5px 15px;
-	background: #34c2df;
-	color: black;
-	border: none;
-	font-weight: bold;
-}
-
-.loginForm input {
-	margin-bottom: 11px;
-	border: 1px solid #cbcbcb;
-	width: 64%;
-	padding: 5px 10px;
-	border-radius: 5px;
-}
-
-.form-group {
-	margin-bottom: 10px;
-}
-
-.formBtn input {
-	margin: 0px 0px;
-	font-size: 13px;
-	padding: 5px 44px !important;
-	background: #34c2df;
-	color: black;
-	width: auto !important;
-	border: none;
-	font-weight: bold;
-}
-
-.loginPage {
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	background-image: url(./assets/login_background.jpeg);
-	opacity: .8;
-}
-
-.loginForm label {
-	color: black;
-	font-weight: bold;
-	width: 35%;
-}
-
-.forget a label {
-	font-size: 13px;
-	color: red;
-}
-</style>
 </head>
 <body>
 	<c:if test="${not empty invalidRegister }">

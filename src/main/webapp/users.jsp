@@ -9,23 +9,9 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
-<style type="text/css">
-table, td, th, tr {
-	border: 1px solid black;
-	border-collapse: collapse;
-}
+		<link rel="stylesheet" href="assets/css/users.css">
+	
 
-table th, td {
-	text-align: center;
-}
-
-.header {
-	padding-top: 0px;
-	background: #075fbc;
-	color: white;
-	padding-bottom: 24px;
-}
-</style>
 </head>
 <body>
 	<div class="header">
@@ -66,10 +52,5 @@ table th, td {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script
 	src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript">
-$(document).ready( function () {
-    $('#usersTable').DataTable();
-} );
-
-</script>
+<script src="assets/js/javascripts.js"></script>
 </html>

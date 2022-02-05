@@ -9,56 +9,14 @@
 <title>Hotel Room Booking Application</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/login.css">
+	
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-<style>
-.loginForm {
-	box-shadow: 0px 0px 14px 0px #747474;
-	padding: 20px 10px;
-	background: white;
-	border-radius: 10px;
-}
 
-.formBtn {
-	text-align: center;
-	justify-content: space-between;
-}
-
-.formBtn input {
-	margin: 0px 0px;
-	font-size: 13px;
-	padding: 5px 15px;
-	background: #34c2df;
-	color: black;
-	border: none;
-	font-weight: bold;
-}
-
-.loginForm input {
-	margin-bottom: 11px;
-}
-
-.loginPage {
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	background-image: url(./assets/login_background.jpeg);
-	opacity: .8;
-}
-
-.loginForm label {
-	color: black;
-	font-weight: bold;
-}
-
-.forget a label {
-	font-size: 13px;
-	color: red;
-}
-</style>
 </head>
 <body>
 
@@ -88,7 +46,7 @@ alert("Invalid Login");
 								<div class="col-sm-12 p-0">
 									<label for="password">Password</label> <input type="password"
 										id="password" name="password" class="form-control"
-										placeholder="Enter Password" requuired>
+										placeholder="Enter Password" required>
 								</div>
 								<div class="formBtn d-flex justify-space-between">
 									<input type="submit" value="LOGIN" class="btn btn-success">

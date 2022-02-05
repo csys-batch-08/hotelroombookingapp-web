@@ -18,70 +18,13 @@
 <title>Payment</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/bookWeddingHallPayment.css">
+	
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<style>
-.registerForm {
-	width: 900px;
-	box-shadow: 0px 0px 14px 0px #d9d9d9;
-	padding: 10px;
-	margin: 7% auto;
-	height: 421px;
-}
 
-.formBtn {
-	text-align: center;
-}
-
-.formBtn input {
-	margin: 10px;
-}
-
-.registerForm input {
-	width: 100%;
-}
-
-.registerForm .form-group label {
-	width: 100%;
-}
-
-.formBtn input {
-	display: block;
-	margin: 0px;
-}
-
-.formcontent input {
-	padding: 7px;
-	margin-bottom: 10px;
-}
-
-input[type=checkbox] {
-	margin: 15px -182px 0px;
-	margin-top: 1px\9;
-	line-height: normal;
-}
-
-.formcontent label {
-	margin: 5px 0px;
-}
-
-.formcontent {
-	padding: 16px;
-}
-
-.verticalRule label {
-	margin-bottom: 40px;
-}
-
-.verticalRule {
-	border-right: 1px solid #d9d9d9;
-	height: 100%;
-	vertical-align: middle;
-	padding: 11% 0px;
-}
-</style>
 
 </head>
 <body>
