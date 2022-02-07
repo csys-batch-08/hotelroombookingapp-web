@@ -21,17 +21,17 @@
 
 .sideMenuItems ul li {
 	list-style: none;
-	line-hupdateMeetingHall: 1.5;
+	line-height: 1.5;
 	font-size: 15px;
 	cursor: pointer;
-	font-wupdateMeetingHall: bold;
+	font-weight: bold;
 	/* border-bottom: 1px solid #565656; */
 	margin-bottom: 6px;
 	color: white;
 }
 
 .sideMenu {
-	hupdateMeetingHall: 100%;
+	height: 100%;
 	/* box-shadow: 0px 0px 17px 0px #d5d5d5; */
 	border-radius: 0px;
 	padding: 20px;
@@ -63,7 +63,7 @@ ul.dropdown {
 
 .gestDashboard form {
 	color: black;
-	font-wupdateMeetingHall: bold;
+	font-weight: bold;
 }
 
 .loginForm input {
@@ -81,6 +81,6 @@ ul.dropdown {
 	background: #34c2df;
 	color: black;
 	border: none;
-	font-wupdateMeetingHall: bold;
+	font-weight: bold;
 	width: 100%
 }

@@ -29,15 +29,15 @@ table th, td {
 
 .sideMenuItems ul li {
 	list-style: none;
-	line-heditMeetingHall: 1.5;
+	line-height: 1.5;
 	font-size: 15px;
-	font-weditMeetingHall: bold;
+	font-weight: bold;
 	margin-bottom: 6px;
 	color: white;
 }
 
 .sideMenu {
-	heditMeetingHall: 100%;
+	height: 100%;
 	border-radius: 0px;
 	padding: 20px;
 	background: black;
@@ -68,7 +68,7 @@ ul.dropdown {
 
 .gestDashboard form {
 	color: black;
-	font-weditMeetingHall: bold;
+	font-weight: bold;
 }
 
 .loginForm input {
@@ -86,6 +86,6 @@ ul.dropdown {
 	background: #34c2df;
 	color: black;
 	border: none;
-	font-weditMeetingHall: bold;
+	font-weight: bold;
 	width: 100%
 }
