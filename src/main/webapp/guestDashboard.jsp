@@ -16,12 +16,15 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert Title</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<link rel="stylesheet" href="assets/css/guestDashboard.css">
-	
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="assets/css/guestDashboard.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="assets/js/javascripts.js"></script>
+<script src="assets/js/javascripts.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
@@ -89,7 +92,7 @@ alert("No Wedding Hall Availble");
 
 
 
-	
+
 
 	<div class="container-fluid">
 		<div class="row gestDashboard">
@@ -128,12 +131,12 @@ alert("No Wedding Hall Availble");
 				id="bookRoom">
 				<div style="justify-content: space-between; width: 100%">
 					<form action="BookRoom" method="post">
-						<label for="bookRoomCheckIn">Check-In :</label> <input type="date" id="bookRoomCheckIn"
-							name="checkIn" required class="form-control"/> <label>Check-Out:</label>
-						<input type="date" id="bookRoomCheckOut" name="checkOut" required
-							class="form-control"> <label>Category :</label> <input
-							type="text" id="cat" list="category" name="category" required
-							class="form-control">
+						<label for="bookRoomCheckIn">Check-In :</label> <input type="date"
+							id="bookRoomCheckIn" name="checkIn" required class="form-control" />
+						<label>Check-Out:</label> <input type="date" id="bookRoomCheckOut"
+							name="checkOut" required class="form-control"> <label>Category
+							:</label> <input type="text" id="cat" list="category" name="category"
+							required class="form-control">
 						<datalist id="category" name="category">
 							<option value="premium">premium</option>
 							<option value="luxury">luxury</option>
