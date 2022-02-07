@@ -1,8 +1,9 @@
 package com.hotelroombooking.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class WeddingHallTransaction {
+public class WeddingHallTransaction implements Serializable {
 
 	private int roomNumber;
 	private String checkIn;

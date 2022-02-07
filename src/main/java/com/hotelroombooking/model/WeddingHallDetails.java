@@ -1,8 +1,9 @@
 package com.hotelroombooking.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class WeddingHallDetails {
+public class WeddingHallDetails implements Serializable {
 
 	private int weddingHallNumber;
 	private String status;
