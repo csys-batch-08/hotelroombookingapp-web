@@ -497,9 +497,10 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 
 		try {
 			RoomTransaction roomTransObj = (RoomTransaction) session.getAttribute("bookRoomDetails");
-			String findPriceQuery = "select price from room_details where category='" + roomTransObj.getCategory()
-					+ "'";
+			String findPriceQuery = "select price from room_details where category=?";
+
 			pstmt = conn.prepareStatement(findPriceQuery);
+			pstmt.setString(1, roomTransObj.getCategory());
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				return rs.getInt(1);
@@ -532,9 +533,10 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 
 		try {
 			RoomTransaction roomTransObj = (RoomTransaction) session.getAttribute("updateRoomDetails");
-			String findPriceQuery = "select price from room_details where category='" + roomTransObj.getCategory()
-					+ "'";
+			String findPriceQuery = "select price from room_details where category=?";
+
 			pstmt = conn.prepareStatement(findPriceQuery);
+			pstmt.setString(1, roomTransObj.getCategory());
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				return rs.getInt(1);

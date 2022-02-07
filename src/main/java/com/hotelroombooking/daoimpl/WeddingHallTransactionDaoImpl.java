@@ -502,9 +502,10 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 		try {
 			WeddingHallTransaction weddingHallTransObj = (WeddingHallTransaction) session
 					.getAttribute("bookWeddingHallDetails");
-			String findPriceQuery = "select price from wedding_hall_details where category='"
-					+ weddingHallTransObj.getCategory() + "'";
+			String findPriceQuery = "select price from wedding_hall_details where category=?";
+
 			pstmt = conn.prepareStatement(findPriceQuery);
+			pstmt.setString(1, weddingHallTransObj.getCategory());
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				return rs.getInt(1);
@@ -538,9 +539,10 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 		try {
 			WeddingHallTransaction weddingHallTransObj = (WeddingHallTransaction) session
 					.getAttribute("updateWeddingHallDetails");
-			String findPriceQuery = "select price from wedding_hall_details where category='"
-					+ weddingHallTransObj.getCategory() + "'";
+			String findPriceQuery = "select price from wedding_hall_details where category=?";
+
 			pstmt = conn.prepareStatement(findPriceQuery);
+			pstmt.setString(1, weddingHallTransObj.getCategory());
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				return rs.getInt(1);
