@@ -1,8 +1,9 @@
 package com.hotelroombooking.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Payment {
+public class Payment implements Serializable {
 	private int id;
 	private long cardNumber;
 	private String expiryDate;
