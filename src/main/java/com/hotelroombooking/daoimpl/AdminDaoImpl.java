@@ -11,6 +11,7 @@ import com.hotelroombooking.util.ConnectionUtil;
 
 public class AdminDaoImpl implements AdminDao {
 
+	@Override
 	public Admin loginAdmin(String adminMail, String adminPassword) {
 		String loginquery = "select * from admin where email=? and password=?";
 
@@ -27,20 +28,20 @@ public class AdminDaoImpl implements AdminDao {
 				adminObj = new Admin(rs1.getString(2), rs1.getString(3));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (p2 != null) {
 				try {
 					p2.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}

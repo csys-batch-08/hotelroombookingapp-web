@@ -81,7 +81,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 							pstmt3.setInt(1, vacantWeddingRoomNumber);
 							pstmt3.executeUpdate();
 						} catch (Exception e) {
-							e.printStackTrace();
+							e.getMessage();
 						} finally {
 							if (pstmt3 != null) {
 								pstmt3.close();
@@ -95,7 +95,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt2 != null) {
 						pstmt2.close();
@@ -108,20 +108,20 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 				session.setAttribute("NoWeddingHallToBook", "noWeddingHall");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt1 != null) {
 				try {
 					pstmt1.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -153,20 +153,20 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -218,7 +218,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 
 					pstmt1.executeUpdate();
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt1 != null) {
 						pstmt1.close();
@@ -245,7 +245,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 
 					pstmt3.executeUpdate();
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt3 != null) {
 						pstmt3.close();
@@ -266,7 +266,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 					pstmt4.setInt(1, weddingHallTransObj.getroomNumber());
 					pstmt4.executeUpdate();
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt4 != null) {
 						pstmt4.close();
@@ -286,7 +286,7 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 					pstmt5.setInt(1, vacantWeddingRoomNumber);
 					flag = pstmt5.executeUpdate() > 0;
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt5 != null) {
 						pstmt5.close();
@@ -300,20 +300,20 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 				session.setAttribute("noWeddingHallsToUpdate", "noWeddingHallUpdate");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt2 != null) {
 				try {
 					pstmt2.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -347,20 +347,20 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 				weddingHallBooking.add(weddingHallTrans);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -391,20 +391,20 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 			flag = pstmt.executeUpdate() > 0;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -431,20 +431,20 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 			flag = pstmt.executeUpdate() > 0;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -474,20 +474,20 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 			flag = pstmt.executeUpdate() > 0;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -510,20 +510,20 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 				return rs.getInt(1);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -546,20 +546,20 @@ public class WeddingHallTransactionDaoImpl implements WeddingHallTransactionDao 
 				return rs.getInt(1);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}

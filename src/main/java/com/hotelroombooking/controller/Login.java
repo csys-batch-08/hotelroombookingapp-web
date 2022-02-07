@@ -33,6 +33,7 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -59,7 +60,7 @@ public class Login extends HttpServlet {
 				response.sendRedirect("login.jsp");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}
@@ -68,6 +69,7 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -75,7 +77,7 @@ public class Login extends HttpServlet {
 
 			doGet(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}

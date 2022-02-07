@@ -36,20 +36,20 @@ public class GuestDaoImpl implements GuestDao {
 			flag = p.executeUpdate() > 0;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (p != null) {
 				try {
 					p.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -74,20 +74,20 @@ public class GuestDaoImpl implements GuestDao {
 						rs1.getLong(6));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (p2 != null) {
 				try {
 					p2.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -112,20 +112,20 @@ public class GuestDaoImpl implements GuestDao {
 				System.out.println("guest not found");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -149,20 +149,20 @@ public class GuestDaoImpl implements GuestDao {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (stmt != null) {
 				try {
 					stmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -201,14 +201,14 @@ public class GuestDaoImpl implements GuestDao {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}

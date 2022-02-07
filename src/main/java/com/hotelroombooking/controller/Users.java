@@ -44,7 +44,7 @@ public class Users extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("users.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}
@@ -60,7 +60,7 @@ public class Users extends HttpServlet {
 		try {
 			doGet(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 	}
 

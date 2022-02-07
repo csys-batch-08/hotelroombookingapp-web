@@ -74,7 +74,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 							pstmt3.setInt(1, vacantMeetingRoomNumber);
 							pstmt3.executeUpdate();
 						} catch (Exception e) {
-							e.printStackTrace();
+							e.getMessage();
 						} finally {
 							if (pstmt3 != null) {
 								pstmt3.close();
@@ -89,7 +89,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 					}
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt2 != null) {
 						pstmt2.close();
@@ -102,20 +102,20 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 				session.setAttribute("noMeetingHallToBook", "noMeetingHall");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt1 != null) {
 				try {
 					pstmt1.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -155,14 +155,14 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -214,7 +214,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 
 					pstmt1.executeUpdate();
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt1 != null) {
 						pstmt1.close();
@@ -241,7 +241,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 
 					pstmt3.executeUpdate();
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt3 != null) {
 						pstmt3.close();
@@ -262,7 +262,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 					pstmt4.setInt(1, meetingHallTransObj.getroomNumber());
 					pstmt4.executeUpdate();
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt4 != null) {
 						pstmt4.close();
@@ -282,7 +282,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 					pstmt5.setInt(1, vacantMeetingHallNumber);
 					flag = pstmt5.executeUpdate() > 0;
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt5 != null) {
 						pstmt5.close();
@@ -298,20 +298,20 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 				session.setAttribute("noMeetingHallToUpdate", "noMeetingHallUpdate");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt2 != null) {
 				try {
 					pstmt2.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -350,14 +350,14 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -400,14 +400,14 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -445,14 +445,14 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -492,14 +492,14 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -522,20 +522,20 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 				return rs.getInt(1);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -559,20 +559,20 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 				return rs.getInt(1);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}

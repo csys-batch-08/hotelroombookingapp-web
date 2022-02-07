@@ -82,7 +82,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 
 							pstmt3.executeUpdate();
 						} catch (Exception e) {
-							e.printStackTrace();
+							e.getMessage();
 						} finally {
 							if (pstmt3 != null) {
 								pstmt3.close();
@@ -95,7 +95,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 						Mailer.send(from, password, guestObj.getEmail(), subject, Mail.bookRoomMail(roomTransObj));
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt2 != null) {
 						pstmt2.close();
@@ -108,20 +108,20 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 				session.setAttribute("NoRoomsToBook", "noRooms");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt1 != null) {
 				try {
 					pstmt1.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -153,20 +153,20 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -219,7 +219,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 
 					pstmt1.executeUpdate();
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt1 != null) {
 						pstmt1.close();
@@ -246,7 +246,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 
 					pstmt3.executeUpdate();
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt3 != null) {
 						pstmt3.close();
@@ -264,7 +264,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 					pstmt4.setInt(1, roomTransObj.getroomNumber());
 					pstmt4.executeUpdate();
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt4 != null) {
 						pstmt4.close();
@@ -287,7 +287,7 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				} finally {
 					if (pstmt5 != null) {
 						pstmt5.close();
@@ -300,20 +300,20 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 				session.setAttribute("noRoomsToUpdate", "noUpdate");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt2 != null) {
 				try {
 					pstmt2.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -346,20 +346,20 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 				roomBooking.add(roomTrans);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -387,20 +387,20 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 
 			flag = pstmt.executeUpdate() > 0;
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -426,20 +426,20 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 			flag = pstmt.executeUpdate() > 0;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -469,20 +469,20 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 			flag = pstmt.executeUpdate() > 0;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -505,20 +505,20 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 				return rs.getInt(1);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}
@@ -540,20 +540,20 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 				return rs.getInt(1);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}

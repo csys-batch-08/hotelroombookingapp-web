@@ -6,12 +6,13 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpSession;
 
-import com.hotelroombooking.util.ConnectionUtil;
 import com.hotelroombooking.dao.PaymentDao;
 import com.hotelroombooking.model.Guest;
 import com.hotelroombooking.model.Payment;
+import com.hotelroombooking.util.ConnectionUtil;
 
 public class PaymentDaoImpl implements PaymentDao {
+	@Override
 	public boolean payment(HttpSession session) {
 		boolean flag = false;
 		int guestId = 0;
@@ -35,20 +36,20 @@ public class PaymentDaoImpl implements PaymentDao {
 			flag = pstmt.executeUpdate() > 0;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 		}

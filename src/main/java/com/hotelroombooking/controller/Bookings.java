@@ -60,7 +60,7 @@ public class Bookings extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("myBookings.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}
@@ -76,7 +76,7 @@ public class Bookings extends HttpServlet {
 		try {
 			doGet(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 	}
 

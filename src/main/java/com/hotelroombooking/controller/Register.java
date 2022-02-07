@@ -51,7 +51,7 @@ public class Register extends HttpServlet {
 				rd.forward(request, response);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}
@@ -68,7 +68,7 @@ public class Register extends HttpServlet {
 
 			doGet(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 	}
 

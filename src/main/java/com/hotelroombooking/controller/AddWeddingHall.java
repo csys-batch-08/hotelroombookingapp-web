@@ -55,7 +55,7 @@ public class AddWeddingHall extends HttpServlet {
 				response.sendRedirect("adminDashboard.jsp");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}
@@ -72,7 +72,7 @@ public class AddWeddingHall extends HttpServlet {
 
 			doGet(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 	}
 

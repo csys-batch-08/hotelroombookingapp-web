@@ -10,7 +10,7 @@ public class ConnectionUtil {
 			Class.forName("oracle.jdbc.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "oracle");
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 		return conn;
 	}

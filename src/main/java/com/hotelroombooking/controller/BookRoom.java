@@ -54,7 +54,7 @@ public class BookRoom extends HttpServlet {
 				response.sendRedirect("bookRoomPayment.jsp");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}
@@ -71,7 +71,7 @@ public class BookRoom extends HttpServlet {
 
 			doGet(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}

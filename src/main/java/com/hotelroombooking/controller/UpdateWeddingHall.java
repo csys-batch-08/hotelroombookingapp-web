@@ -30,6 +30,7 @@ public class UpdateWeddingHall extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -58,7 +59,7 @@ public class UpdateWeddingHall extends HttpServlet {
 				response.sendRedirect("updateWeddingHallPayment.jsp");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}
@@ -67,6 +68,7 @@ public class UpdateWeddingHall extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -74,7 +76,7 @@ public class UpdateWeddingHall extends HttpServlet {
 			doGet(request, response);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 	}
 
