@@ -30,6 +30,7 @@ public class AddWeddingHall extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -48,8 +49,6 @@ public class AddWeddingHall extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("addWeddingHallDetails", weddingHallDetailsObj);
 			boolean flag = weddingHallTransDao.addWeddingHallAdmin(session);
-//			PrintWriter pw = response.getWriter();
-//			pw.write(flag+"");
 
 			if (flag) {
 
@@ -65,6 +64,7 @@ public class AddWeddingHall extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
