@@ -16,15 +16,13 @@ function addRoom()
 	room.style.display="none";
 	var room=document.getElementById("editWeddingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelWeddingHall");
+	var room=document.getElementById("deleteWeddingHall");
 	room.style.display="none";
 	var room=document.getElementById("addMeetingHall");
 	room.style.display="none";
 	var room=document.getElementById("editMeetingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelMeetingHall");
-	room.style.display="none";
-	var room=document.getElementById("listAll");
+	var room=document.getElementById("deleteMeetingHall");
 	room.style.display="none";
 }
 function editRoom()
@@ -39,17 +37,16 @@ function editRoom()
 	room.style.display="none";
 	var room=document.getElementById("editWeddingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelWeddingHall");
+	var room=document.getElementById("deleteWeddingHall");
 	room.style.display="none";
 	var room=document.getElementById("addMeetingHall");
 	room.style.display="none";
 	var room=document.getElementById("editMeetingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelMeetingHall");
+	var room=document.getElementById("deleteMeetingHall");
 	room.style.display="none";
-	var room=document.getElementById("listAll");
-	room.style.display="none";
-}function deleteRoom()
+}
+function deleteRoom()
 {
 	var room=document.getElementById("addRoom");
 	room.style.display="none";
@@ -61,15 +58,13 @@ function editRoom()
 	room.style.display="none";
 	var room=document.getElementById("editWeddingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelWeddingHall");
+	var room=document.getElementById("deleteWeddingHall");
 	room.style.display="none";
 	var room=document.getElementById("addMeetingHall");
 	room.style.display="none";
 	var room=document.getElementById("editMeetingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelMeetingHall");
-	room.style.display="none";
-	var room=document.getElementById("listAll");
+	var room=document.getElementById("deleteMeetingHall");
 	room.style.display="none";
 }function addWeddingHall()
 {
@@ -83,15 +78,13 @@ function editRoom()
 	room.style.display="flex";
 	var room=document.getElementById("editWeddingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelWeddingHall");
+	var room=document.getElementById("deleteWeddingHall");
 	room.style.display="none";
 	var room=document.getElementById("addMeetingHall");
 	room.style.display="none";
 	var room=document.getElementById("editMeetingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelMeetingHall");
-	room.style.display="none";
-	var room=document.getElementById("listAll");
+	var room=document.getElementById("deleteMeetingHall");
 	room.style.display="none";
 }function editWeddingHall()
 {
@@ -105,17 +98,15 @@ function editRoom()
 	room.style.display="none";
 	var room=document.getElementById("editWeddingHall");
 	room.style.display="flex";
-	var room=document.getElementById("cancelWeddingHall");
+	var room=document.getElementById("deleteWeddingHall");
 	room.style.display="none";
 	var room=document.getElementById("addMeetingHall");
 	room.style.display="none";
 	var room=document.getElementById("editMeetingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelMeetingHall");
+	var room=document.getElementById("deleteMeetingHall");
 	room.style.display="none";
-	var room=document.getElementById("listAll");
-	room.style.display="none";
-}function cancelWeddingHall()
+}function deleteWeddingHall()
 {
 	var room=document.getElementById("addRoom");
 	room.style.display="none";
@@ -127,15 +118,13 @@ function editRoom()
 	room.style.display="none";
 	var room=document.getElementById("editWeddingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelWeddingHall");
+	var room=document.getElementById("deleteWeddingHall");
 	room.style.display="flex";
 	var room=document.getElementById("addMeetingHall");
 	room.style.display="none";
 	var room=document.getElementById("editMeetingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelMeetingHall");
-	room.style.display="none";
-	var room=document.getElementById("listAll");
+	var room=document.getElementById("deleteMeetingHall");
 	room.style.display="none";
 }function addMeetingHall()
 {
@@ -149,15 +138,13 @@ function editRoom()
 	room.style.display="none";
 	var room=document.getElementById("editWeddingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelWeddingHall");
+	var room=document.getElementById("deleteWeddingHall");
 	room.style.display="none";
 	var room=document.getElementById("addMeetingHall");
 	room.style.display="flex";
 	var room=document.getElementById("editMeetingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelMeetingHall");
-	room.style.display="none";
-	var room=document.getElementById("listAll");
+	var room=document.getElementById("deleteMeetingHall");
 	room.style.display="none";
 }function editMeetingHall()
 {
@@ -171,17 +158,13 @@ function editRoom()
 	room.style.display="none";
 	var room=document.getElementById("editWeddingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelWeddingHall");
+	var room=document.getElementById("deleteWeddingHall");
 	room.style.display="none";
 	var room=document.getElementById("addMeetingHall");
 	room.style.display="none";
 	var room=document.getElementById("editMeetingHall");
 	room.style.display="flex";
-	var room=document.getElementById("cancelMeetingHall");
-	room.style.display="none";
-	var room=document.getElementById("listAll");
-	room.style.display="none";
-}function cancelMeetingHall()
+}function deleteMeetingHall()
 {
 	var room=document.getElementById("addRoom");
 	room.style.display="none";
@@ -193,17 +176,29 @@ function editRoom()
 	room.style.display="none";
 	var room=document.getElementById("editWeddingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelWeddingHall");
+	var room=document.getElementById("deleteWeddingHall");
 	room.style.display="none";
 	var room=document.getElementById("addMeetingHall");
 	room.style.display="none";
 	var room=document.getElementById("editMeetingHall");
 	room.style.display="none";
-	var room=document.getElementById("cancelMeetingHall");
+	var room=document.getElementById("deleteMeetingHall");
 	room.style.display="flex";
-	var room=document.getElementById("listAll");
-	room.style.display="none";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function bookRoom()
 {
 	var room=document.getElementById("bookRoom");
