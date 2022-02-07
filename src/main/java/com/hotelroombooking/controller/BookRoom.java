@@ -52,8 +52,6 @@ public class BookRoom extends HttpServlet {
 
 			} else {
 				response.sendRedirect("bookRoomPayment.jsp");
-//				RequestDispatcher rd = request.getRequestDispatcher("bookRoomPayment.jsp");
-//				rd.forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
