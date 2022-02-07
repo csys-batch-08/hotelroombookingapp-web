@@ -34,25 +34,25 @@ alert("User already exists");
 							<div class="registerForm">
 								<form action="register" method="post">
 									<div class="form-group">
-										<label>Firstname :</label> <input type="text" id="firstName"
+										<label for="firstName">Firstname :</label> <input type="text" id="firstName"
 											name="firstName" class="register-firstname"
 											pattern="[A-Z][A-Za-z]+" title="first letter must be capital"
 											placeholder="Firstname" required>
 									</div>
 									<div class="form-group">
-										<label>Lastname :</label> <input type="text" id="lastName"
+										<label for="lastName">Lastname :</label> <input type="text" id="lastName"
 											name="lastName" class="register-lastname"
 											placeholder="Lastname" pattern="[A-Z][A-Za-z]+"
 											title="Invalid Name" required><br>
 									</div>
 									<div class="form-group">
-										<label>Email :</label> <input type="text" id="email"
+										<label for="email">Email :</label> <input type="text" id="email"
 											name="email" class="register-email" placeholder="Email"
 											pattern="[a-zA-Z0-9]+[@][a-z]+[.][a-z]+"
 											title="Invalid Email" required><br>
 									</div>
 									<div class="form-group">
-										<label>Password :</label> <input type="password" id="password"
+										<label for="password">Password :</label> <input type="password" id="password"
 											name="password" class="register-password"
 											placeholder="Password" pattern="[A-Z]+[a-z]+[0-9]+"
 											title="password must contain
@@ -60,7 +60,7 @@ alert("User already exists");
 											required>
 									</div>
 									<div class="form-group">
-										<label>Confirm Password :</label> <input type="password"
+										<label for="confirmPassword">Confirm Password :</label> <input type="password"
 											id="confirmPassword" name="confirmPassword"
 											class="register-confirmpassword"
 											placeholder="Confirm Password" pattern="[A-Z]+[a-z]+[0-9]+"
@@ -68,7 +68,7 @@ alert("User already exists");
 						atleast one UPPER CASE, LOWER CASE, NUMBER"><br>
 									</div>
 									<div class="form-group">
-										<label>Phone Number :</label> <input type="text"
+										<label for="phoneNumber">Phone Number :</label> <input type="text"
 											id="phoneNumber" name="phoneNumber"
 											class="register-phonenumber" onkeydown="passwordValidation()"
 											placeholder="Phone Number" pattern="[0-9]{10}"

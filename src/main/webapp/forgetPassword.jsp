@@ -45,7 +45,7 @@
 										required>
 								</div>
 								<div class="col-sm-12 p-0">
-									<label for="password">Confirm Password</label> <input
+									<label for="confirmPassword">Confirm Password</label> <input
 										type="password" id="confirmPassword" name="confirmPassword"
 										class="form-control" placeholder="Confirm Password"
 										pattern="[A-Z]+[a-z]+[0-9]+"

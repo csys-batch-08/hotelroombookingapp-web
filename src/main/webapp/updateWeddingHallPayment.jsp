@@ -66,12 +66,12 @@
 			<div class="formcontent">
 				<h3 class="text-center">PAYMENT PORTAL</h3>
 				<form action="payment" method="post">
-					<label>Card Number:</label> <input type="text" id="cardNumber"
+					<label for="cardNumber">Card Number:</label> <input type="text" id="cardNumber"
 						name="cardNumber" placeholder="Card Number" pattern="[0-9]{16}"
-						title="invalid card number" required> <label>Expiry
+						title="invalid card number" required> <label for="expiryDate">Expiry
 						Date:</label> <input type="text" id="expiryDate" name="expiryDate"
 						placeholder="mm/yy" pattern="[0-9]{2}[/][0-9]{2}"
-						title="invalid expiry date" required> <label>CVV:</label>
+						title="invalid expiry date" required> <label for="cvv">CVV:</label>
 					<input type="text" id="cvv" name="cvv" placeholder="CVV"
 						pattern="[0-9]{3}" title="invalid cvv" required> <input
 						type="checkbox" id=cvvCheck name="cvvCheck"> Save CVV for
