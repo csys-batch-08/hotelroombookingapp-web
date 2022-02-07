@@ -32,7 +32,7 @@ alert("Invalid Login");
 				<div class="col-sm-6">
 					<div class="loginForm row align-items-center">
 						<div class="col-sm-6">
-							<img src="assets/login_img.jpg" alt="login" class="img-fluid">
+							<img src="assets/images/login_img.jpg" alt="login" class="img-fluid">
 						</div>
 						<div class="col-sm-6">
 							<form action="Login" method="post">

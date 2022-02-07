@@ -23,7 +23,7 @@
 				<div class="col-sm-6">
 					<div class="loginForm row align-items-center">
 						<div class="col-sm-6">
-							<img src="assets/forget.png" alt="forget" class="img-fluid">
+							<img src="assets/images/forget.png" alt="forget" class="img-fluid">
 						</div>
 						<div class="col-sm-6">
 							<form action="Forgetpassword" method="post">

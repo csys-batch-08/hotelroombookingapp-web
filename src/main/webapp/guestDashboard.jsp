@@ -129,7 +129,7 @@ alert("No Wedding Hall Availble");
 				id="bookRoom">
 				<div style="justify-content: space-between; width: 100%">
 					<form action="BookRoom" method="post">
-						<label for="checkIn">Check-In :</label> <input type="date" id="bookRoomCheckIn"
+						<label for="bookRoomCheckIn">Check-In :</label> <input type="date" id="bookRoomCheckIn"
 							name="checkIn" required class="form-control"/> <label>Check-Out:</label>
 						<input type="date" id="bookRoomCheckOut" name="checkOut" required
 							class="form-control"> <label>Category :</label> <input

@@ -49,7 +49,7 @@
 	height: 100vh;
 	display: flex;
 	align-items: center;
-	background-image: url(assets/images/login_background.jpeg);
+	background-image: url(../images/login_background.jpeg);
 	opacity: .8;
 }
 
