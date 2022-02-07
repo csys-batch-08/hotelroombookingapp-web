@@ -2,7 +2,6 @@ package com.hotelroombooking.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +42,7 @@ public class BookRoom extends HttpServlet {
 			RoomTransaction roomTransObj = new RoomTransaction(0, checkIn, checkOut, category, location);
 			RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
 			HttpSession session = request.getSession();
-			request.setAttribute("bookRoomDetails", roomTransObj);
+			session.setAttribute("bookRoomDetails", roomTransObj);
 			Integer bookRoomPrice = roomTransDaoObj.findBookRoomPrice(session);
 			session.setAttribute("bookRoomPrice", bookRoomPrice);
 			roomTransDaoObj.bookRoom(session);
@@ -52,9 +51,9 @@ public class BookRoom extends HttpServlet {
 				response.sendRedirect("guestDashboard.jsp");
 
 			} else {
-//				response.sendRedirect("bookRoomPayment.jsp");
-				RequestDispatcher rd = request.getRequestDispatcher("bookRoomPayment.jsp");
-				rd.forward(request, response);
+				response.sendRedirect("bookRoomPayment.jsp");
+//				RequestDispatcher rd = request.getRequestDispatcher("bookRoomPayment.jsp");
+//				rd.forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
