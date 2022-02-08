@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="assets/css/adminDashboard.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="assets/js/javascripts.js"></script>
+<script src="assets/js/adminDashboard.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
@@ -41,13 +41,13 @@
 								<ul class="dropdown">
 									<li onclick="addWeddingHall()">Add Wedding Hall</li>
 									<li onclick="editWeddingHall()">Edit Wedding Hall</li>
-									<li onclick="deleteWeddingHall()">Delete Wedding Hall</li>
+									<li onclick="cancelWeddingHall()">Delete Wedding Hall</li>
 								</ul></li>
 							<li><a onclick="meetingShow()">MEETING HALLS</a>
 								<ul class="dropdown">
 									<li onclick="addMeetingHall()">Add Meeting Hall</li>
 									<li onclick="editMeetingHall()">Edit Meeting Hall</li>
-									<li onclick="deleteMeetingHall()">Delete Meeting Hall</li>
+									<li onclick="cancelMeetingHall()">Delete Meeting Hall</li>
 								</ul></li>
 							<li><a href="Users">LIST ALL USERS</a></li>
 						</ul>
@@ -198,7 +198,7 @@
 			</div>
 
 			<div class="col-sm-8 align-items-center" style="display: none;"
-				id="deleteWeddingHall">
+				id="cancelWeddingHall">
 				<div style="justify-content: space-between; width: 100%">
 					<form action="DeleteWeddingHall" method="post">
 						<label for="weddingHallNumber">wedding hall number:</label> <input type="text"
@@ -276,7 +276,7 @@
 			</div>
 
 			<div class="col-sm-8 align-items-center" style="display: none;"
-				id="deleteMeetingHall">
+				id="cancelMeetingHall">
 				<div style="justify-content: space-between; width: 100%">
 					<form action="DeleteMeetingHall" method="post">
 						<label for="">meeting hall number:</label> <input type="text"

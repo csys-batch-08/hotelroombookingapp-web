@@ -387,7 +387,7 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 
 			flag = pstmt.executeUpdate() > 0;
 		} catch (Exception e) {
-			System.out.println(e);
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -423,16 +423,11 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 			pstmt = conn.prepareStatement(deleteMeetingHallQuery);
 
 			pstmt.setInt(1, meetingHallDetailsObj.getmeetingHallNumber());
-			System.out.println(meetingHallDetailsObj.getmeetingHallNumber());
 
 			flag = pstmt.executeUpdate() > 0;
-			if (flag) {
-				System.out.println("meeting hall deleted");
-			} else {
-				System.err.println("error");
-			}
+
 		} catch (Exception e) {
-			System.out.println(e);
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -473,13 +468,9 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 			pstmt.setInt(4, meetingHallDetailsObj.getmeetingHallNumber());
 
 			flag = pstmt.executeUpdate() > 0;
-			if (flag) {
-				System.out.println("meeting hall updated");
-			} else {
-				System.err.println("error");
-			}
+
 		} catch (Exception e) {
-			System.out.println(e);
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {
