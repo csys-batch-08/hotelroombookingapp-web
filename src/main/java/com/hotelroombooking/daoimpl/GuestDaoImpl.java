@@ -68,7 +68,6 @@ public class GuestDaoImpl implements GuestDao {
 			p2.setString(1, gUserName);
 			p2.setString(2, gPassword);
 			ResultSet rs1 = p2.executeQuery();
-//			System.out.println(rs1.getString(2));
 			while (rs1.next()) {
 				guestObj = new Guest(rs1.getString(2), rs1.getString(3), rs1.getString(4), rs1.getString(5),
 						rs1.getLong(6));
@@ -107,9 +106,6 @@ public class GuestDaoImpl implements GuestDao {
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				guestId = rs.getInt(1);
-//				System.out.println(guestId);
-			} else {
-				System.out.println("guest not found");
 			}
 		} catch (Exception e) {
 			e.getMessage();
@@ -189,13 +185,8 @@ public class GuestDaoImpl implements GuestDao {
 
 			flag = pstmt.executeUpdate() > 0;
 			pstmt.executeUpdate("commit");
-			if (flag) {
-				System.out.println("Password changed successfully");
-			} else {
-				System.err.println("error");
-			}
 		} catch (Exception e) {
-			System.out.println(e);
+			e.getMessage();
 		} finally {
 			if (pstmt != null) {
 				try {

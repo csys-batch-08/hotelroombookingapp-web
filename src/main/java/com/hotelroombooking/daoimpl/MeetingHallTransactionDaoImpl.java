@@ -386,13 +386,6 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 			pstmt.setInt(4, meetingHallDetailsObj.getPrice());
 
 			flag = pstmt.executeUpdate() > 0;
-
-			if (flag) {
-
-				System.out.println("meeting hall added");
-			} else {
-				System.out.println("Error");
-			}
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
