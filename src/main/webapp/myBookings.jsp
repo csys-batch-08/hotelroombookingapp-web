@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,10 +43,21 @@
 			<c:forEach items="${myRoomBookings }" var="rooms">
 				<tr>
 					<td><c:out value="${rooms.roomNumber }"></c:out></td>
-					<td><c:out value="${rooms.checkIn }"></c:out></td>
-					<td><c:out value="${rooms.checkOut }"></c:out></td>
+					
+					<fmt:parseDate value="${rooms.checkIn}" pattern="yyyy-MM-dd " type="date" var="checkIn" />
+					<fmt:formatDate value="${checkIn}" pattern="dd-MM-yyyy" var="checkInDate" />
+					<td><c:out value="${checkInDate }" ></c:out></td>
+					
+					<fmt:parseDate value="${rooms.checkOut}" pattern="yyyy-MM-dd " type="date" var="checkOut" />
+					<fmt:formatDate value="${checkOut}" pattern="dd-MM-yyyy" var="checkOutDate" />
+					<td><c:out value="${checkOutDate }"></c:out></td>
+					
 					<td><c:out value="${rooms.category }"></c:out></td>
 					<td><c:out value="${rooms.location }"></c:out></td>
+					
+					
+					
+					
 				</tr>
 			</c:forEach>
 

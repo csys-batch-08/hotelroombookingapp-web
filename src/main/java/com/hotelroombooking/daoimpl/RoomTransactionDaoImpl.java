@@ -329,7 +329,8 @@ public class RoomTransactionDaoImpl implements RoomTransactionDao {
 		Connection conn = ConnectionUtil.getDbConnection();
 
 		try {
-			String showRoomBookingQuery = "select room_number,check_in,check_out,category,location from room_transaction where guest_id=?";
+			String showRoomBookingQuery = "select room_number,check_in,check_out,category,location from room_transaction "
+					+ "where guest_id=?";
 
 			pstmt = conn.prepareStatement(showRoomBookingQuery);
 
