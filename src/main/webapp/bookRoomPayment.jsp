@@ -4,9 +4,10 @@
 <%@page import="com.hotelroombooking.model.MeetingHallDetails"%>
 <%@page import="com.hotelroombooking.model.WeddingHallDetails"%>
 <%@page import="com.hotelroombooking.model.RoomDetails"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,16 +39,20 @@
 			</div>
 			<div class="col-sm-6">
 				<label>Check-In Date :</label>
-				
-				<fmt:parseDate value="${bookRoomDetails.checkIn}" pattern="yyyy-MM-dd" type="date" var="roomCheckIn" />
-				<fmt:formatDate value="${roomCheckIn}" pattern="dd-MM-yyyy" var="roomCheckInDate" />
+
+				<fmt:parseDate value="${bookRoomDetails.checkIn}"
+					pattern="yyyy-MM-dd" type="date" var="roomCheckIn" />
+				<fmt:formatDate value="${roomCheckIn}" pattern="dd-MM-yyyy"
+					var="roomCheckInDate" />
 				<c:out value="${roomCheckInDate}"></c:out>
 			</div>
 			<div class="col-sm-6">
 				<label>Check-Out Date :</label>
-				
-				<fmt:parseDate value="${bookRoomDetails.checkOut}" pattern="yyyy-MM-dd" type="date" var="roomCheckOut" />
-				<fmt:formatDate value="${roomCheckOut}" pattern="dd-MM-yyyy" var="roomCheckOutDate" />
+
+				<fmt:parseDate value="${bookRoomDetails.checkOut}"
+					pattern="yyyy-MM-dd" type="date" var="roomCheckOut" />
+				<fmt:formatDate value="${roomCheckOut}" pattern="dd-MM-yyyy"
+					var="roomCheckOutDate" />
 				<c:out value="${roomCheckOutDate}"></c:out>
 			</div>
 			<div class="col-sm-6">
@@ -68,16 +73,17 @@
 			<div class="formcontent">
 				<h3 class="text-center">PAYMENT PORTAL</h3>
 				<form action="payment" method="post">
-					<label for="cardNumber">Card Number:</label> <input type="text" id="cardNumber"
-						name="cardNumber" placeholder="Card Number" pattern="[0-9]{16}"
-						title="invalid card number" required> <label for="expiryDate">Expiry
-						Date:</label> <input type="text" id="expiryDate" name="expiryDate"
-						placeholder="mm/yy" pattern="[0-9]{2}[/][0-9]{2}"
-						title="invalid expiry date" required> <label for="cvv">CVV:</label>
-					<input type="text" id="cvv" name="cvv" placeholder="CVV"
-						pattern="[0-9]{3}" title="invalid cvv" required> <input
-						type="checkbox" id=cvvCheck name="cvvCheck" value="cvvok">
-					Save CVV for later use<br>
+					<label for="cardNumber">Card Number:</label> <input type="text"
+						id="cardNumber" name="cardNumber" placeholder="Card Number"
+						pattern="[0-9]{16}" title="invalid card number" required>
+					<label for="expiryDate">Expiry Date:</label> <input type="text"
+						id="expiryDate" name="expiryDate" placeholder="mm/yy"
+						pattern="[0-9]{2}[/][0-9]{2}" title="invalid expiry date" required>
+					<label for="cvv">CVV:</label> <input type="text" id="cvv"
+						name="cvv" placeholder="CVV" pattern="[0-9]{3}"
+						title="invalid cvv" required> <input type="checkbox"
+						id=cvvCheck name="cvvCheck" value="cvvok"> Save CVV for
+					later use<br>
 					<button class="btn btn-primary">Pay Now</button>
 				</form>
 			</div>

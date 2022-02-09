@@ -7,8 +7,9 @@
 <%@page import="com.hotelroombooking.model.MeetingHallDetails"%>
 <%@page import="com.hotelroombooking.model.WeddingHallDetails"%>
 <%@page import="com.hotelroombooking.model.RoomDetails"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
@@ -16,18 +17,15 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Payment</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
+
 <link rel="stylesheet" href="assets/css/bookWeddingHallPayment.css">
 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
 </head>
 <body>
 
@@ -41,17 +39,21 @@
 			</div>
 			<div class="col-sm-6">
 				<label>Check-In Date :</label>
-				
-				<fmt:parseDate value="${bookWeddingHallDetails.checkIn}" pattern="yyyy-MM-dd" type="date" var="weddCheckIn" />
-				<fmt:formatDate value="${weddCheckIn}" pattern="dd-MM-yyyy" var="weddCheckInDate" />
+
+				<fmt:parseDate value="${bookWeddingHallDetails.checkIn}"
+					pattern="yyyy-MM-dd" type="date" var="weddCheckIn" />
+				<fmt:formatDate value="${weddCheckIn}" pattern="dd-MM-yyyy"
+					var="weddCheckInDate" />
 				<c:out value="${weddCheckInDate}"></c:out>
 			</div>
 			<div class="col-sm-6">
 				<label>Check-Out Date :</label>
-				
-				<fmt:parseDate value="${bookWeddingHallDetails.checkOut}" pattern="yyyy-MM-dd" type="date" var="weddCheckOut" />
-				<fmt:formatDate value="${weddCheckOut}" pattern="dd-MM-yyyy" var="weddCheckOutDate" />
-				<c:out value="${weddCheckOut}"></c:out>
+
+				<fmt:parseDate value="${bookWeddingHallDetails.checkOut}"
+					pattern="yyyy-MM-dd" type="date" var="weddCheckOut" />
+				<fmt:formatDate value="${weddCheckOut}" pattern="dd-MM-yyyy"
+					var="weddCheckOutDate" />
+				<c:out value="${weddCheckOutDate}"></c:out>
 			</div>
 			<div class="col-sm-6">
 				<label>Category :</label>
@@ -71,16 +73,16 @@
 			<div class="formcontent">
 				<h3 class="text-center">PAYMENT PORTAL</h3>
 				<form action="payment" method="post">
-					<label for="cardNumber">Card Number:</label> <input type="text" id="cardNumber"
-						name="cardNumber" placeholder="Card Number" pattern="[0-9]{16}"
-						title="invalid card number" required> <label- for="expiryDate">Expiry
-						Date:</label> <input type="text" id="expiryDate" name="expiryDate"
-						placeholder="mm/yy" pattern="[0-9]{2}[/][0-9]{2}"
-						title="invalid expiry date" required> <label for="cvv">CVV:</label>
-					<input type="text" id="cvv" name="cvv" placeholder="CVV"
-						pattern="[0-9]{3}" title="invalid cvv" required> <input
-						type="checkbox" id=cvvCheck name="cvvCheck"> Save CVV for
-					later use<br>
+					<label for="cardNumber">Card Number:</label> <input type="text"
+						id="cardNumber" name="cardNumber" placeholder="Card Number"
+						pattern="[0-9]{16}" title="invalid card number" required>
+					<label for="expiryDate">Expiry Date:</label> <input type="text"
+						id="expiryDate" name="expiryDate" placeholder="mm/yy"
+						pattern="[0-9]{2}[/][0-9]{2}" title="invalid expiry date" required>
+					<label for="cvv">CVV:</label> <input type="text" id="cvv"
+						name="cvv" placeholder="CVV" pattern="[0-9]{3}"
+						title="invalid cvv" required> <input type="checkbox"
+						id=cvvCheck name="cvvCheck"> Save CVV for later use<br>
 					<button class="btn btn-primary">Pay Now</button>
 				</form>
 			</div>

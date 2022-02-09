@@ -124,8 +124,8 @@
 				id="deleteRoom">
 				<div style="justify-content: space-between; width: 100%">
 					<form action="DeleteRoom" method="post">
-						<label for="roomNumber">room number:</label><input type="text" id="roomNumber" name="roomNumber"
-							class="form-control" required>
+						<label for="roomNumber">room number:</label><input type="text"
+							id="roomNumber" name="roomNumber" class="form-control" required>
 						<div class="formBtn">
 							<button>Delete room</button>
 						</div>
@@ -156,8 +156,8 @@
 							<option value="madurai">Madurai</option>
 							<option value="sivakasi">Sivakasi</option>
 						</datalist>
-						<label>price:</label> <input type="text" id="price" name="price" class="form-control"
-							required>
+						<label>price:</label> <input type="text" id="price" name="price"
+							class="form-control" required>
 						<div class="formBtn">
 							<button>Add wedding hall</button>
 						</div>
@@ -201,8 +201,8 @@
 				id="cancelWeddingHall">
 				<div style="justify-content: space-between; width: 100%">
 					<form action="DeleteWeddingHall" method="post">
-						<label for="weddingHallNumber">wedding hall number:</label> <input type="text"
-							id=weddingHallNumber name="weddingHallNumber"
+						<label for="weddingHallNumber">wedding hall number:</label> <input
+							type="text" id=weddingHallNumber name="weddingHallNumber"
 							class="form-control" required>
 						<div class="formBtn">
 							<button>delete wedding hall</button>
@@ -249,8 +249,8 @@
 					<form action="EditMeetingHall" method="post">
 						<label>meeting hall number:</label> <input type="text"
 							id=meetingHallNumber name="meetingHallNumber"
-							class="form-control" required> <label for="category">Category :</label>
-						<input type="text" id="cat" list="category" name="category"
+							class="form-control" required> <label for="category">Category
+							:</label> <input type="text" id="cat" list="category" name="category"
 							class="form-control" required>
 						<datalist id="category" name="category">
 							<option value="premium">premium</option>
@@ -258,16 +258,17 @@
 							<option value="standard">standard</option>
 							<option value="budget">budget</option>
 						</datalist>
-						<label for="location">Location :</label> <input type="text" id="loc"
-							list="location" name="location" class="form-control" required>
+						<label for="location">Location :</label> <input type="text"
+							id="loc" list="location" name="location" class="form-control"
+							required>
 						<datalist id="location" name="location">
 							<option value="chennai">Chennai</option>
 							<option value="coimbatore">Coimbatore</option>
 							<option value="madurai">Madurai</option>
 							<option value="sivakasi">Sivakasi</option>
 						</datalist>
-						<label for="price">price:</label> <input type="text" id="price" name="price"
-							class="form-control" required>
+						<label for="price">price:</label> <input type="text" id="price"
+							name="price" class="form-control" required>
 						<div class="formBtn">
 							<button>update meeting hall</button>
 						</div>
