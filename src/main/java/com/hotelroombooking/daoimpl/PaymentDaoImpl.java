@@ -12,21 +12,20 @@ import com.hotelroombooking.model.Payment;
 import com.hotelroombooking.util.ConnectionUtil;
 
 public class PaymentDaoImpl implements PaymentDao {
+	/**
+	 * method for payment
+	 */
 	@Override
 	public boolean payment(HttpSession session) {
 		boolean flag = false;
 		int guestId = 0;
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = null;
-
 		try {
 			Guest guestObj = (Guest) session.getAttribute("currentUser");
 			Payment paymentObj = (Payment) session.getAttribute("payment");
-
 			GuestDaoImpl guestDaoObj = new GuestDaoImpl();
-
 			guestId = guestDaoObj.findGuestId(guestObj);
-
 			String cardDetailsQuery = "insert into payment_details(card_number,expiry_date,cvv,guest_id) values (?,?,?,?)";
 			pstmt = conn.prepareStatement(cardDetailsQuery);
 			pstmt.setLong(1, paymentObj.getCardNumber());
@@ -34,7 +33,6 @@ public class PaymentDaoImpl implements PaymentDao {
 			pstmt.setString(3, paymentObj.getCvv());
 			pstmt.setInt(4, guestId);
 			flag = pstmt.executeUpdate() > 0;
-
 		} catch (Exception e) {
 			e.getMessage();
 		} finally {
@@ -55,5 +53,4 @@ public class PaymentDaoImpl implements PaymentDao {
 		}
 		return flag;
 	}
-
 }

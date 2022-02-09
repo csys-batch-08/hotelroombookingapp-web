@@ -6,12 +6,10 @@
 	background: white;
 	border-radius: 10px;
 }
-
 .formBtn {
 	text-align: center;
 	justify-content: space-between;
 }
-
 .formBtn input {
 	margin: 0px 0px;
 	font-size: 13px;
@@ -21,11 +19,9 @@
 	border: none;
 	font-weight: bold;
 }
-
 .loginForm input {
 	margin-bottom: 11px;
 }
-
 .loginPage {
 	height: 100vh;
 	display: flex;
@@ -33,12 +29,10 @@
 	background-image: url(../images/login_background.jpeg);
 	opacity: .8;
 }
-
 .loginForm label {
 	color: black;
 	font-weight: bold;
 }
-
 .forget a label {
 	font-size: 13px;
 	color: red;

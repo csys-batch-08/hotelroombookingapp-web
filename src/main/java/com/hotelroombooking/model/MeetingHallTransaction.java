@@ -108,5 +108,4 @@ public class MeetingHallTransaction implements Serializable {
 	public void setguestId(Guest guestId) {
 		this.guestId = guestId;
 	}
-
 }

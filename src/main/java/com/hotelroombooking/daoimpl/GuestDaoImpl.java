@@ -15,16 +15,16 @@ import com.hotelroombooking.model.Guest;
 import com.hotelroombooking.util.ConnectionUtil;
 
 public class GuestDaoImpl implements GuestDao {
-
+	/**
+	 * method for registration
+	 */
 	@Override
 	public boolean registerGuest(String rgFirstname, String rgLastname, String rgMail, String rgPassword,
 			String rgConfirmPassword, long rgMobileNumber) {
 		String registerquery = "insert into guest_details (firstname,lastname,email,password,mobile) values (?,?,?,?,?)";
 		Connection conn = ConnectionUtil.getDbConnection();
-
 		boolean flag = false;
 		PreparedStatement p = null;
-
 		try {
 			p = conn.prepareStatement(registerquery);
 			p.setString(1, rgFirstname);
@@ -32,9 +32,7 @@ public class GuestDaoImpl implements GuestDao {
 			p.setString(3, rgMail);
 			p.setString(4, rgPassword);
 			p.setLong(5, rgMobileNumber);
-
 			flag = p.executeUpdate() > 0;
-
 		} catch (Exception e) {
 			e.getMessage();
 		} finally {
@@ -56,11 +54,13 @@ public class GuestDaoImpl implements GuestDao {
 		return flag;
 	}
 
+	/**
+	 * method for guest login
+	 */
 	@Override
 	public Guest loginGuest(String gUserName, String gPassword) {
 		String loginquery = "select * from guest_details where email=? and password=?";
 		Connection conn = ConnectionUtil.getDbConnection();
-
 		Guest guestObj = null;
 		PreparedStatement p2 = null;
 		try {
@@ -93,6 +93,9 @@ public class GuestDaoImpl implements GuestDao {
 		return guestObj;
 	}
 
+	/**
+	 * method for finding guest Id
+	 */
 	@Override
 	public int findGuestId(Guest guestObj) {
 		int guestId = 0;
@@ -128,11 +131,13 @@ public class GuestDaoImpl implements GuestDao {
 		return guestId;
 	}
 
+	/**
+	 * method for listing all bookings
+	 */
 	@Override
 	public List<Guest> showAllUser() {
 		List<Guest> guestList = new ArrayList<>();
 		String allUserQuery = "select firstname,lastname,email,password,mobile from guest_details";
-
 		Connection conn = ConnectionUtil.getDbConnection();
 		Statement stmt = null;
 		try {
@@ -165,24 +170,21 @@ public class GuestDaoImpl implements GuestDao {
 		return guestList;
 	}
 
+	/**
+	 * method for forgot password
+	 */
 	@Override
 	public boolean forgetPassword(HttpSession session) {
 		boolean flag = false;
 		PreparedStatement pstmt = null;
 		Connection conn = null;
-
 		try {
-
 			Guest guestObj = (Guest) session.getAttribute("forgetPassword");
-
 			String forgetPasswordQuery = "update guest_details set password=? where email=?";
-
 			conn = ConnectionUtil.getDbConnection();
 			pstmt = conn.prepareStatement(forgetPasswordQuery);
-
 			pstmt.setString(1, guestObj.getPassword());
 			pstmt.setString(2, guestObj.getEmail());
-
 			flag = pstmt.executeUpdate() > 0;
 			pstmt.executeUpdate("commit");
 		} catch (Exception e) {

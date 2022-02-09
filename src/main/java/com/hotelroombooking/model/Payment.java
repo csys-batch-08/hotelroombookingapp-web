@@ -87,5 +87,4 @@ public class Payment implements Serializable {
 	public void setGuestId(Guest guestId) {
 		this.guestId = guestId;
 	}
-
 }

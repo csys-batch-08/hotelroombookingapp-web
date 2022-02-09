@@ -88,5 +88,4 @@ public class WeddingHallDetails implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
 }

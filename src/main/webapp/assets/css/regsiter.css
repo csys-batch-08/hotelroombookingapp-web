@@ -6,12 +6,10 @@
 	background: white;
 	border-radius: 10px;
 }
-
 .formBtn {
 	text-align: center;
 	justify-content: space-between;
 }
-
 .formBtn input {
 	margin: 0px 0px;
 	font-size: 13px;
@@ -21,7 +19,6 @@
 	border: none;
 	font-weight: bold;
 }
-
 .loginForm input {
 	margin-bottom: 11px;
 	border: 1px solid #cbcbcb;
@@ -29,11 +26,9 @@
 	padding: 5px 10px;
 	border-radius: 5px;
 }
-
 .form-group {
 	margin-bottom: 10px;
 }
-
 .formBtn input {
 	margin: 0px 0px;
 	font-size: 13px;
@@ -44,7 +39,6 @@
 	border: none;
 	font-weight: bold;
 }
-
 .loginPage {
 	height: 100vh;
 	display: flex;
@@ -52,13 +46,11 @@
 	background-image: url(../images/login_background.jpeg);
 	opacity: .8;
 }
-
 .loginForm label {
 	color: black;
 	font-weight: bold;
 	width: 35%;
 }
-
 .forget a label {
 	font-size: 13px;
 	color: red;

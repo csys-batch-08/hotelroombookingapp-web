@@ -87,5 +87,4 @@ public class Guest implements Serializable {
 	public void setMobileNumber(long mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
-
 }

@@ -23,24 +23,25 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 	public static final String password = "hangover@18!!";
 	public static final String subject = "Hotel Room Booking Application";
 
+	/**
+	 * method to book meeting hall
+	 */
 	@Override
 	public boolean bookMeetingHall(HttpSession session) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Guest guestObj = (Guest) session.getAttribute("currentUser");
 		MeetingHallTransaction meetingHallTransObj = (MeetingHallTransaction) session
 				.getAttribute("bookMeetingHallDetails");
-
 		int vacantMeetingRoomNumber = 0;
 		int guestId = 0;
-
 		boolean flag = false;
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;
-
 		try {
-			String fetchVacantMeetingRoom = "select meeting_hall_number from meeting_hall_details where status='vacant' and category=? and location=?";
+			String fetchVacantMeetingRoom = "select meeting_hall_number from meeting_hall_details where status='vacant' "
+					+ "and category=? and location=?";
 			pstmt1 = conn.prepareStatement(fetchVacantMeetingRoom);
 			pstmt1.setString(1, meetingHallTransObj.getCategory());
 			pstmt1.setString(2, meetingHallTransObj.getLocation());
@@ -50,26 +51,23 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 			}
 			if (vacantMeetingRoomNumber != 0) {
 				try {
-					String bookMeetingRoomQuery = "insert into meeting_hall_transaction(meeting_hall_number,check_in,check_out,category,location,guest_id) values(?,?,?,?,?,?)";
+					String bookMeetingRoomQuery = "insert into meeting_hall_transaction(meeting_hall_number,check_in,check_out,"
+							+ "category,location,guest_id) values(?,?,?,?,?,?)";
 					pstmt2 = conn.prepareStatement(bookMeetingRoomQuery);
-
 					GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 					guestId = guestDaoObj.findGuestId(guestObj);
-
 					meetingHallTransObj.setroomNumber(vacantMeetingRoomNumber);
-
 					pstmt2.setInt(1, vacantMeetingRoomNumber);
 					pstmt2.setDate(2, new java.sql.Date(sdf.parse(meetingHallTransObj.getCheckIn()).getTime()));
 					pstmt2.setDate(3, new java.sql.Date(sdf.parse(meetingHallTransObj.getCheckOut()).getTime()));
 					pstmt2.setString(4, meetingHallTransObj.getCategory());
 					pstmt2.setString(5, meetingHallTransObj.getLocation());
 					pstmt2.setInt(6, guestId);
-
 					flag = pstmt2.executeUpdate() > 0;
 					if (flag) {
-
 						try {
-							String updateBookMeetingRoomQuery = "update meeting_hall_details set status='occupied' where meeting_hall_number=?";
+							String updateBookMeetingRoomQuery = "update meeting_hall_details set status='occupied' where "
+									+ "meeting_hall_number=?";
 							pstmt3 = conn.prepareStatement(updateBookMeetingRoomQuery);
 							pstmt3.setInt(1, vacantMeetingRoomNumber);
 							pstmt3.executeUpdate();
@@ -83,11 +81,9 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 								conn.close();
 							}
 						}
-
 						Mailer.send(from, password, guestObj.getEmail(), subject,
 								Mail.bookMeetingHallMail(meetingHallTransObj));
 					}
-
 				} catch (Exception e) {
 					e.getMessage();
 				} finally {
@@ -120,31 +116,28 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 			}
 		}
 		return flag;
-
 	}
 
+	/**
+	 * method to cancel meeting hall
+	 */
 	@Override
 	public boolean cancelMeetingHall(HttpSession session) {
 		boolean flag = false;
 		PreparedStatement pstmt = null;
 		Connection conn = ConnectionUtil.getDbConnection();
-
 		try {
-
 			String updateCancelRoomQuery = "update meeting_hall_details set status='vacant' where meeting_hall_number=?";
 			pstmt = conn.prepareStatement(updateCancelRoomQuery);
 			Guest guestObj = (Guest) session.getAttribute("currentUser");
 			MeetingHallTransaction meetingHallTransObj = (MeetingHallTransaction) session
 					.getAttribute("cancelMeetingHallDetails");
-
 			pstmt.setInt(1, meetingHallTransObj.getroomNumber());
-
 			flag = pstmt.executeUpdate() > 0;
 			if (flag) {
 				System.out.println("Booking Cancelled");
 				Mailer.send(from, password, guestObj.getEmail(), subject,
 						Mail.cancelMeetingHallMail(meetingHallTransObj));
-
 			} else {
 				System.out.println("Invalid Room");
 			}
@@ -169,16 +162,16 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return flag;
 	}
 
+	/**
+	 * method to update meeting hall
+	 */
 	@Override
 	public boolean updateMeetingHall(HttpSession session) {
-
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Guest guestObj = (Guest) session.getAttribute("currentUser");
 		MeetingHallTransaction meetingHallTransObj = (MeetingHallTransaction) session
 				.getAttribute("updateMeetingHallDetails");
-
 		int vacantMeetingHallNumber = 0;
-
 		int guestId = 0;
 		boolean flag = false;
 		Connection conn = ConnectionUtil.getDbConnection();
@@ -187,31 +180,26 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		PreparedStatement pstmt3 = null;
 		PreparedStatement pstmt4 = null;
 		PreparedStatement pstmt5 = null;
-
 		try {
-			String fetchVacantRoom = "select meeting_hall_number from meeting_hall_details where status='vacant' and category=? and location=?";
+			String fetchVacantRoom = "select meeting_hall_number from meeting_hall_details where status='vacant' and category=? "
+					+ "and location=?";
 			pstmt2 = conn.prepareStatement(fetchVacantRoom);
-
 			pstmt2.setString(1, meetingHallTransObj.getCategory());
 			pstmt2.setString(2, meetingHallTransObj.getLocation());
-
 			ResultSet rs = pstmt2.executeQuery();
 			if (rs.next()) {
 				vacantMeetingHallNumber = rs.getInt(1);
 			}
-
 			if (vacantMeetingHallNumber != 0) {
 				try {
-
-					String updateRoomQuery = "update meeting_hall_transaction set check_in=?,check_out=?,category=?,location=? where meeting_hall_number=?";
+					String updateRoomQuery = "update meeting_hall_transaction set check_in=?,check_out=?,category=?,location=? "
+							+ "where meeting_hall_number=?";
 					pstmt1 = conn.prepareStatement(updateRoomQuery);
-
 					pstmt1.setDate(1, new java.sql.Date(sdf.parse(meetingHallTransObj.getCheckIn()).getTime()));
 					pstmt1.setDate(2, new java.sql.Date(sdf.parse(meetingHallTransObj.getCheckOut()).getTime()));
 					pstmt1.setString(3, meetingHallTransObj.getCategory());
 					pstmt1.setString(4, meetingHallTransObj.getLocation());
 					pstmt1.setInt(5, meetingHallTransObj.getroomNumber());
-
 					pstmt1.executeUpdate();
 				} catch (Exception e) {
 					e.getMessage();
@@ -223,22 +211,19 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 						conn.close();
 					}
 				}
-
 				try {
 					conn = ConnectionUtil.getDbConnection();
-					String updateRoomQuery2 = "update meeting_hall_transaction set meeting_hall_number=? where check_in=? and check_out=? and category=? and location=? and guest_id=?";
+					String updateRoomQuery2 = "update meeting_hall_transaction set meeting_hall_number=? where check_in=? "
+							+ "and check_out=? and category=? and location=? and guest_id=?";
 					pstmt3 = conn.prepareStatement(updateRoomQuery2);
-
 					GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 					guestId = guestDaoObj.findGuestId(guestObj);
-
 					pstmt3.setInt(1, vacantMeetingHallNumber);
 					pstmt3.setDate(2, new java.sql.Date(sdf.parse(meetingHallTransObj.getCheckIn()).getTime()));
 					pstmt3.setDate(3, new java.sql.Date(sdf.parse(meetingHallTransObj.getCheckOut()).getTime()));
 					pstmt3.setString(4, meetingHallTransObj.getCategory());
 					pstmt3.setString(5, meetingHallTransObj.getLocation());
 					pstmt3.setInt(6, guestId);
-
 					pstmt3.executeUpdate();
 				} catch (Exception e) {
 					e.getMessage();
@@ -250,15 +235,12 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 						conn.close();
 					}
 				}
-
 				Mailer.send(from, password, guestObj.getEmail(), subject,
 						Mail.updateMeetingHallMail(meetingHallTransObj));
-
 				try {
 					conn = ConnectionUtil.getDbConnection();
 					String updateRoomQuery3 = "update meeting_hall_details set status='vacant' where meeting_hall_number=?";
 					pstmt4 = conn.prepareStatement(updateRoomQuery3);
-
 					pstmt4.setInt(1, meetingHallTransObj.getroomNumber());
 					pstmt4.executeUpdate();
 				} catch (Exception e) {
@@ -271,14 +253,11 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 						conn.close();
 					}
 				}
-
 				meetingHallTransObj.setroomNumber(vacantMeetingHallNumber);
-
 				try {
 					conn = ConnectionUtil.getDbConnection();
 					String updateRoomQuery4 = "update meeting_hall_details set status='occupied' where meeting_hall_number=?";
 					pstmt5 = conn.prepareStatement(updateRoomQuery4);
-
 					pstmt5.setInt(1, vacantMeetingHallNumber);
 					flag = pstmt5.executeUpdate() > 0;
 				} catch (Exception e) {
@@ -316,28 +295,25 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 			}
 		}
 		return flag;
-
 	}
 
+	/**
+	 * method to list meeting halls booked
+	 */
 	@Override
 	public List<MeetingHallTransaction> showMeetingHallBooking(Guest guestObj) {
 		int guestId = 0;
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = null;
 		List<MeetingHallTransaction> meetingHallBooking = new ArrayList<>();
-
 		try {
-			String showMeetingHallBookingQuery = "select meeting_hall_number,check_in,check_out,category,location from meeting_hall_transaction where guest_id=?";
-
+			String showMeetingHallBookingQuery = "select meeting_hall_number,check_in,check_out,category,location from"
+					+ " meeting_hall_transaction where guest_id=?";
 			pstmt = conn.prepareStatement(showMeetingHallBookingQuery);
-
 			GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 			guestId = guestDaoObj.findGuestId(guestObj);
-
 			pstmt.setInt(1, guestId);
-
 			ResultSet rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				MeetingHallTransaction meetingHallTrans = new MeetingHallTransaction(rs.getInt(1), rs.getString(2),
 						rs.getString(3), rs.getString(4), rs.getString(5));
@@ -361,30 +337,27 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 				}
 			}
 		}
-
 		return meetingHallBooking;
 	}
 
+	/**
+	 * method to add meeting hall
+	 */
 	@Override
 	public boolean addMeetingHallAdmin(HttpSession session) {
 		boolean flag = false;
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = null;
-
 		try {
-
 			MeetingHallDetails meetingHallDetailsObj = (MeetingHallDetails) session
 					.getAttribute("addMeetingHallDetails");
-
-			String addMeetingHallQuery = "insert into meeting_hall_details(meeting_hall_number,category,location,price) values(?,?,?,?)";
-
+			String addMeetingHallQuery = "insert into meeting_hall_details(meeting_hall_number,category,location,price) "
+					+ "values(?,?,?,?)";
 			pstmt = conn.prepareStatement(addMeetingHallQuery);
-
 			pstmt.setInt(1, meetingHallDetailsObj.getmeetingHallNumber());
 			pstmt.setString(2, meetingHallDetailsObj.getCategory());
 			pstmt.setString(3, meetingHallDetailsObj.getLocation());
 			pstmt.setInt(4, meetingHallDetailsObj.getPrice());
-
 			flag = pstmt.executeUpdate() > 0;
 		} catch (Exception e) {
 			e.getMessage();
@@ -407,25 +380,21 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return flag;
 	}
 
+	/**
+	 * method to delete meeting hall
+	 */
 	@Override
 	public boolean deleteMeetingHallAdmin(HttpSession session) {
 		boolean flag = false;
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = null;
-
 		try {
-
 			MeetingHallDetails meetingHallDetailsObj = (MeetingHallDetails) session
 					.getAttribute("deleteMeetingHallDetails");
-
 			String deleteMeetingHallQuery = "delete from meeting_hall_details where meeting_hall_number=?";
-
 			pstmt = conn.prepareStatement(deleteMeetingHallQuery);
-
 			pstmt.setInt(1, meetingHallDetailsObj.getmeetingHallNumber());
-
 			flag = pstmt.executeUpdate() > 0;
-
 		} catch (Exception e) {
 			e.getMessage();
 		} finally {
@@ -447,28 +416,24 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return flag;
 	}
 
+	/**
+	 * method to edit meeting hall
+	 */
 	@Override
 	public boolean updateMeetingHallAdmin(HttpSession session) {
 		boolean flag = false;
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = null;
-
 		try {
-
 			MeetingHallDetails meetingHallDetailsObj = (MeetingHallDetails) session
 					.getAttribute("editMeetingHallDetails");
-
 			String updateRoomQuery = "update meeting_hall_details set category=?,location=?,price=? where meeting_hall_number=?";
-
 			pstmt = conn.prepareStatement(updateRoomQuery);
-
 			pstmt.setString(1, meetingHallDetailsObj.getCategory());
 			pstmt.setString(2, meetingHallDetailsObj.getLocation());
 			pstmt.setInt(3, meetingHallDetailsObj.getPrice());
 			pstmt.setInt(4, meetingHallDetailsObj.getmeetingHallNumber());
-
 			flag = pstmt.executeUpdate() > 0;
-
 		} catch (Exception e) {
 			e.getMessage();
 		} finally {
@@ -490,11 +455,13 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return flag;
 	}
 
+	/**
+	 * method to find the booking meeting price
+	 */
 	@Override
 	public int findBookMeetingPrice(HttpSession session) {
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = null;
-
 		try {
 			MeetingHallTransaction meetingHallTransObj = (MeetingHallTransaction) session
 					.getAttribute("bookMeetingHallDetails");
@@ -526,11 +493,13 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		return 0;
 	}
 
+	/**
+	 * method to find the updated meeting hall price
+	 */
 	@Override
 	public int findUpdateMeetingPrice(HttpSession session) {
 		Connection conn = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt = null;
-
 		try {
 			MeetingHallTransaction meetingHallTransObj = (MeetingHallTransaction) session
 					.getAttribute("updateMeetingHallDetails");
@@ -562,5 +531,4 @@ public class MeetingHallTransactionDaoImpl implements MeetingHallTransactionDao 
 		}
 		return 0;
 	}
-
 }

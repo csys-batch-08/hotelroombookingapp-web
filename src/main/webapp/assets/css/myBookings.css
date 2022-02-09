@@ -4,11 +4,9 @@ table, td, th, tr {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-
 table th, td {
 	text-align: center;
 }
-
 .header {
 	padding-top: 0px;
 	background: #075fbc;

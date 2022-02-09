@@ -87,5 +87,4 @@ public class RoomDetails implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
 }
