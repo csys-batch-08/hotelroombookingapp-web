@@ -156,7 +156,7 @@
 							<option value="madurai">Madurai</option>
 							<option value="sivakasi">Sivakasi</option>
 						</datalist>
-						<label>price:</label> <input type="text" id="price" name="price"
+						<label>price:</label> <input type="text" id="price" name="price" class="form-control"
 							required>
 						<div class="formBtn">
 							<button>Add wedding hall</button>
