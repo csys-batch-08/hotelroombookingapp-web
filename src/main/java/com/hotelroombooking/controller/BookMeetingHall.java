@@ -40,8 +40,7 @@ public class BookMeetingHall extends HttpServlet {
 			String category = request.getParameter("category");
 			String location = request.getParameter("location");
 
-			MeetingHallTransaction meetingHallTransObj = new MeetingHallTransaction(0, checkIn, checkOut, category,
-					location);
+			MeetingHallTransaction meetingHallTransObj = new MeetingHallTransaction(0, checkIn, checkOut, category, location);
 			MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("bookMeetingHallDetails", meetingHallTransObj);

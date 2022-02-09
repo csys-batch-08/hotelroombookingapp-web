@@ -7,6 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,11 +40,17 @@
 			</div>
 			<div class="col-sm-6">
 				<label>Check-In Date :</label>
-				<c:out value="${updateRoomDetails.checkIn}"></c:out>
+				
+				<fmt:parseDate value="${updateRoomDetails.checkIn}" pattern="yyyy-MM-dd" type="date" var="roomsCheckIn" />
+				<fmt:formatDate value="${roomsCheckIn}" pattern="dd-MM-yyyy" var="roomsCheckInDate" />
+				<c:out value="${roomsCheckInDate}"></c:out>
 			</div>
 			<div class="col-sm-6">
 				<label>Check-Out Date :</label>
-				<c:out value="${updateRoomDetails.checkOut}"></c:out>
+				
+				<fmt:parseDate value="${updateRoomDetails.checkOut}" pattern="yyyy-MM-dd" type="date" var="roomsCheckOut" />
+				<fmt:formatDate value="${roomsCheckOut}" pattern="dd-MM-yyyy" var="roomsCheckOutDate" />
+				<c:out value="${roomsCheckOutDate}"></c:out>
 			</div>
 			<div class="col-sm-6">
 				<label>Category :</label>

@@ -1,8 +1,6 @@
-<%@page
-	import="com.hotelroombooking.daoimpl.MeetingHallTransactionDaoImpl"%>
+<%@page import="com.hotelroombooking.daoimpl.MeetingHallTransactionDaoImpl"%>
 <%@page import="com.hotelroombooking.model.MeetingHallTransaction"%>
-<%@page
-	import="com.hotelroombooking.daoimpl.WeddingHallTransactionDaoImpl"%>
+<%@page import="com.hotelroombooking.daoimpl.WeddingHallTransactionDaoImpl"%>
 <%@page import="com.hotelroombooking.model.WeddingHallTransaction"%>
 <%@page import="com.hotelroombooking.daoimpl.RoomTransactionDaoImpl"%>
 <%@page import="com.hotelroombooking.model.Guest"%>
@@ -10,9 +8,9 @@
 <%@page import="com.hotelroombooking.model.MeetingHallDetails"%>
 <%@page import="com.hotelroombooking.model.WeddingHallDetails"%>
 <%@page import="com.hotelroombooking.model.RoomDetails"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,11 +41,17 @@
 			</div>
 			<div class="col-sm-6">
 				<label>Check-In Date :</label>
-				<c:out value="${bookMeetingHallDetails.checkIn}"></c:out>
+				
+				<fmt:parseDate value="${bookMeetingHallDetails.checkIn}" pattern="yyyy-MM-dd" type="date" var="meetCheckIn" />
+				<fmt:formatDate value="${meetCheckIn}" pattern="dd-MM-yyyy" var="meetCheckInDate" /> 
+				<c:out value="${meetCheckInDate}"></c:out>
 			</div>
 			<div class="col-sm-6">
 				<label>Check-Out Date :</label>
-				<c:out value="${bookMeetingHallDetails.checkOut}"></c:out>
+				
+				<fmt:parseDate value="${bookMeetingHallDetails.checkOut}" pattern="yyyy-MM-dd" type="date" var="meetCheckOut" />
+				<fmt:formatDate value="${meetCheckOut}" pattern="dd-MM-yyyy" var="meetCheckOutDate" /> 
+				<c:out value="${meetCheckOutDate}"></c:out>
 			</div>
 			<div class="col-sm-6">
 				<label>Category :</label>

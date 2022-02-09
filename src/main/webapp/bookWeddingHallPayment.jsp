@@ -7,8 +7,8 @@
 <%@page import="com.hotelroombooking.model.MeetingHallDetails"%>
 <%@page import="com.hotelroombooking.model.WeddingHallDetails"%>
 <%@page import="com.hotelroombooking.model.RoomDetails"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
@@ -41,11 +41,17 @@
 			</div>
 			<div class="col-sm-6">
 				<label>Check-In Date :</label>
-				<c:out value="${bookWeddingHallDetails.checkIn}"></c:out>
+				
+				<fmt:parseDate value="${bookWeddingHallDetails.checkIn}" pattern="yyyy-MM-dd" type="date" var="weddCheckIn" />
+				<fmt:formatDate value="${weddCheckIn}" pattern="dd-MM-yyyy" var="weddCheckInDate" />
+				<c:out value="${weddCheckInDate}"></c:out>
 			</div>
 			<div class="col-sm-6">
 				<label>Check-Out Date :</label>
-				<c:out value="${bookWeddingHallDetails.checkOut}"></c:out>
+				
+				<fmt:parseDate value="${bookWeddingHallDetails.checkOut}" pattern="yyyy-MM-dd" type="date" var="weddCheckOut" />
+				<fmt:formatDate value="${weddCheckOut}" pattern="dd-MM-yyyy" var="weddCheckOutDate" />
+				<c:out value="${weddCheckOut}"></c:out>
 			</div>
 			<div class="col-sm-6">
 				<label>Category :</label>

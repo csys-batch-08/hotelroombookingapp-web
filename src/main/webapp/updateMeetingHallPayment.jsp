@@ -13,6 +13,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +46,10 @@
 			</div>
 			<div class="col-sm-6">
 				<label>Check-In Date :</label>
-				<c:out value="${updateMeetingHallDetails.checkIn}"></c:out>
+				
+				<fmt:parseDate value="${updateMeetingHallDetails.checkIn}" pattern="yyyy-MM-dd" type="date" var="meetingCheckIn" />
+				<fmt:formatDate value="${meetingCheckIn}" pattern="dd-MM-yyyy" var="meetingCheckInDate" />
+				<c:out value="${meetingCheckInDate}"></c:out>
 			</div>
 			<div class="col-sm-6">
 				<label>Check-Out Date :</label>

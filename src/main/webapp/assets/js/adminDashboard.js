@@ -198,3 +198,12 @@ function editRoom()
 	var room=document.getElementById("listAll");
 	room.style.display="none";
 }
+
+
+$(document).ready( function () {
+    $('#myBookingsTable').DataTable();
+} );
+
+$(document).ready( function () {
+    $('#usersTable').DataTable();
+} );
