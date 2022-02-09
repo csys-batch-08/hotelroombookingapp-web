@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import com.hotelroombooking.model.Guest;
 
 public interface GuestDao {
-
 	public boolean registerGuest(String rgFirstname, String rgLastname, String rgMail, String rgPassword,
 			String rgConfirmPassword, long rgMobileNumber);
 

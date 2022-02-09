@@ -31,7 +31,6 @@ public class Bookings extends HttpServlet {
 	 */
 	public Bookings() {
 		super();
-
 	}
 
 	/**
@@ -41,14 +40,11 @@ public class Bookings extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		HttpSession session = request.getSession();
 		Guest guestObj = (Guest) session.getAttribute("currentUser");
-
 		RoomTransactionDaoImpl roomTransDaoImpl = new RoomTransactionDaoImpl();
 		WeddingHallTransactionDaoImpl weddingHallDaoImpl = new WeddingHallTransactionDaoImpl();
 		MeetingHallTransactionDaoImpl meetingHallDaoImpl = new MeetingHallTransactionDaoImpl();
-
 		try {
 			List<RoomTransaction> roomList = roomTransDaoImpl.showRoomBooking(guestObj);
 			List<WeddingHallTransaction> weddingHallList = weddingHallDaoImpl.showWeddingHallBooking(guestObj);
@@ -56,13 +52,11 @@ public class Bookings extends HttpServlet {
 			request.setAttribute("myRoomBookings", roomList);
 			request.setAttribute("myWeddingHallBookings", weddingHallList);
 			request.setAttribute("myMeetingHallBookings", meetingHallList);
-
 			RequestDispatcher rd = request.getRequestDispatcher("myBookings.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -72,12 +66,10 @@ public class Bookings extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
-
 }

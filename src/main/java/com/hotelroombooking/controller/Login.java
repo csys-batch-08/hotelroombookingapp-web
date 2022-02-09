@@ -26,7 +26,6 @@ public class Login extends HttpServlet {
 	 */
 	public Login() {
 		super();
-
 	}
 
 	/**
@@ -39,22 +38,17 @@ public class Login extends HttpServlet {
 		try {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-
 			GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 			AdminDaoImpl adminDaoObj = new AdminDaoImpl();
 			Guest guestObj = guestDaoObj.loginGuest(email, password);
 			Admin adminObj = adminDaoObj.loginAdmin(email, password);
-
 			if (guestObj != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("currentUser", guestObj);
-
 				response.sendRedirect("guestDashboard.jsp");
 			} else if (adminObj != null) {
-
 				response.sendRedirect("adminDashboard.jsp");
 			} else {
-
 				HttpSession session = request.getSession();
 				session.setAttribute("invalidLogin", "invalid");
 				response.sendRedirect("login.jsp");
@@ -62,7 +56,6 @@ public class Login extends HttpServlet {
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -72,14 +65,10 @@ public class Login extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
-
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
-
 }

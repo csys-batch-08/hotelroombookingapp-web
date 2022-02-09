@@ -25,7 +25,6 @@ public class Users extends HttpServlet {
 	 */
 	public Users() {
 		super();
-
 	}
 
 	/**
@@ -35,18 +34,15 @@ public class Users extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
 			GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 			List<Guest> guestList = guestDaoObj.showAllUser();
 			request.setAttribute("userList", guestList);
-
 			RequestDispatcher rd = request.getRequestDispatcher("users.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -56,12 +52,10 @@ public class Users extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
-
 }

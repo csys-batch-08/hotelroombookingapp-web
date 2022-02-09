@@ -35,22 +35,18 @@ public class AddmeetingHall extends HttpServlet {
 			String category = request.getParameter("category");
 			String location = request.getParameter("location");
 			int price = Integer.parseInt(request.getParameter("price"));
-
 			MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber, null, category,
 					location, price);
 			MeetingHallTransactionDaoImpl meetingHallTransDao = new MeetingHallTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("addMeetingHallDetails", meetingHallDetailsObj);
 			boolean flag = meetingHallTransDao.addMeetingHallAdmin(session);
-
 			if (flag) {
-
 				response.sendRedirect("adminDashboard.jsp");
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -61,13 +57,10 @@ public class AddmeetingHall extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
-
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
-
 }

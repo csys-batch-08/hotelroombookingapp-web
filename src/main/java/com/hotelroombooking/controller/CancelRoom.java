@@ -34,22 +34,18 @@ public class CancelRoom extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-
 			int roomNumber = Integer.parseInt(request.getParameter("roomNumber"));
-
 			RoomTransaction roomTransObj = new RoomTransaction(roomNumber, null, null, null, null);
 			RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("cancelRoomDetails", roomTransObj);
 			boolean flag = roomTransDaoObj.cancelRoom(session);
-
 			if (flag) {
 				response.sendRedirect("guestDashboard.jsp");
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -59,14 +55,10 @@ public class CancelRoom extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
 			doGet(request, response);
-
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
-
 }

@@ -34,20 +34,16 @@ public class CancelMeetingHall extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-
 			int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
-
 			MeetingHallTransaction meetingHallTransObj = new MeetingHallTransaction(meetingHallNumber, null, null, null,
 					null);
 			MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("cancelMeetingHallDetails", meetingHallTransObj);
 			boolean flag = meetingHallTransDaoObj.cancelMeetingHall(session);
-
 			if (flag) {
 				response.sendRedirect("guestDashboard.jsp");
 			}
-
 		} catch (Exception e) {
 			e.getMessage();
 		}
@@ -60,13 +56,10 @@ public class CancelMeetingHall extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
-
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
-
 }

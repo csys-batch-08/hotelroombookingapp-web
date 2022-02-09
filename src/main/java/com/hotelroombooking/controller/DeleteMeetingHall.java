@@ -34,17 +34,13 @@ public class DeleteMeetingHall extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-
 			int meetingHallNumber = Integer.parseInt(request.getParameter("meetingHallNumber"));
-
 			MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber, null, null, null, 0);
 			MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("deleteMeetingHallDetails", meetingHallDetailsObj);
 			boolean flag = meetingHallTransDaoObj.deleteMeetingHallAdmin(session);
-
 			if (flag) {
-
 				response.sendRedirect("adminDashboard.jsp");
 			}
 		} catch (Exception e) {
@@ -59,13 +55,10 @@ public class DeleteMeetingHall extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
-
 }

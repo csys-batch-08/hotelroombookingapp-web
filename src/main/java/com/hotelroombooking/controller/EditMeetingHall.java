@@ -38,22 +38,18 @@ public class EditMeetingHall extends HttpServlet {
 			String category = request.getParameter("category");
 			String location = request.getParameter("location");
 			int price = Integer.parseInt(request.getParameter("price"));
-
 			MeetingHallDetails meetingHallDetailsObj = new MeetingHallDetails(meetingHallNumber, null, category,
 					location, price);
 			MeetingHallTransactionDaoImpl meetingHallTransDaoObj = new MeetingHallTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("editMeetingHallDetails", meetingHallDetailsObj);
 			boolean flag = meetingHallTransDaoObj.updateMeetingHallAdmin(session);
-
 			if (flag) {
-
 				response.sendRedirect("adminDashboard.jsp");
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -63,13 +59,10 @@ public class EditMeetingHall extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
-
 }

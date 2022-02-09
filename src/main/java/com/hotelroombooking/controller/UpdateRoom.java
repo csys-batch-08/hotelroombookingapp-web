@@ -39,26 +39,21 @@ public class UpdateRoom extends HttpServlet {
 			String checkOut = request.getParameter("checkOut");
 			String category = request.getParameter("category");
 			String location = request.getParameter("location");
-
 			RoomTransaction roomTransObj = new RoomTransaction(roomNumber, checkIn, checkOut, category, location);
 			RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("updateRoomDetails", roomTransObj);
 			Integer updateRoomPrice = roomTransDaoObj.findUpdateRoomPrice(session);
 			session.setAttribute("updateRoomPrice", updateRoomPrice);
-
 			roomTransDaoObj.updateRoom(session);
-
 			if (session.getAttribute("noRoomsToUpdate") != null) {
 				response.sendRedirect("guestDashboard.jsp");
-
 			} else {
 				response.sendRedirect("updateRoomPayment.jsp");
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -68,15 +63,10 @@ public class UpdateRoom extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
-
 			doGet(request, response);
-
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
-
 }

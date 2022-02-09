@@ -35,38 +35,30 @@ public class Payments extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-
 			long cardNumber = Long.parseLong(request.getParameter("cardNumber"));
 			String expiryDate = request.getParameter("expiryDate");
 			String cvvCheck = request.getParameter("cvvCheck");
-
 			String cvv = request.getParameter("cvv");
-
 			if (cvvCheck == null) {
 				cvv = null;
 			} else {
-
 				MessageDigest md = MessageDigest.getInstance("SHA-256");
 				md.update(cvv.getBytes());
 				byte[] digest = md.digest();
 				String encode = new String(digest);
 				cvv = encode;
-
 			}
-
 			Payment paymentObj = new Payment(0, cardNumber, expiryDate, cvv, null);
 			PaymentDaoImpl paymentDaoObj = new PaymentDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("payment", paymentObj);
 			boolean flag = paymentDaoObj.payment(session);
-
 			if (flag) {
 				response.sendRedirect("guestDashboard.jsp");
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -76,13 +68,10 @@ public class Payments extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
-
 }

@@ -38,12 +38,9 @@ public class Register extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			long mobileNumber = Long.parseLong(request.getParameter("phoneNumber"));
-
 			GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 			boolean flag = guestDaoObj.registerGuest(firstName, lastName, email, password, password, mobileNumber);
-
 			if (flag) {
-
 				response.sendRedirect("login.jsp");
 			} else {
 				request.setAttribute("invalidRegister", "invalid");
@@ -53,7 +50,6 @@ public class Register extends HttpServlet {
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -63,13 +59,10 @@ public class Register extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
-
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
-
 }

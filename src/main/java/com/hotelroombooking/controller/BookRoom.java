@@ -38,7 +38,6 @@ public class BookRoom extends HttpServlet {
 			String checkOut = request.getParameter("checkOut");
 			String category = request.getParameter("category");
 			String location = request.getParameter("location");
-
 			RoomTransaction roomTransObj = new RoomTransaction(0, checkIn, checkOut, category, location);
 			RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
 			HttpSession session = request.getSession();
@@ -46,17 +45,14 @@ public class BookRoom extends HttpServlet {
 			Integer bookRoomPrice = roomTransDaoObj.findBookRoomPrice(session);
 			session.setAttribute("bookRoomPrice", bookRoomPrice);
 			roomTransDaoObj.bookRoom(session);
-
 			if (session.getAttribute("NoRoomsToBook") != null) {
 				response.sendRedirect("guestDashboard.jsp");
-
 			} else {
 				response.sendRedirect("bookRoomPayment.jsp");
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -66,14 +62,10 @@ public class BookRoom extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
-
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
-
 }

@@ -34,13 +34,11 @@ public class UpdateWeddingHall extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-
 			int weddingHallNumber = Integer.parseInt(request.getParameter("weddingHallNumber"));
 			String checkIn = request.getParameter("checkIn");
 			String checkOut = request.getParameter("checkOut");
 			String category = request.getParameter("category");
 			String location = request.getParameter("location");
-
 			WeddingHallTransaction weddingHallTransObj = new WeddingHallTransaction(weddingHallNumber, checkIn,
 					checkOut, category, location);
 			WeddingHallTransactionDaoImpl weddingHallTransDaoObj = new WeddingHallTransactionDaoImpl();
@@ -48,20 +46,15 @@ public class UpdateWeddingHall extends HttpServlet {
 			session.setAttribute("updateWeddingHallDetails", weddingHallTransObj);
 			Integer updateWeddingPrice = weddingHallTransDaoObj.findUpdateWeddingPrice(session);
 			session.setAttribute("updateWeddingPrice", updateWeddingPrice);
-
 			weddingHallTransDaoObj.updateWeddingHall(session);
-
 			if (session.getAttribute("noWeddingHallsToUpdate") != null) {
 				response.sendRedirect("guestDashboard.jsp");
-
 			} else {
-
 				response.sendRedirect("updateWeddingHallPayment.jsp");
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -71,13 +64,10 @@ public class UpdateWeddingHall extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
 			doGet(request, response);
-
 		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
-
 }

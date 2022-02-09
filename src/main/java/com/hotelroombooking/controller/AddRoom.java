@@ -24,7 +24,6 @@ public class AddRoom extends HttpServlet {
 	 */
 	public AddRoom() {
 		super();
-
 	}
 
 	/**
@@ -39,22 +38,17 @@ public class AddRoom extends HttpServlet {
 			String category = request.getParameter("category");
 			String location = request.getParameter("location");
 			int price = Integer.parseInt(request.getParameter("price"));
-
 			RoomDetails roomDetailsObj = new RoomDetails(roomNumber, null, category, location, price);
 			RoomTransactionDaoImpl roomTransDaoObj = new RoomTransactionDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("addRoomDetails", roomDetailsObj);
 			boolean flag = roomTransDaoObj.addRoomAdmin(session);
-
 			if (flag) {
-
 				response.sendRedirect("adminDashboard.jsp");
 			}
-
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -69,7 +63,5 @@ public class AddRoom extends HttpServlet {
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
-
 }

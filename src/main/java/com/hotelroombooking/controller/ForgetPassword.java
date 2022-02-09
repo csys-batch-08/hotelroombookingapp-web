@@ -36,20 +36,17 @@ public class ForgetPassword extends HttpServlet {
 		try {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-
 			Guest guestObj = new Guest(null, null, email, password, 0);
 			GuestDaoImpl guestDaoObj = new GuestDaoImpl();
 			HttpSession session = request.getSession();
 			session.setAttribute("forgetPassword", guestObj);
 			boolean flag = guestDaoObj.forgetPassword(session);
-
 			if (flag) {
 				response.sendRedirect("login.jsp");
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
 	}
 
 	/**
@@ -59,13 +56,10 @@ public class ForgetPassword extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
-
 			doGet(request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
-
 }
